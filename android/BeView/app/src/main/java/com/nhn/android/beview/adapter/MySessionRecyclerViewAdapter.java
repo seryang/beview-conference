@@ -1,4 +1,4 @@
-package com.nhn.android.beview.fragment;
+package com.nhn.android.beview.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,16 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nhn.android.beview.R;
+import com.nhn.android.beview.fragment.SessionFragment;
 import com.nhn.android.beview.fragment.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
-public class MyScheduleRecyclerViewAdapter extends RecyclerView.Adapter<MyScheduleRecyclerViewAdapter.ViewHolder> {
+public class MySessionRecyclerViewAdapter extends RecyclerView.Adapter<MySessionRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
-    private final ScheduleFragment.OnScheduleItemClickListener mListener;
+    private final SessionFragment.OnSessionFragmentListener mListener;
 
-    public MyScheduleRecyclerViewAdapter(List<DummyItem> items, ScheduleFragment.OnScheduleItemClickListener listener) {
+    public MySessionRecyclerViewAdapter(List<DummyItem> items, SessionFragment.OnSessionFragmentListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -24,7 +25,7 @@ public class MyScheduleRecyclerViewAdapter extends RecyclerView.Adapter<MySchedu
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_schedule, parent, false);
+                .inflate(R.layout.fragment_session, parent, false);
         return new ViewHolder(view);
     }
 
@@ -40,7 +41,7 @@ public class MyScheduleRecyclerViewAdapter extends RecyclerView.Adapter<MySchedu
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onClickScheduleItem(holder.mItem);
+                    mListener.onSessionFragmentInteraction(holder.mItem);
                 }
             }
         });
