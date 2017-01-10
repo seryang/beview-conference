@@ -1,0 +1,123 @@
+html, body {
+  margin: 0px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* main container css style */
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.cover-image {
+  overflow: hidden;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/main.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.container.cover-image {
+  color: white;
+}
+
+.description {
+  margin: auto 20px;
+  text-align: center;
+}
+
+/* navigation-bar css style */
+.navbar {
+  text-align: right;
+  font-size: 20px;
+}
+
+.navbar .menu {
+  height: 70px;
+  background-color: black;
+}
+.cover-image .navbar .menu {
+  background-color: transparent;
+}
+.navbar .menu a {
+  text-decoration: none;
+  color: white;
+  padding: 20px;
+}
+
+.navbar .menu .brand {
+  float: left;
+  font-weight: 600;
+  font-size: 24px;
+}
+.navbar .menu .dropdown {
+  float: right;
+}
+.navbar .menu .dropdown::after {
+  content: '\2630';
+}
+
+.navbar .sidebar {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  min-width: 160px;
+  width: 30%;
+  height: 100%;
+  list-style: none;
+  padding: 30px 30px 0 0;
+  padding-right: 30px;
+  background-color: white;
+  box-shadow: -3px 0 rgba(206, 192, 192, 0.6);
+}
+.navbar .sidebar li {
+  margin-bottom: 20px;
+}
+.navbar .sidebar a {
+  color: black;
+  text-decoration: none;
+}
+.navbar .sidebar li.active a {
+  color: #ce6161;
+  text-decoration: underline;
+}
+
+/* main page css style */
+.description .main {
+  height: 400px;
+}
+.description .main h1 {
+  font-size: 32px;
+}
+.description .main p {
+  word-wrap:break-word;
+  /*word-break: break-all;*/
+  margin-bottom: 50px;
+}
+
+.button {
+  text-decoration: none;
+  color: inherit;
+  padding: 10px 40px;
+  border: 1px solid white;
+  border-radius: 8px;
+}
+
+/* footer css style */
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  height: 40px;
+}
+
+/* utility css style */
+.clear {
+  clear: both;
+}

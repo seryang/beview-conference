@@ -1,0 +1,28 @@
+{
+  "name": "conference-site",
+  "version": "0.0.1",
+  "description": "Naver 2017 Bootcamp Conference Site in FE - 03 Woman Undefined ",
+  "main": "package.js",
+  "dependencies": {
+    "jquery": "3.1.1",
+    "handlebars": "^4.0.6"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-copy": "^1.0.0",
+    "gulp-sourcemaps": "^2.3.0",
+    "gulp-uglify": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://oss.navercorp.com/2017-bootcamp-projects/03-WomanUndefined"
+  },
+  "keywords": [
+    "Conference",
+    "bootcamp"
+  ],
+  "author": "Ian Park",
+  "license": "MIT"
+}
