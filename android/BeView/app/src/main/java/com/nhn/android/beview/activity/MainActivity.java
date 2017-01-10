@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         loginItem.setChecked(false);
         logoutItem.setChecked(false);
 
-        if (false) {
+        if (true) {
             joinItem.setVisible(false);
             loginItem.setVisible(false);
             logoutItem.setVisible(true);
@@ -114,6 +114,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_dashboard: {
+                Intent intent = new Intent(this, AdminActivity.class);
+                startActivity(intent);
                 break;
             }
             case R.id.nav_login: {

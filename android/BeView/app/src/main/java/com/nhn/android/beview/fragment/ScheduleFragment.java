@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nhn.android.beview.R;
+import com.nhn.android.beview.adapter.MyScheduleRecyclerViewAdapter;
 import com.nhn.android.beview.fragment.dummy.DummyContent;
 import com.nhn.android.beview.fragment.dummy.DummyContent.DummyItem;
 
