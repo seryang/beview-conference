@@ -8,6 +8,12 @@ var RestService = (function () {
         params: params
       });
     },
+    login: function (data) {
+      return http.post({
+        url: '/api/login',
+        data: data
+      });
+    },
     get: function (params) {
       return http.get({
         url: '/{conferenceId}',
