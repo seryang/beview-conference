@@ -7,12 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.nhn.android.beview.R;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentButtonListener mListener;
 
     public HomeFragment() {
     }
@@ -29,23 +30,20 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        View layout = inflater.inflate(R.layout.fragment_home, container, false);
+        Button button = (Button) layout.findViewById(R.id.button_schedule);
+        button.setOnClickListener(this);
+        return layout;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnFragmentButtonListener) {
+            mListener = (OnFragmentButtonListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnFragmentButtonListener");
         }
     }
 
@@ -55,8 +53,18 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_schedule : {
+                mListener.onClickFragmentButton();
+                break;
+            }
+
+        }
+    }
+
+    public interface OnFragmentButtonListener {
+        void onClickFragmentButton();
     }
 }

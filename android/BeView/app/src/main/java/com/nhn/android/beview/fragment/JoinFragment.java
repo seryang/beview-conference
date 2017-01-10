@@ -1,88 +1,76 @@
 package com.nhn.android.beview.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.nhn.android.beview.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link JoinFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link JoinFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class JoinFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import static android.R.attr.process;
 
-    private OnFragmentInteractionListener mListener;
+public class JoinFragment extends Fragment implements View.OnClickListener {
+
+    private static final String TAG = "JoinFragment";
+    private OnJoinFragmentListener mListener;
+
+    private TextInputLayout inputLayoutId, inputLayoutPassword, inputLayoutPassword2;
+    private EditText editId, editPassword, editPassword2;
+    private View textGoToJoin, btnSuccess;
+    private boolean idValidation, passwordLengthValidation, passwordSameValidation;
 
     public JoinFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment JoinFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static JoinFragment newInstance(String param1, String param2) {
-        JoinFragment fragment = new JoinFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static JoinFragment newInstance() {
+        return new JoinFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_join, container, false);
-    }
+        View layout = inflater.inflate(R.layout.fragment_join, container, false);
+        inputLayoutId = (TextInputLayout) layout.findViewById(R.id.input_layout_id);
+        inputLayoutPassword = (TextInputLayout) layout.findViewById(R.id.input_layout_pw1);
+        inputLayoutPassword2 = (TextInputLayout) layout.findViewById(R.id.input_layout_pw2);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        editId = (EditText) layout.findViewById(R.id.edit_id);
+        editPassword = (EditText) layout.findViewById(R.id.edit_pw1);
+        editPassword2 = (EditText) layout.findViewById(R.id.edit_pw2);
+        editId.addTextChangedListener(new MyTextWatcher(editId));
+        editPassword.addTextChangedListener(new MyTextWatcher(editPassword));
+        editPassword2.addTextChangedListener(new MyTextWatcher(editPassword2));
+
+        textGoToJoin = layout.findViewById(R.id.text_go_to_login);
+        btnSuccess = layout.findViewById(R.id.button_success);
+
+        textGoToJoin.setOnClickListener(this);
+        btnSuccess.setOnClickListener(this);
+        return layout;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnJoinFragmentListener) {
+            mListener = (OnJoinFragmentListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnFragmentButtonListener");
         }
     }
 
@@ -92,18 +80,121 @@ public class JoinFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.text_go_to_login: {
+                if (mListener != null) {
+                    mListener.onClickMoveToLoginFragment();
+                }
+                break;
+            }
+
+            case R.id.button_success: {
+                processJoin();
+                getActivity().finish();
+                break;
+            }
+
+        }
+
+    }
+
+    private void processJoin() {
+
+    }
+
+    public interface OnJoinFragmentListener {
+        void onClickMoveToLoginFragment();
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private EditText editText;
+
+        public MyTextWatcher(EditText editText) {
+            this.editText = editText;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            switch (editText.getId()) {
+                case R.id.edit_id: {
+                    idValidation = validateId();
+                    break;
+                }
+                case R.id.edit_pw1: {
+                    passwordLengthValidation = validatePasswordLength();
+                    break;
+                }
+                case R.id.edit_pw2: {
+                    passwordSameValidation = validatePasswordSame();
+                    break;
+                }
+            }
+
+            if (idValidation && passwordLengthValidation && passwordSameValidation) {
+                btnSuccess.setEnabled(true);
+            } else {
+                btnSuccess.setEnabled(false);
+            }
+        }
+
+        private boolean validateId() {
+            return validateEmail() && validateDuplicate();
+        }
+
+        private boolean validatePasswordLength() {
+            if (editPassword.getText().length() < 6) {
+                inputLayoutPassword.setErrorEnabled(true);
+                inputLayoutPassword.setError("6자리 이상 입력하셔야 합니다.");
+                return false;
+            } else {
+                inputLayoutPassword.setErrorEnabled(false);
+                return true;
+            }
+        }
+
+        private boolean validatePasswordSame() {
+            String password1 = editPassword.getText().toString();
+            String password2 = editPassword2.getText().toString();
+            if (!password1.equals(password2)) {
+                inputLayoutPassword2.setErrorEnabled(true);
+                inputLayoutPassword2.setError("두 비밀번호가 일치하지 않습니다.");
+                return false;
+            } else {
+                inputLayoutPassword2.setErrorEnabled(false);
+                return true;
+            }
+        }
+
+
+        private boolean validateDuplicate() {
+            //TODO 아이디 중복체크
+            return true;
+        }
+
+        private boolean validateEmail() {
+            String email = editId.getText().toString();
+            Matcher matcher = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE).matcher(email);
+            if (!matcher.find()) {
+                inputLayoutId.setErrorEnabled(true);
+                inputLayoutId.setError("이메일 형식이 아닙니다.");
+                return false;
+            } else {
+                inputLayoutId.setErrorEnabled(false);
+                return true;
+            }
+        }
     }
 }
