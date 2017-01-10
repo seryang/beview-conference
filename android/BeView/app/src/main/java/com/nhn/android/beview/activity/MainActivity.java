@@ -52,8 +52,38 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        changeMenuItem();
+    }
+
+    private void changeMenuItem() {
         Menu menu = navigationView.getMenu();
-        menu.getItem(0).setVisible(true);
+        //TODO 로그인 성공
+        MenuItem joinItem = menu.findItem(R.id.nav_join);
+        MenuItem loginItem = menu.findItem(R.id.nav_login);
+        MenuItem logoutItem = menu.findItem(R.id.nav_logout);
+
+        joinItem.setChecked(false);
+        loginItem.setChecked(false);
+        logoutItem.setChecked(false);
+
+        if (false) {
+            joinItem.setVisible(false);
+            loginItem.setVisible(false);
+            logoutItem.setVisible(true);
+
+            //TODO 어드민 아이디
+            MenuItem dashboardItem = menu.findItem(R.id.nav_dashboard);
+            if (true) {
+                dashboardItem.setVisible(true);
+            } else {
+                dashboardItem.setVisible(false);
+            }
+
+        } else {
+            joinItem.setVisible(true);
+            loginItem.setVisible(true);
+            logoutItem.setVisible(false);
+        }
     }
 
     @Override
