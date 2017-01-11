@@ -26,37 +26,40 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+		@Override
+		public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+			configurer.defaultContentType(MediaType.APPLICATION_JSON);
+
+			configurer.favorPathExtension(false)
+				.favorParameter(true)
+				.parameterName("format")
+				.ignoreAcceptHeader(true)
+				.useJaf(false)
+				.defaultContentType(MediaType.APPLICATION_JSON)
+				.mediaType("xml", MediaType.APPLICATION_XML)
+				.mediaType("json", MediaType.APPLICATION_JSON);
+		}
+
 	@Override
-	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		configurer.defaultContentType(MediaType.APPLICATION_JSON);
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter(
+			Charset.forName("UTF-8"));
+		stringHttpMessageConverter.setSupportedMediaTypes(
+			Arrays.asList(new MediaType("text", "html", Charset.forName("UTF-8"))));
+		stringHttpMessageConverter.setWriteAcceptCharset(false);
 
-		configurer.favorPathExtension(false)
-			.favorParameter(true)
-			.parameterName("format")
-			.ignoreAcceptHeader(true)
-			.useJaf(false)
-			.defaultContentType(MediaType.APPLICATION_JSON)
-			.mediaType("xml", MediaType.APPLICATION_XML)
-			.mediaType("json", MediaType.APPLICATION_JSON);
+		converters.add(new ByteArrayHttpMessageConverter());
+		converters.add(stringHttpMessageConverter);
+		converters.add(new SourceHttpMessageConverter<>());
+		converters.add(new FormHttpMessageConverter());
+		converters.add(new AllEncompassingFormHttpMessageConverter());
+		converters.add(new MappingJackson2HttpMessageConverter());
+
+		MappingJackson2HttpMessageConverter jackson = new MappingJackson2HttpMessageConverter();
+		jackson.setSupportedMediaTypes(
+			Arrays.asList(new MediaType("application", "json", Charset.forName("UTF-8"))));
+		jackson.getObjectMapper().getSerializationConfig().without(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+
+		converters.add(jackson);
 	}
-
-//	@Override
-//	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//		StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
-//		stringHttpMessageConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "html", Charset.forName("UTF-8"))));
-//		stringHttpMessageConverter.setWriteAcceptCharset(false);
-//
-//		converters.add(new ByteArrayHttpMessageConverter());
-//		converters.add(stringHttpMessageConverter);
-//		converters.add(new SourceHttpMessageConverter<>());
-//		converters.add(new FormHttpMessageConverter());
-//		converters.add(new AllEncompassingFormHttpMessageConverter());
-//		converters.add(new MappingJackson2HttpMessageConverter());
-//
-//		MappingJackson2HttpMessageConverter jackson = new MappingJackson2HttpMessageConverter();
-//		jackson.setSupportedMediaTypes(Arrays.asList(new MediaType("application", "json", Charset.forName("UTF-8"))));
-//		jackson.getObjectMapper().getSerializationConfig().without(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-//
-//		converters.add(jackson);
-//	}
 }
