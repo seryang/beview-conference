@@ -2,16 +2,18 @@ var http = (function () {
   'use strict';
 
   var publicApi = {};
-  var BASE_URL = 'http://localhost:3000';
+  var BASE_URL = 'http://localhost:3000' + '/api';
   var methods = ['get', 'post', 'put', 'delete'];
+
+  // url convert 에서 {dynamic string} 을 판별할 정규식
+  var reParam = /(\{(\w+)\})/g;
 
   //  url path 내 {dynamic string} 을 params 내에서 key 참조를 통해 찾아서 바꿔준다.
   function convertUrl (url, params) {
     var converted = url;
-    var re = /(\{(\w+)\})/g;
     var matches;
 
-    while((matches = re.exec(url)) !== null) {
+    while((matches = reParam.exec(url)) !== null) {
       var matched = matches[1];
       var key = matches[2];
       converted = url.replace(matched, params[key]);

@@ -1,5 +1,11 @@
 $(document).ready(function () {
   'use strict';
 
-  NavBar.init();
+  var ajaxDone = true;
+
+  function init () {
+    NavBar.init();
+  }
+  
+  init();
 });

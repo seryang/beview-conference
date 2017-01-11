@@ -2,5 +2,10 @@
   "main": {
     "name": "beview2017",
     "message": "Hello BeView 2017"
+  },
+  "api": {
+    "login": {
+      "cookie": "dummy cookie"
+    }
   }
 }
