@@ -1,24 +1,18 @@
 package com.navercorp.techshare.beview.repository;
 
-
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsertOperations;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.navercorp.techshare.beview.controller.UserVo;
+import com.navercorp.techshare.beview.model.User;
+import com.navercorp.techshare.beview.repository.sql.UserSQL;
 
 /**
  * Created by Naver on 2017. 1. 10..
@@ -26,37 +20,37 @@ import com.navercorp.techshare.beview.controller.UserVo;
 @Repository
 public class UserDao {
 
-	private NamedParameterJdbcOperations db;
-	private SimpleJdbcInsertOperations productInsertion;
-	private RowMapper<UserVo> productMapper;
+	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	public UserDao(DataSource dataSource) {
-		this.db = new NamedParameterJdbcTemplate(dataSource);
-
-		this.productInsertion = new SimpleJdbcInsert(dataSource)
-			.withTableName("user")
-//			.usingGeneratedKeyColumns("id");
-
-		this.productMapper = (rs, rowNum) -> {
-			UserVo uvo = new UserVo();
-			uvo.setId(rs.getString("id")); // PK는 필수값. getInt를 써도 문제는 없음
-			uvo.setPassword(rs.getString("password"));
-			uvo.setIsFirst(rs.getBoolean("isFirst"));
-			return uvo;
-		};
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	private Map<String, Object> mapColumns(UserVo uvo) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("id", uvo.getId());
-		params.put("password", uvo.getPassword());
-		params.put("isFirst", uvo.getIsFirst());
-		return params;
+	public Integer insertUser(User user) {
+		return jdbcTemplate.update(UserSQL.USER_INSERT, user.getId(), user.getPassword(), user.getIsFirst());
 	}
 
-	public Integer insertUser(UserVo uvo) {
-		Map<String, Object> params = mapColumns(uvo);
-		return productInsertion.executeAndReturnKey(params).intValue();
+	public User getUser(String id) {
+		try {
+			return jdbcTemplate.queryForObject(UserSQL.USER_SELECT, new UserMapper(), id);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	public User getUser(User user) {
+		try {
+			return jdbcTemplate.queryForObject(UserSQL.USER_CHECK, new UserMapper(), user.getId(), user.getPassword());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	private class UserMapper implements RowMapper<User> {
+		@Override
+		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return new User(rs.getString("id"), rs.getString("password"));
+		}
 	}
 }
