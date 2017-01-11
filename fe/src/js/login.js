@@ -95,7 +95,8 @@ $(document).ready(function () {
    * case #: 서버 에러 또는 (클라이언트에서 검증했지만) 요청 정보가 부족한 경우
    */
   function failLogin (error) {
-    alert('로그인 실패');
+    var message = '로그인 실패, ' + error.message;
+    alert(message);
   }
 
   function handleAjaxDone () {
@@ -103,8 +104,4 @@ $(document).ready(function () {
   }
 
   init();
-
-  return {
-    init: init
-  };
 });

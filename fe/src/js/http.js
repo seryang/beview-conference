@@ -2,7 +2,7 @@ var http = (function () {
   'use strict';
 
   var publicApi = {};
-  var BASE_URL = 'http://localhost:3000';
+  var BASE_URL = 'http://localhost:3000' + '/api';
   var methods = ['get', 'post', 'put', 'delete'];
 
   // url convert 에서 {dynamic string} 을 판별할 정규식

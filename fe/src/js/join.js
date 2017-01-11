@@ -50,7 +50,7 @@ $(document).ready(function () {
     });
 
     var data = $form.serialize();
-    RestService.join(data)
+    UserService.join(data)
       .then(successJoin, failJoin)
       .then(handleAjaxDone);
   }
@@ -96,14 +96,14 @@ $(document).ready(function () {
 
   function successJoin (res) {
     alert('회원가입 성공. 로그인 해주세요.');
-    // cookie.set('session', res.cookie);
     window.location.href = 'login.html';
   }
 
   // TODO: 이미 존재하는 이메일인 경우 메시지 보여줌
   // 그게 아닌 경우 ???
   function failJoin (error) {
-    alert('회원가입 실패');
+    var message = '회원가입 실패, ' + error.message;
+    alert(message);
   }
 
   function handleAjaxDone () {
@@ -111,8 +111,4 @@ $(document).ready(function () {
   }
 
   init();
-
-  return {
-    init: init
-  };
 });
