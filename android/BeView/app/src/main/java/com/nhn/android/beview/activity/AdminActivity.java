@@ -1,6 +1,7 @@
 package com.nhn.android.beview.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -12,20 +13,28 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.nhn.android.beview.R;
 import com.nhn.android.beview.UserConstants;
 import com.nhn.android.beview.fragment.ConferenceFragment;
 import com.nhn.android.beview.fragment.HomeFragment;
+import com.nhn.android.beview.fragment.RegisterConferenceFragment;
+import com.nhn.android.beview.fragment.RegisterFragment;
 import com.nhn.android.beview.fragment.ScheduleFragment;
 import com.nhn.android.beview.fragment.SessionFragment;
 import com.nhn.android.beview.fragment.SpeakerFragment;
 import com.nhn.android.beview.fragment.TrackFragment;
 import com.nhn.android.beview.fragment.dummy.DummyContent;
+import com.nhn.android.beview.model.Conference;
+
+import static android.R.attr.fragment;
+import static android.R.transition.move;
 
 public class AdminActivity extends AppCompatActivity implements ConferenceFragment.OnConferenceFragmentListener,
-        TrackFragment.OnTrackFragmentListener, SessionFragment.OnSessionFragmentListener, SpeakerFragment.OnSpeakerFragmentListener, BottomNavigationView.OnNavigationItemSelectedListener {
+        TrackFragment.OnTrackFragmentListener, SessionFragment.OnSessionFragmentListener, SpeakerFragment.OnSpeakerFragmentListener,
+        BottomNavigationView.OnNavigationItemSelectedListener, RegisterConferenceFragment.OnRegisterConferenceFragmentListener {
 
     private BottomNavigationView bottomNavigationView;
 
@@ -41,7 +50,39 @@ public class AdminActivity extends AppCompatActivity implements ConferenceFragme
     }
 
     @Override
-    public void onConferenceFragmentInteraction(DummyContent.DummyItem item) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        if (fragment instanceof RegisterFragment) {
+            return true;
+        }
+        switch (item.getItemId()) {
+            case R.id.action_settings : {
+                moveToRegisterFragment();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void moveToRegisterFragment() {
+        addToFragment(RegisterConferenceFragment.newInstance(null));
+    }
+
+    private void addToFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onConferenceFragmentInteraction(Conference conference) {
 
     }
 
@@ -93,5 +134,10 @@ public class AdminActivity extends AppCompatActivity implements ConferenceFragme
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
         transaction.commit();
+    }
+
+    @Override
+    public void onClickDoneButton() {
+        getSupportFragmentManager().popBackStack();
     }
 }

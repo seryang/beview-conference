@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 
 import com.nhn.android.beview.R;
 import com.nhn.android.beview.adapter.MyConferenceRecyclerViewAdapter;
+import com.nhn.android.beview.fragment.dummy.ConferenceDummy;
 import com.nhn.android.beview.fragment.dummy.DummyContent;
 import com.nhn.android.beview.fragment.dummy.DummyContent.DummyItem;
+import com.nhn.android.beview.model.Conference;
 
 public class ConferenceFragment extends Fragment {
 
@@ -33,7 +35,6 @@ public class ConferenceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getActivity().getActionBar().setTitle(getString(R.string.conference));
         View view = inflater.inflate(R.layout.fragment_conference_list, container, false);
 
         // Set the adapter
@@ -41,7 +42,7 @@ public class ConferenceFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyConferenceRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyConferenceRecyclerViewAdapter(ConferenceDummy.ITEMS, mListener));
         }
         return view;
     }
@@ -65,6 +66,6 @@ public class ConferenceFragment extends Fragment {
     }
 
     public interface OnConferenceFragmentListener {
-        void onConferenceFragmentInteraction(DummyItem item);
+        void onConferenceFragmentInteraction(Conference conference);
     }
 }

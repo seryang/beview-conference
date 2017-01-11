@@ -61,10 +61,12 @@ public class MainActivity extends AppCompatActivity
         MenuItem joinItem = menu.findItem(R.id.nav_join);
         MenuItem loginItem = menu.findItem(R.id.nav_login);
         MenuItem logoutItem = menu.findItem(R.id.nav_logout);
+        MenuItem dashboardItem = menu.findItem(R.id.nav_dashboard);
 
         joinItem.setChecked(false);
         loginItem.setChecked(false);
         logoutItem.setChecked(false);
+        dashboardItem.setChecked(false);
 
         if (true) {
             joinItem.setVisible(false);
@@ -72,7 +74,6 @@ public class MainActivity extends AppCompatActivity
             logoutItem.setVisible(true);
 
             //TODO 어드민 아이디
-            MenuItem dashboardItem = menu.findItem(R.id.nav_dashboard);
             if (true) {
                 dashboardItem.setVisible(true);
             } else {
