@@ -75,6 +75,7 @@ ul {
   padding-right: 30px;
   background-color: white;
   box-shadow: -3px 0 rgba(206, 192, 192, 0.6);
+  z-index: 10;
   transform: translateZ(0); /* hw accelation */
 }
 .navbar .sidebar li {
@@ -113,15 +114,15 @@ ul {
 }
 
 /* login page css style */
-.description .login {
+.description .form {
   /*height: 100%;*/
 }
-.description .login label {
+.description .form label {
   margin-top: 40px;
   font-size: 14px;
   display: block;
 }
-.description .login input {
+.description .form input {
   display: block;
   width: 100%;
   height: 40px;
@@ -130,21 +131,21 @@ ul {
   font-size: 16px;
   padding: 0;
 }
-.description .login input:focus {
+.description .form input:focus {
   outline: 0px;
 }
-.description .login .action {
+.description .form .action {
   padding-top: 50px;
   text-align: center;
 }
-.description .login .action a {
+.description .form .action a {
   /*text-decoration: inherit;*/
-  /*color: white;*/
+  color: black;
   border-radius: 8px;
   padding: 10px 10px;
   font-size: 14px;
 }
-.description .login .submit {
+.description .form .submit {
   margin-left: 20%;
 }
 

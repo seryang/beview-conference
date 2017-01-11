@@ -48,6 +48,7 @@ var cookie = (function () {
   function clear (key) {
     // key 가 없으면 쿠키 초기화
     if (key === undefined) {
+      document.cookie = '';
       return map = {};
     }
 

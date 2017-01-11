@@ -27,15 +27,11 @@ $(document).ready(function () {
   }
 
   function action (e) {
-    e.preventDefault();
-    e.stopPropagation();
-
     var $target = $(e.target);
     if ($target.hasClass('submit')) {
+      e.preventDefault();
+      e.stopPropagation();
       login();
-    } else {
-      // 뒤로 가기
-      window.history.back();
     }
   }
 
@@ -54,7 +50,7 @@ $(document).ready(function () {
     });
 
     var data = $form.serialize();
-    RestService.login(data)
+    UserService.login(data)
       .then(successLogin, failLogin)
       .then(handleAjaxDone);
   }
@@ -91,10 +87,16 @@ $(document).ready(function () {
     window.location.href = 'index.html';
   }
 
-  // TODO: 이미 존재하는 이메일인 경우 메시지 보여줌
-  // 그게 아닌 경우 ???
+  /**
+   * 로그인 실패 처리
+   *
+   * case 1: id 가 없을 때,
+   * case 2: 비밀번호가 틀렸을 때
+   * case #: 서버 에러 또는 (클라이언트에서 검증했지만) 요청 정보가 부족한 경우
+   */
   function failLogin (error) {
-    alert('로그인 실패');
+    var message = '로그인 실패, ' + error.message;
+    alert(message);
   }
 
   function handleAjaxDone () {
@@ -102,8 +104,4 @@ $(document).ready(function () {
   }
 
   init();
-
-  return {
-    init: init
-  };
 });
