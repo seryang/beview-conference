@@ -43,7 +43,7 @@ $(document).ready(function () {
       return;
     };
 
-    // var data = $form.serialize();
+    ajaxDone = false;
     var data = {
       id: $id.val(),
       password: $password.val()
@@ -81,7 +81,7 @@ $(document).ready(function () {
 
   function successLogin (res) {
     alert('로그인 성공');
-    cookie.set('session', res.cookie);
+    // cookie.set('session', res.cookie);
     window.location.href = 'index.html';
   }
 
@@ -97,7 +97,7 @@ $(document).ready(function () {
     alert(message);
   }
 
-  function handleAjaxDone () {
+  function handlee () {
     ajaxDone = true;
   }
 

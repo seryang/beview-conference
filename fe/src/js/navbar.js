@@ -2,20 +2,40 @@ var NavBar = (function (){
   'use strict';
 
   var $container, $navbarMenu, $sidebar;
+  // var hideClass =
 
   function init () {
     $container = $('.container');
     $navbarMenu = $('.navbar .menu');
     $sidebar = $('.navbar .sidebar');
 
+    filteringMenu();
+
     $container.on('click', clickMenu);
     // 햄버거 메뉴 클릭 시, sidebar 열어줌.
     $navbarMenu.on('click', 'a.dropdown', openMenu);
   }
 
+  function filteringMenu () {
+    var needLogin = !UserService.isLogined();
+
+    if (needLogin) {
+      $sidebar.find('li.logined').hide();
+      $sidebar.find('li.not-logined').show();
+    } else {
+      $sidebar.find('li.logined').show();
+      $sidebar.find('li.not-logined').hide();
+
+      if (!UserService.isAdmin()) {
+        $sdiebar.find('li.is-admin').hide();
+      }
+    }
+  }
+
   function successLogout (res) {
     alert('로그아웃 성공');
-    cookie.clear();
+    document.cookie = '';
+    filteringMenu();
     window.location.href = 'index.html';
   }
 

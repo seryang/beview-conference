@@ -118,9 +118,21 @@ ul {
 }
 .button.edit {
   background-color: #3bbcef;
+  border-color: #3bbcef;
 }
 .button.remove {
   background-color: #ea5151;
+  border-color: #ea5151;
+}
+.button.cancel {
+  background-color: #ffe78f;
+  border-color: #ffe76e;
+  color: #de6565;
+}
+.button.done {
+  background-color: #baff8f;
+  border-color: #baff6e;
+  color: #3ba492;
 }
 
 /* login page css style */
@@ -184,6 +196,28 @@ ul {
   color: white;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.container .detail {
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  display: none;
+}
+
+.container .detail .title {
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  margin: -10px -20px;
+}
+
+.container .detail .item-description {
+  margin-top: 40px;
 }
 
 /* footer css style */

@@ -44,7 +44,7 @@ $(document).ready(function () {
       return;
     };
 
-    // var data = $form.serialize();
+    ajaxDone = false;
     var data = {
       id: $id.val(),
       password: $password.val()
