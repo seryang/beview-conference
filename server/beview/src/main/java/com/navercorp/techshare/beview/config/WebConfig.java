@@ -14,7 +14,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -38,6 +40,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 			.defaultContentType(MediaType.APPLICATION_JSON)
 			.mediaType("xml", MediaType.APPLICATION_XML)
 			.mediaType("json", MediaType.APPLICATION_JSON);
+	}
+
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/**");
+			}
+		};
 	}
 
 	@Override
