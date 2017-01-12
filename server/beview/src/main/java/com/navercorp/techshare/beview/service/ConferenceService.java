@@ -32,6 +32,11 @@ public class ConferenceService {
 	}
 
 	public AjaxResponse updateConference(String id, Conference updateData) {
+
+		if (conferenceDao.isConference(updateData.getId()) != null) {
+			throw new AuthorizationException("존재하는 ID의 컨퍼런스입니다.");
+		}
+
 		Conference beforeData = conferenceDao.isConference(id);
 		conferenceDao.updateConference(beforeData.convertData(updateData));
 		return new AjaxResponse();
