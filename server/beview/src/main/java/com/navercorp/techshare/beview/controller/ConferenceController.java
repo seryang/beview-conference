@@ -35,7 +35,7 @@ public class ConferenceController {
 	 * @param conference
 	 * @return AjaxResponse
 	 */
-//	@Auth
+	@Auth
 	@PostMapping
 	public AjaxResponse createConference(@RequestBody @Valid Conference conference, BindingResult bindingResult){
 		if(bindingResult.hasErrors()){
@@ -49,7 +49,7 @@ public class ConferenceController {
 	 *
 	 * @return AjaxResponse
 	 */
-//	@Auth
+	@Auth
 	@GetMapping
 	public AjaxResponse selectConferenceList(){
 		return conferenceService.selectConferenceList();
@@ -64,7 +64,7 @@ public class ConferenceController {
 	 * @param conference
 	 * @return AjaxResponse
 	 */
-//	@Auth
+	@Auth
 	@PutMapping("/{id}")
 	public AjaxResponse updateConference(@PathVariable String id, @RequestBody @Valid Conference conference){
 		return conferenceService.updateConference(id, conference);
@@ -77,7 +77,7 @@ public class ConferenceController {
 	 * @param id
 	 * @return AjaxResponse
 	 */
-//	@Auth
+	@Auth
 	@DeleteMapping("/{id}")
 	public AjaxResponse deleteConference(@PathVariable String id){
 		return conferenceService.deleteConference(id);
