@@ -2,8 +2,8 @@ var http = (function () {
   'use strict';
 
   var publicApi = {};
-  var BASE_URL = 'http://10.83.24.172:8080' + '/api';
-  // var BASE_URL = '/api';
+  // var BASE_URL = 'http://10.83.24.172:8080' + '/api';
+  var BASE_URL = '/api';
   var methods = ['get', 'post', 'put', 'delete'];
 
   // url convert 에서 {dynamic string} 을 판별할 정규식
@@ -28,11 +28,14 @@ var http = (function () {
       if (options.params) {
         options.url = convertUrl(options.url, options.params);
       }
+      if (options.data) {
+        options.data = JSON.stringify(options.data)
+      }
 
       Object.assign(options, {
         method: method,
         url: BASE_URL + options.url,
-        // contentType: 'application/json',
+        contentType: 'application/json',
         dataType: 'json',
         timeout: 5000
       });
