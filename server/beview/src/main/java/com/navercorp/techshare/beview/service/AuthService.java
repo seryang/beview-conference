@@ -7,10 +7,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.navercorp.techshare.beview.controller.ExceptionController;
 import com.navercorp.techshare.beview.model.User;
+import com.navercorp.techshare.beview.model.response.AjaxResponse;
 import com.navercorp.techshare.beview.repository.UserDao;
 
 /**
@@ -18,6 +22,8 @@ import com.navercorp.techshare.beview.repository.UserDao;
  */
 @Service
 public class AuthService {
+
+	private final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
 	@Autowired
 	private HttpServletRequest httpRequest;
@@ -56,13 +62,15 @@ public class AuthService {
 		return map;
 	}
 
-	public void logout() {
+	public AjaxResponse logout() {
 		Map<String, String> cookies = getCookie();
 
 		for (String cookieKey : cookies.keySet()) {
-			Cookie cookie = new Cookie(cookieKey, null);
+			Cookie cookie = new Cookie(cookieKey, "");
 			cookie.setMaxAge(0);
+			cookie.setPath("/");
 			httpResponse.addCookie(cookie);
 		}
+		return new AjaxResponse();
 	}
 }

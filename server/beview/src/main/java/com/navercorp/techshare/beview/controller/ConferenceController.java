@@ -37,8 +37,8 @@ public class ConferenceController {
 	 */
 	@Auth
 	@PostMapping
-	public AjaxResponse createConference(@RequestBody @Valid Conference conference, BindingResult bindingResult){
-		if(bindingResult.hasErrors()){
+	public AjaxResponse createConference(@RequestBody @Valid Conference conference, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
 			throw new AuthorizationException("잘못된 입력입니다.");
 		}
 		return conferenceService.createConference(conference);
@@ -51,7 +51,7 @@ public class ConferenceController {
 	 */
 	@Auth
 	@GetMapping
-	public AjaxResponse selectConferenceList(){
+	public AjaxResponse selectConferenceList() {
 		return conferenceService.selectConferenceList();
 	}
 
@@ -66,7 +66,7 @@ public class ConferenceController {
 	 */
 	@Auth
 	@PutMapping("/{id}")
-	public AjaxResponse updateConference(@PathVariable String id, @RequestBody @Valid Conference conference){
+	public AjaxResponse updateConference(@PathVariable String id, @RequestBody @Valid Conference conference) {
 		return conferenceService.updateConference(id, conference);
 
 	}
@@ -79,7 +79,7 @@ public class ConferenceController {
 	 */
 	@Auth
 	@DeleteMapping("/{id}")
-	public AjaxResponse deleteConference(@PathVariable String id){
+	public AjaxResponse deleteConference(@PathVariable String id) {
 		return conferenceService.deleteConference(id);
 	}
 }

@@ -48,10 +48,12 @@ public class UserService {
 		Cookie cookie1 = new Cookie("password", existUser.getPassword());
 
 		final int MAX_AGE = 24 * 60 * 60;
+
+		// CORS에 따른 Header값 보이지 않는 문제로 인해 설정해야함
 		response.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
 		cookie.setMaxAge(MAX_AGE);
-		cookie.setPath("/");
 		cookie1.setMaxAge(MAX_AGE);
+		cookie.setPath("/");
 		cookie1.setPath("/");
 		response.addCookie(cookie);
 		response.addCookie(cookie1);

@@ -40,7 +40,7 @@ public class UserController {
 	 */
 	@PostMapping
 	public AjaxResponse insertUser(@RequestBody @Valid User user, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()){
+		if (bindingResult.hasErrors()) {
 			throw new AuthorizationException("잘못된 입력입니다.");
 		}
 		return userService.insertUser(user);
@@ -53,7 +53,7 @@ public class UserController {
 	 * @return AjaxResponse
 	 */
 	@GetMapping("/check")
-	public AjaxResponse checkUser(@RequestParam String email){
+	public AjaxResponse checkUser(@RequestParam String email) {
 		return userService.checkEmail(email);
 	}
 
@@ -65,7 +65,7 @@ public class UserController {
 	 */
 	@PostMapping("/login")
 	public AjaxResponse login(@RequestBody @Valid User user, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()){
+		if (bindingResult.hasErrors()) {
 			throw new AuthorizationException("valid error");
 		}
 		return userService.loginUser(user);
@@ -76,7 +76,7 @@ public class UserController {
 	 */
 	@PostMapping("/logout")
 	@ResponseStatus(HttpStatus.OK)
-	public void logout(){
-		authService.logout();
+	public AjaxResponse logout() {
+		return authService.logout();
 	}
 }
