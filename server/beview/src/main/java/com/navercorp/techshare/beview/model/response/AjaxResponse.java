@@ -1,10 +1,14 @@
 package com.navercorp.techshare.beview.model.response;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+
+import com.navercorp.techshare.beview.model.Conference;
 
 /**
  * Created by Naver on 2017. 1. 11..
@@ -14,25 +18,16 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AjaxResponse {
 	private String message;
-	private Map<String, Object> data;
+	private List data;
 
 	public AjaxResponse() {
-	}
-
-	public AjaxResponse(Boolean message){
-		this.message = String.valueOf(message);
 	}
 
 	public AjaxResponse(String message) {
 		this.message = message;
 	}
 
-	public AjaxResponse(Map<String, Object> data) {
-		this.data = data;
-	}
-
-	public AjaxResponse(String message, Map<String, Object> data) {
-		this.message = message;
+	public AjaxResponse(List data) {
 		this.data = data;
 	}
 }

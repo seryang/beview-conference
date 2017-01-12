@@ -19,7 +19,7 @@ public class AuthAop {
 	@Around("@annotation(com.navercorp.techshare.beview.annotation.Auth)")
 	public Object auth(ProceedingJoinPoint joinPoint) throws Throwable {
 
-		if (authService.cookieCheck()) {
+		if (!authService.cookieCheck()) {
 			throw new AuthorizationException("로그인이 필요합니다.");
 		}
 
