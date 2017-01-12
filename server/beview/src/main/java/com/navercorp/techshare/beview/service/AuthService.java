@@ -1,7 +1,6 @@
 package com.navercorp.techshare.beview.service;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.navercorp.techshare.beview.model.response.AjaxResponse;
 import com.navercorp.techshare.beview.model.User;
 
 /**

@@ -1,8 +1,6 @@
 package com.navercorp.techshare.beview.model.response;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
