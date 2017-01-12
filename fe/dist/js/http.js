@@ -1,2 +1,45 @@
-var http=function(){"use strict";function t(t,r){for(var e,a=t;null!==(e=n.exec(t));){var u=e[1],o=e[2];a=t.replace(u,r[o])}return a}var r={},e="/api",a=["get","post","put","delete"],n=/(\{(\w+)\})/g;return a.forEach(function(a){r[a]=function(r){return r.params&&(r.url=t(r.url,r.params)),Object.assign(r,{method:a,url:e+r.url,contentType:"application/json",dataType:"json",timeout:5e3}),$.ajax(r)}}),r}();
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9zcmMvanMvaHR0cC5qcyJdLCJuYW1lcyI6WyJodHRwIiwiY29udmVydFVybCIsInVybCIsInBhcmFtcyIsIm1hdGNoZXMiLCJjb252ZXJ0ZWQiLCJyZVBhcmFtIiwiZXhlYyIsIm1hdGNoZWQiLCJrZXkiLCJyZXBsYWNlIiwicHVibGljQXBpIiwiQkFTRV9VUkwiLCJtZXRob2RzIiwiZm9yRWFjaCIsIm1ldGhvZCIsIm9wdGlvbnMiLCJPYmplY3QiLCJhc3NpZ24iLCJjb250ZW50VHlwZSIsImRhdGFUeXBlIiwidGltZW91dCIsIiQiLCJhamF4Il0sIm1hcHBpbmdzIjoiQUFBQSxHQUFJQSxNQUFPLFdBQ1QsWUFXQSxTQUFTQyxHQUFZQyxFQUFLQyxHQUl4QixJQUhBLEdBQ0lDLEdBREFDLEVBQVlILEVBR3dCLFFBQWpDRSxFQUFVRSxFQUFRQyxLQUFLTCxLQUFnQixDQUM1QyxHQUFJTSxHQUFVSixFQUFRLEdBQ2xCSyxFQUFNTCxFQUFRLEVBQ2xCQyxHQUFZSCxFQUFJUSxRQUFRRixFQUFTTCxFQUFPTSxJQUcxQyxNQUFPSixHQW5CVCxHQUFJTSxNQUVBQyxFQUFXLE9BQ1hDLEdBQVcsTUFBTyxPQUFRLE1BQU8sVUFHakNQLEVBQVUsY0FrQ2QsT0FsQkFPLEdBQVFDLFFBQVEsU0FBVUMsR0FDeEJKLEVBQVVJLEdBQVUsU0FBVUMsR0FhNUIsTUFaSUEsR0FBUWIsU0FDVmEsRUFBUWQsSUFBTUQsRUFBV2UsRUFBUWQsSUFBS2MsRUFBUWIsU0FHaERjLE9BQU9DLE9BQU9GLEdBQ1pELE9BQVFBLEVBQ1JiLElBQUtVLEVBQVdJLEVBQVFkLElBQ3hCaUIsWUFBYSxtQkFDYkMsU0FBVSxPQUNWQyxRQUFTLE1BR0pDLEVBQUVDLEtBQUtQLE1BSVhMIiwiZmlsZSI6Imh0dHAuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgaHR0cCA9IChmdW5jdGlvbiAoKSB7XG4gICd1c2Ugc3RyaWN0JztcblxuICB2YXIgcHVibGljQXBpID0ge307XG4gIC8vIHZhciBCQVNFX1VSTCA9ICdodHRwOi8vMTAuODMuMjQuMTcyOjgwODAnICsgJy9hcGknO1xuICB2YXIgQkFTRV9VUkwgPSAnL2FwaSc7XG4gIHZhciBtZXRob2RzID0gWydnZXQnLCAncG9zdCcsICdwdXQnLCAnZGVsZXRlJ107XG5cbiAgLy8gdXJsIGNvbnZlcnQg7JeQ7IScIHtkeW5hbWljIHN0cmluZ30g7J2EIO2MkOuzhO2VoCDsoJXqt5zsi51cbiAgdmFyIHJlUGFyYW0gPSAvKFxceyhcXHcrKVxcfSkvZztcblxuICAvLyB1cmwgcGF0aCDrgrQge2R5bmFtaWMgc3RyaW5nfSDsnYQgcGFyYW1zIOuCtOyXkOyEnCBrZXkg7LC47KGw66W8IO2Gte2VtCDssL7slYTshJwg67CU6r+U7KSA64ukLlxuICBmdW5jdGlvbiBjb252ZXJ0VXJsICh1cmwsIHBhcmFtcykge1xuICAgIHZhciBjb252ZXJ0ZWQgPSB1cmw7XG4gICAgdmFyIG1hdGNoZXM7XG5cbiAgICB3aGlsZSgobWF0Y2hlcyA9IHJlUGFyYW0uZXhlYyh1cmwpKSAhPT0gbnVsbCkge1xuICAgICAgdmFyIG1hdGNoZWQgPSBtYXRjaGVzWzFdO1xuICAgICAgdmFyIGtleSA9IG1hdGNoZXNbMl07XG4gICAgICBjb252ZXJ0ZWQgPSB1cmwucmVwbGFjZShtYXRjaGVkLCBwYXJhbXNba2V5XSk7XG4gICAgfVxuXG4gICAgcmV0dXJuIGNvbnZlcnRlZDtcbiAgfVxuXG4gIG1ldGhvZHMuZm9yRWFjaChmdW5jdGlvbiAobWV0aG9kKSB7XG4gICAgcHVibGljQXBpW21ldGhvZF0gPSBmdW5jdGlvbiAob3B0aW9ucykge1xuICAgICAgaWYgKG9wdGlvbnMucGFyYW1zKSB7XG4gICAgICAgIG9wdGlvbnMudXJsID0gY29udmVydFVybChvcHRpb25zLnVybCwgb3B0aW9ucy5wYXJhbXMpO1xuICAgICAgfVxuXG4gICAgICBPYmplY3QuYXNzaWduKG9wdGlvbnMsIHtcbiAgICAgICAgbWV0aG9kOiBtZXRob2QsXG4gICAgICAgIHVybDogQkFTRV9VUkwgKyBvcHRpb25zLnVybCxcbiAgICAgICAgY29udGVudFR5cGU6ICdhcHBsaWNhdGlvbi9qc29uJyxcbiAgICAgICAgZGF0YVR5cGU6ICdqc29uJyxcbiAgICAgICAgdGltZW91dDogNTAwMFxuICAgICAgfSk7XG5cbiAgICAgIHJldHVybiAkLmFqYXgob3B0aW9ucyk7XG4gICAgfTtcbiAgfSk7XG5cbiAgcmV0dXJuIHB1YmxpY0FwaTtcbn0pKCk7XG4iXX0=
+var http = (function () {
+  'use strict';
+
+  var publicApi = {};
+  var BASE_URL = 'http://10.83.24.172:8080' + '/api';
+  // var BASE_URL = '/api';
+  var methods = ['get', 'post', 'put', 'delete'];
+
+  // url convert 에서 {dynamic string} 을 판별할 정규식
+  var reParam = /(\{(\w+)\})/g;
+
+  // url path 내 {dynamic string} 을 params 내에서 key 참조를 통해 찾아서 바꿔준다.
+  function convertUrl (url, params) {
+    var converted = url;
+    var matches;
+
+    while((matches = reParam.exec(url)) !== null) {
+      var matched = matches[1];
+      var key = matches[2];
+      converted = url.replace(matched, params[key]);
+    }
+
+    return converted;
+  }
+
+  methods.forEach(function (method) {
+    publicApi[method] = function (options) {
+      if (options.params) {
+        options.url = convertUrl(options.url, options.params);
+      }
+
+      Object.assign(options, {
+        method: method,
+        url: BASE_URL + options.url,
+        // contentType: 'application/json',
+        dataType: 'json',
+        timeout: 5000
+      });
+
+      return $.ajax(options);
+    };
+  });
+
+  return publicApi;
+})();

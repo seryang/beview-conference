@@ -1,2 +1,105 @@
-$(document).ready(function(){"use strict";function e(){c=$("form"),u=$(".action"),f=$("#user-id"),l=$("#user-password"),NavBar.init(),u.on("click","a",n),c.on("keyup",t)}function t(e){switch(e.keyCode){case 13:o()}}function n(e){var t=$(e.target);t.hasClass("submit")&&(e.preventDefault(),e.stopPropagation(),o())}function o(){if(v&&i()){var e=c.serialize();UserService.login(e).then(a,r).always(s)}}function i(){var e=f.val(),t=l.val();return d.test(e)?!(t.length<6)||(alert("비밀번호는 6자리 이상이어야 합니다."),void l.focus()):(alert("아이디가 이메일 형식이 아닙니다."),void f.focus())}function a(e){alert("로그인 성공"),cookie.set("session",e.cookie),window.location.href="index.html"}function r(e){var t="로그인 실패, "+e.message;alert(t)}function s(){v=!0}var c,u,f,l,v=!0,d=/\w+@\w+(\.\w+){1,2}$/;e()});
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9zcmMvanMvbG9naW4uanMiXSwibmFtZXMiOlsiJCIsImRvY3VtZW50IiwicmVhZHkiLCJpbml0IiwiJGZvcm0iLCIkYWN0aW9uIiwiJGlkIiwiJHBhc3N3b3JkIiwiTmF2QmFyIiwib24iLCJhY3Rpb24iLCJrZXl1cCIsImUiLCJrZXlDb2RlIiwibG9naW4iLCIkdGFyZ2V0IiwidGFyZ2V0IiwiaGFzQ2xhc3MiLCJwcmV2ZW50RGVmYXVsdCIsInN0b3BQcm9wYWdhdGlvbiIsImFqYXhEb25lIiwidmFsaWRhdGlvbiIsImRhdGEiLCJzZXJpYWxpemUiLCJVc2VyU2VydmljZSIsInRoZW4iLCJzdWNjZXNzTG9naW4iLCJmYWlsTG9naW4iLCJhbHdheXMiLCJoYW5kbGVBamF4RG9uZSIsImlkIiwidmFsIiwicGFzc3dvcmQiLCJyRW1haWwiLCJ0ZXN0IiwibGVuZ3RoIiwiYWxlcnQiLCJmb2N1cyIsInJlcyIsImNvb2tpZSIsInNldCIsIndpbmRvdyIsImxvY2F0aW9uIiwiaHJlZiIsImVycm9yIiwibWVzc2FnZSJdLCJtYXBwaW5ncyI6IkFBQUFBLEVBQUVDLFVBQVVDLE1BQU0sV0FDaEIsWUFPQSxTQUFTQyxLQUNQQyxFQUFRSixFQUFFLFFBQ1ZLLEVBQVVMLEVBQUUsV0FDWk0sRUFBTU4sRUFBRSxZQUNSTyxFQUFZUCxFQUFFLGtCQUVkUSxPQUFPTCxPQUVQRSxFQUFRSSxHQUFHLFFBQVMsSUFBS0MsR0FDekJOLEVBQU1LLEdBQUcsUUFBU0UsR0FHcEIsUUFBU0EsR0FBT0MsR0FDZCxPQUFRQSxFQUFFQyxTQUNSLElBQUssSUFDSEMsS0FLTixRQUFTSixHQUFRRSxHQUNmLEdBQUlHLEdBQVVmLEVBQUVZLEVBQUVJLE9BQ2RELEdBQVFFLFNBQVMsWUFDbkJMLEVBQUVNLGlCQUNGTixFQUFFTyxrQkFDRkwsS0FJSixRQUFTQSxLQUNQLEdBQUtNLEdBR0FDLElBQUwsQ0FJQSxHQUFJQyxHQUFPbEIsRUFBTW1CLFdBQ2pCQyxhQUFZVixNQUFNUSxHQUNmRyxLQUFLQyxFQUFjQyxHQUNuQkMsT0FBT0MsSUFXWixRQUFTUixLQUNQLEdBQUlTLEdBQUt4QixFQUFJeUIsTUFDVEMsRUFBV3pCLEVBQVV3QixLQUV6QixPQUFLRSxHQUFPQyxLQUFLSixLQUtiRSxFQUFTRyxPQUFTLEtBQ3BCQyxNQUFNLDRCQUNON0IsR0FBVThCLFVBTlZELE1BQU0sMEJBQ045QixHQUFJK0IsU0FZUixRQUFTWCxHQUFjWSxHQUNyQkYsTUFBTSxVQUNORyxPQUFPQyxJQUFJLFVBQVdGLEVBQUlDLFFBQzFCRSxPQUFPQyxTQUFTQyxLQUFPLGFBVXpCLFFBQVNoQixHQUFXaUIsR0FDbEIsR0FBSUMsR0FBVSxXQUFhRCxFQUFNQyxPQUNqQ1QsT0FBTVMsR0FHUixRQUFTaEIsS0FDUFQsR0FBVyxFQTdGYixHQUFJaEIsR0FBT0MsRUFBU0MsRUFBS0MsRUFDckJhLEdBQVcsRUFFWGEsRUFBUyxzQkE2RmI5QiIsImZpbGUiOiJsb2dpbi5qcyIsInNvdXJjZXNDb250ZW50IjpbIiQoZG9jdW1lbnQpLnJlYWR5KGZ1bmN0aW9uICgpIHtcbiAgJ3VzZSBzdHJpY3QnO1xuXG4gIHZhciAkZm9ybSwgJGFjdGlvbiwgJGlkLCAkcGFzc3dvcmQ7XG4gIHZhciBhamF4RG9uZSA9IHRydWU7XG4gIC8vIOydtOuplOydvCDqsoDspp0g7KCV6rec7IudXG4gIHZhciByRW1haWwgPSAvXFx3K0BcXHcrKFxcLlxcdyspezEsMn0kLztcblxuICBmdW5jdGlvbiBpbml0ICgpIHtcbiAgICAkZm9ybSA9ICQoJ2Zvcm0nKTtcbiAgICAkYWN0aW9uID0gJCgnLmFjdGlvbicpO1xuICAgICRpZCA9ICQoJyN1c2VyLWlkJyk7XG4gICAgJHBhc3N3b3JkID0gJCgnI3VzZXItcGFzc3dvcmQnKTtcblxuICAgIE5hdkJhci5pbml0KCk7XG5cbiAgICAkYWN0aW9uLm9uKCdjbGljaycsICdhJywgYWN0aW9uKTtcbiAgICAkZm9ybS5vbigna2V5dXAnLCBrZXl1cCk7XG4gIH1cblxuICBmdW5jdGlvbiBrZXl1cCAoZSkge1xuICAgIHN3aXRjaCAoZS5rZXlDb2RlKSB7XG4gICAgICBjYXNlIDEzOlxuICAgICAgICBsb2dpbigpO1xuICAgICAgICBicmVhaztcbiAgICB9XG4gIH1cblxuICBmdW5jdGlvbiBhY3Rpb24gKGUpIHtcbiAgICB2YXIgJHRhcmdldCA9ICQoZS50YXJnZXQpO1xuICAgIGlmICgkdGFyZ2V0Lmhhc0NsYXNzKCdzdWJtaXQnKSkge1xuICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgZS5zdG9wUHJvcGFnYXRpb24oKTtcbiAgICAgIGxvZ2luKCk7XG4gICAgfVxuICB9XG5cbiAgZnVuY3Rpb24gbG9naW4gKCkge1xuICAgIGlmICghYWpheERvbmUpIHtcbiAgICAgIHJldHVybjtcbiAgICB9XG4gICAgaWYgKCF2YWxpZGF0aW9uKCkpIHtcbiAgICAgIHJldHVybjtcbiAgICB9O1xuXG4gICAgdmFyIGRhdGEgPSAkZm9ybS5zZXJpYWxpemUoKTtcbiAgICBVc2VyU2VydmljZS5sb2dpbihkYXRhKVxuICAgICAgLnRoZW4oc3VjY2Vzc0xvZ2luLCBmYWlsTG9naW4pXG4gICAgICAuYWx3YXlzKGhhbmRsZUFqYXhEb25lKTtcbiAgfVxuXG4gIC8qKlxuICAgKiDtgbTrnbzsnbTslrjtirgg7Y+8IOqygOymnVxuICAgKlxuICAgKiBjYXNlIDE6IGlk6rCAIOydtOuplOydvOyduOqwgFxuICAgKiBjYXNlIDI6IHBhc3N3b3JkIOqwgCA27J6Q66asIOydtOyDgeyduOqwgFxuICAgKlxuICAgKiBAcmV0dXJuIHtib29sZWFufSB0cnVlIC0g6rKA7KadIO2GteqzvCwgZmFsc2UgLSDqsoDspp0g7Iuk7YyoXG4gICAqL1xuICBmdW5jdGlvbiB2YWxpZGF0aW9uICgpIHtcbiAgICB2YXIgaWQgPSAkaWQudmFsKCk7XG4gICAgdmFyIHBhc3N3b3JkID0gJHBhc3N3b3JkLnZhbCgpO1xuXG4gICAgaWYgKCFyRW1haWwudGVzdChpZCkpIHtcbiAgICAgIGFsZXJ0KCfslYTsnbTrlJTqsIAg7J2066mU7J28IO2YleyLneydtCDslYTri5nri4jri6QuJyk7XG4gICAgICAkaWQuZm9jdXMoKTtcbiAgICAgIHJldHVybjtcbiAgICB9XG4gICAgaWYgKHBhc3N3b3JkLmxlbmd0aCA8IDYpIHtcbiAgICAgIGFsZXJ0KCfruYTrsIDrsojtmLjripQgNuyekOumrCDsnbTsg4HsnbTslrTslbwg7ZWp64uI64ukLicpO1xuICAgICAgJHBhc3N3b3JkLmZvY3VzKCk7XG4gICAgICByZXR1cm47XG4gICAgfVxuXG4gICAgcmV0dXJuIHRydWU7XG4gIH1cblxuICBmdW5jdGlvbiBzdWNjZXNzTG9naW4gKHJlcykge1xuICAgIGFsZXJ0KCfroZzqt7jsnbgg7ISx6rO1Jyk7XG4gICAgY29va2llLnNldCgnc2Vzc2lvbicsIHJlcy5jb29raWUpO1xuICAgIHdpbmRvdy5sb2NhdGlvbi5ocmVmID0gJ2luZGV4Lmh0bWwnO1xuICB9XG5cbiAgLyoqXG4gICAqIOuhnOq3uOyduCDsi6TtjKgg7LKY66asXG4gICAqXG4gICAqIGNhc2UgMTogaWQg6rCAIOyXhuydhCDrlYwsXG4gICAqIGNhc2UgMjog67mE67CA67KI7Zi46rCAIO2LgOuguOydhCDrlYxcbiAgICogY2FzZSAjOiDshJzrsoQg7JeQ65+sIOuYkOuKlCAo7YG065287J207Ja47Yq47JeQ7IScIOqygOymne2WiOyngOunjCkg7JqU7LKtIOygleuztOqwgCDrtoDsobHtlZwg6rK97JqwXG4gICAqL1xuICBmdW5jdGlvbiBmYWlsTG9naW4gKGVycm9yKSB7XG4gICAgdmFyIG1lc3NhZ2UgPSAn66Gc6re47J24IOyLpO2MqCwgJyArIGVycm9yLm1lc3NhZ2U7XG4gICAgYWxlcnQobWVzc2FnZSk7XG4gIH1cblxuICBmdW5jdGlvbiBoYW5kbGVBamF4RG9uZSAoKSB7XG4gICAgYWpheERvbmUgPSB0cnVlO1xuICB9XG5cbiAgaW5pdCgpO1xufSk7XG4iXX0=
+$(document).ready(function () {
+  'use strict';
+
+  var $form, $action, $id, $password;
+  var ajaxDone = true;
+  // 이메일 검증 정규식
+  var rEmail = /\w+@\w+(\.\w+){1,2}$/;
+
+  function init () {
+    $form = $('form');
+    $action = $('.action');
+    $id = $('#user-id');
+    $password = $('#user-password');
+
+    NavBar.init();
+
+    $action.on('click', 'a', action);
+    $form.on('keyup', keyup);
+  }
+
+  function keyup (e) {
+    switch (e.keyCode) {
+      case 13:
+        login();
+        break;
+    }
+  }
+
+  function action (e) {
+    var $target = $(e.target);
+    if ($target.hasClass('submit')) {
+      e.preventDefault();
+      e.stopPropagation();
+      login();
+    }
+  }
+
+  function login () {
+    if (!ajaxDone) {
+      return;
+    }
+    if (!validation()) {
+      return;
+    };
+
+    // var data = $form.serialize();
+    var data = {
+      id: $id.val(),
+      password: $password.val()
+    };
+    UserService.login(data)
+      .then(successLogin, failLogin)
+      .always(handleAjaxDone);
+  }
+
+  /**
+   * 클라이언트 폼 검증
+   *
+   * case 1: id가 이메일인가
+   * case 2: password 가 6자리 이상인가
+   *
+   * @return {boolean} true - 검증 통과, false - 검증 실패
+   */
+  function validation () {
+    var id = $id.val();
+    var password = $password.val();
+
+    if (!rEmail.test(id)) {
+      alert('아이디가 이메일 형식이 아닙니다.');
+      $id.focus();
+      return;
+    }
+    if (password.length < 6) {
+      alert('비밀번호는 6자리 이상이어야 합니다.');
+      $password.focus();
+      return;
+    }
+
+    return true;
+  }
+
+  function successLogin (res) {
+    alert('로그인 성공');
+    cookie.set('session', res.cookie);
+    window.location.href = 'index.html';
+  }
+
+  /**
+   * 로그인 실패 처리
+   *
+   * case 1: id 가 없을 때,
+   * case 2: 비밀번호가 틀렸을 때
+   * case #: 서버 에러 또는 (클라이언트에서 검증했지만) 요청 정보가 부족한 경우
+   */
+  function failLogin (error) {
+    var message = '로그인 실패, ' + error.responseJSON.message;
+    alert(message);
+  }
+
+  function handleAjaxDone () {
+    ajaxDone = true;
+  }
+
+  init();
+});

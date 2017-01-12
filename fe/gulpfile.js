@@ -47,9 +47,9 @@ gulp.task('htmls', function () {
 gulp.task('scripts', function () {
   return gulp
     .src(path.app.scripts)
-    .pipe(sourcemaps.init()) 
-    .pipe(uglify())
-    .pipe(sourcemaps.write()) 
+//    .pipe(sourcemaps.init()) 
+//    .pipe(uglify())
+//    .pipe(sourcemaps.write()) 
     .pipe(copy(path.dist.scripts, {prefix: 2}))
     .pipe(gulp.dest(path.dist.scripts));
 });
@@ -58,9 +58,9 @@ gulp.task('scripts', function () {
 gulp.task('styles', function () {
   return gulp
     .src(path.app.styles)
-    .pipe(sourcemaps.init()) 
-    .pipe(cleanCSS()) 
-    .pipe(sourcemaps.write()) 
+//    .pipe(sourcemaps.init()) 
+//    .pipe(cleanCSS()) 
+//    .pipe(sourcemaps.write()) 
     .pipe(copy(path.dist.styles, {prefix: 2}))
     .pipe(gulp.dest(path.dist.styles));
 });

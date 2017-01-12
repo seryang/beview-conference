@@ -1,2 +1,31 @@
-$(document).ready(function(){"use strict";NavBar.init()});
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9zcmMvanMvYWRtaW4uanMiXSwibmFtZXMiOlsiJCIsImRvY3VtZW50IiwicmVhZHkiLCJOYXZCYXIiLCJpbml0Il0sIm1hcHBpbmdzIjoiQUFBQUEsRUFBRUMsVUFBVUMsTUFBTSxXQUNoQixZQUVBQyxRQUFPQyIsImZpbGUiOiJhZG1pbi5qcyIsInNvdXJjZXNDb250ZW50IjpbIiQoZG9jdW1lbnQpLnJlYWR5KGZ1bmN0aW9uICgpIHtcbiAgJ3VzZSBzdHJpY3QnO1xuXG4gIE5hdkJhci5pbml0KCk7XG59KTtcbiJdfQ==
+$(document).ready(function () {
+  'use strict';
+
+  var $description, $radioGroup, $title, $container;
+  var selected = {};
+
+  function init () {
+    $description = $('.description');
+    $radioGroup = $('.list-type');
+    $title = $('.title');
+
+    NavBar.init();
+    selectType();
+
+    $radioGroup.on('click', 'input[type="radio"]', selectType);
+    $description.on('click', 'a.edit, a.remove', itemAction)
+  }
+
+  function selectType () {
+    selected.type = $radioGroup.find('input:checked').val();
+    $title.text(Utils.toFirstUpper(selected.type) + ' list');
+  }
+
+  function itemAction (e) {
+    var $target = $(e.target);
+    var id = $target.closest('section.item-container').data('id');
+    console.log($target, id);
+  }
+
+  init();
+});

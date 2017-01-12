@@ -1,2 +1,11 @@
-$(document).ready(function(){"use strict";function n(){NavBar.init()}n()});
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9zcmMvanMvc2NoZWR1bGUuanMiXSwibmFtZXMiOlsiJCIsImRvY3VtZW50IiwicmVhZHkiLCJpbml0IiwiTmF2QmFyIl0sIm1hcHBpbmdzIjoiQUFBQUEsRUFBRUMsVUFBVUMsTUFBTSxXQUNoQixZQUlBLFNBQVNDLEtBQ1BDLE9BQU9ELE9BR1RBIiwiZmlsZSI6InNjaGVkdWxlLmpzIiwic291cmNlc0NvbnRlbnQiOlsiJChkb2N1bWVudCkucmVhZHkoZnVuY3Rpb24gKCkge1xuICAndXNlIHN0cmljdCc7XG5cbiAgdmFyIGFqYXhEb25lID0gdHJ1ZTtcblxuICBmdW5jdGlvbiBpbml0ICgpIHtcbiAgICBOYXZCYXIuaW5pdCgpO1xuICB9XG4gIFxuICBpbml0KCk7XG59KTtcbiJdfQ==
+$(document).ready(function () {
+  'use strict';
+
+  var ajaxDone = true;
+
+  function init () {
+    NavBar.init();
+  }
+  
+  init();
+});

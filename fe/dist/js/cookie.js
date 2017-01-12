@@ -1,2 +1,69 @@
-var cookie=function(){"use strict";function o(o,e){return void 0===o?(document.cookie="",void(n={})):(void 0===e&&(e=""),document.cookie=[document.cookie,o+"="+e,";"].join(""),n[o]=e)}function e(o){return void 0===o?document.cookie:document.cookie[o]}function c(o){if(void 0===o)return document.cookie="",n={};var e=n[o],c=new RegExp(o+"="+e+";?");return document.cookie.replace(c,""),delete n[o],e}var n={};return document.cookie="",{set:o,get:e,clear:c}}();
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9zcmMvanMvY29va2llLmpzIl0sIm5hbWVzIjpbImNvb2tpZSIsInNldCIsImtleSIsInZhbHVlIiwidW5kZWZpbmVkIiwiZG9jdW1lbnQiLCJtYXAiLCJqb2luIiwiZ2V0IiwiY2xlYXIiLCJyTWF0Y2giLCJSZWdFeHAiLCJyZXBsYWNlIl0sIm1hcHBpbmdzIjoiQUFBQSxHQUFJQSxRQUFTLFdBQ1gsWUFLQSxTQUFTQyxHQUFLQyxFQUFLQyxHQUVqQixNQUFZQyxVQUFSRixHQUNGRyxTQUFTTCxPQUFTLFFBQ2xCTSxRQUtZRixTQUFWRCxJQUNGQSxFQUFRLElBR1ZFLFNBQVNMLFFBQVVLLFNBQVNMLE9BQVNFLEVBQU0sSUFBTUMsRUFBUSxLQUFLSSxLQUFLLElBQzVERCxFQUFJSixHQUFPQyxHQVdwQixRQUFTSyxHQUFLTixHQUNaLE1BQVlFLFVBQVJGLEVBQ0tHLFNBQVNMLE9BR1hLLFNBQVNMLE9BQU9FLEdBV3pCLFFBQVNPLEdBQU9QLEdBRWQsR0FBWUUsU0FBUkYsRUFFRixNQURBRyxVQUFTTCxPQUFTLEdBQ1hNLElBR1QsSUFBSUgsR0FBUUcsRUFBSUosR0FDWlEsRUFBUyxHQUFJQyxRQUFPVCxFQUFNLElBQU1DLEVBQVEsS0FLNUMsT0FIQUUsVUFBU0wsT0FBT1ksUUFBUUYsRUFBUSxVQUN6QkosR0FBSUosR0FFSkMsRUF6RFQsR0FBSUcsS0E0REosT0EzREFELFVBQVNMLE9BQVMsSUE0RGhCQyxJQUFLQSxFQUNMTyxJQUFLQSxFQUNMQyxNQUFPQSIsImZpbGUiOiJjb29raWUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgY29va2llID0gKGZ1bmN0aW9uICgpIHtcbiAgJ3VzZSBzdHJpY3QnO1xuXG4gIHZhciBtYXAgPSB7fTtcbiAgZG9jdW1lbnQuY29va2llID0gJyc7XG5cbiAgZnVuY3Rpb24gc2V0IChrZXksIHZhbHVlKSB7XG4gICAgLy8ga2V5IOqwgCDsl4bsnYQg65WQIOy/oO2CpCDstIjquLDtmZRcbiAgICBpZiAoa2V5ID09PSB1bmRlZmluZWQpIHtcbiAgICAgIGRvY3VtZW50LmNvb2tpZSA9ICcnO1xuICAgICAgbWFwID0ge307XG4gICAgICByZXR1cm47XG4gICAgfVxuXG4gICAgLy8ga2V5IOuKlCDsnojsp4Drp4wgdmFsdWUg6rCAIOyXhuydhCDrlYwsIO2VtOuLuSBrZXkg6rCSIOy0iOq4sO2ZlFxuICAgIGlmICh2YWx1ZSA9PT0gdW5kZWZpbmVkKSB7XG4gICAgICB2YWx1ZSA9ICcnO1xuICAgIH1cblxuICAgIGRvY3VtZW50LmNvb2tpZSA9IFtkb2N1bWVudC5jb29raWUsIChrZXkgKyAnPScgKyB2YWx1ZSksICc7J10uam9pbignJyk7XG4gICAgcmV0dXJuIG1hcFtrZXldID0gdmFsdWU7XG4gIH1cblxuICAvKipcbiAgICog7L+g7YKk6rCSIOydveq4sFxuICAgKiBrZXkg6rCAIOuqheyLnOuQmOyngCDslYrsnLzrqbQg7L+g7YKkIOyghOyytOulvCDrpqzthLRcbiAgICoga2V5IOqwgCDrqoXsi5zrkJjrqbQg7ZW064u5IGtleSDsnZgg6rCSIOumrO2EtFxuICAgKlxuICAgKiBAcGFyYW0ge2tleX0g6rCS7J2EIOydveyWtOyYrCDsv6DtgqTsnZgg7YKkKGtleSlcbiAgICogQHJldHVybiB7c3RyaW5nfSDsnb3slrTsmKgg7L+g7YKkIOqwklxuICAgKi9cbiAgZnVuY3Rpb24gZ2V0IChrZXkpIHtcbiAgICBpZiAoa2V5ID09PSB1bmRlZmluZWQpIHtcbiAgICAgIHJldHVybiBkb2N1bWVudC5jb29raWU7XG4gICAgfVxuXG4gICAgcmV0dXJuIGRvY3VtZW50LmNvb2tpZVtrZXldO1xuICB9XG5cbiAgLyoqXG4gICAqIOy/oO2CpCDsoJzqsbBcbiAgICog6rCS7J2EIOygnOqxsO2VoCBrZXkg6rCAIOuqheyLnOuQmOuptCDtlbTri7kga2V5PXZhbHVlIOulvCDsoJzqsbDtlZjqs6AsXG4gICAqIGtleSDqsIAg66qF7Iuc65CY7KeAIOyViuycvOuptCDsv6DtgqQg6rCS7J2EIOyghOu2gCDsp4DsmrTri6QuXG4gICAqXG4gICAqIEBwYXJhbSB7a2V5fSDsoJzqsbDtlaAg7L+g7YKk7J2YIO2CpChrZXkpXG4gICAqIEByZXR1cm4ge3N0cmluZ30g7KCc6rGw7ZWcIOy/oO2CpCDqsJJcbiAgICovXG4gIGZ1bmN0aW9uIGNsZWFyIChrZXkpIHtcbiAgICAvLyBrZXkg6rCAIOyXhuycvOuptCDsv6DtgqQg7LSI6riw7ZmUXG4gICAgaWYgKGtleSA9PT0gdW5kZWZpbmVkKSB7XG4gICAgICBkb2N1bWVudC5jb29raWUgPSAnJztcbiAgICAgIHJldHVybiBtYXAgPSB7fTtcbiAgICB9XG5cbiAgICB2YXIgdmFsdWUgPSBtYXBba2V5XTtcbiAgICB2YXIgck1hdGNoID0gbmV3IFJlZ0V4cChrZXkgKyAnPScgKyB2YWx1ZSArICc7PycpO1xuXG4gICAgZG9jdW1lbnQuY29va2llLnJlcGxhY2Uock1hdGNoLCAnJyk7XG4gICAgZGVsZXRlIG1hcFtrZXldO1xuXG4gICAgcmV0dXJuIHZhbHVlO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBzZXQ6IHNldCxcbiAgICBnZXQ6IGdldCxcbiAgICBjbGVhcjogY2xlYXJcbiAgfTtcbn0pKCk7XG4iXX0=
+var cookie = (function () {
+  'use strict';
+
+  var map = {};
+  document.cookie = '';
+
+  function set (key, value) {
+    // key 가 없을 땐 쿠키 초기화
+    if (key === undefined) {
+      document.cookie = '';
+      map = {};
+      return;
+    }
+
+    // key 는 있지만 value 가 없을 때, 해당 key 값 초기화
+    if (value === undefined) {
+      value = '';
+    }
+
+    document.cookie = [document.cookie, (key + '=' + value), ';'].join('');
+    return map[key] = value;
+  }
+
+  /**
+   * 쿠키값 읽기
+   * key 가 명시되지 않으면 쿠키 전체를 리턴
+   * key 가 명시되면 해당 key 의 값 리턴
+   *
+   * @param {key} 값을 읽어올 쿠키의 키(key)
+   * @return {string} 읽어온 쿠키 값
+   */
+  function get (key) {
+    if (key === undefined) {
+      return document.cookie;
+    }
+
+    return document.cookie[key];
+  }
+
+  /**
+   * 쿠키 제거
+   * 값을 제거할 key 가 명시되면 해당 key=value 를 제거하고,
+   * key 가 명시되지 않으면 쿠키 값을 전부 지운다.
+   *
+   * @param {key} 제거할 쿠키의 키(key)
+   * @return {string} 제거한 쿠키 값
+   */
+  function clear (key) {
+    // key 가 없으면 쿠키 초기화
+    if (key === undefined) {
+      document.cookie = '';
+      return map = {};
+    }
+
+    var value = map[key];
+    var rMatch = new RegExp(key + '=' + value + ';?');
+
+    document.cookie.replace(rMatch, '');
+    delete map[key];
+
+    return value;
+  }
+
+  return {
+    set: set,
+    get: get,
+    clear: clear
+  };
+})();

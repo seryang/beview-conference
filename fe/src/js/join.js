@@ -44,12 +44,11 @@ $(document).ready(function () {
       return;
     };
 
-    return successjoin({
-      type: 'dummy',
-      status: 200
-    });
-
-    var data = $form.serialize();
+    // var data = $form.serialize();
+    var data = {
+      id: $id.val(),
+      password: $password.val()
+    };
     UserService.join(data)
       .then(successJoin, failJoin)
       .then(handleAjaxDone);
@@ -102,7 +101,7 @@ $(document).ready(function () {
   // TODO: 이미 존재하는 이메일인 경우 메시지 보여줌
   // 그게 아닌 경우 ???
   function failJoin (error) {
-    var message = '회원가입 실패, ' + error.message;
+    var message = '회원가입 실패, ' + error.responseJSON.message;
     alert(message);
   }
 
