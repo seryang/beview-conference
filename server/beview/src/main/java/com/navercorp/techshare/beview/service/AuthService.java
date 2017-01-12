@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.navercorp.techshare.beview.model.User;
+import com.navercorp.techshare.beview.repository.UserDao;
 
 /**
  * Created by Naver on 2017. 1. 11..
@@ -24,14 +25,19 @@ public class AuthService {
 	@Autowired
 	private HttpServletResponse httpResponse;
 
-	public User loginCheck() {
-		User user = getSignUser();
-		return user == null ? null : user;
-	}
+	@Autowired
+	private UserDao userDao;
 
-	public User getSignUser() {
-		Map<String, String> cookies = getCookie();
-		return !cookies.isEmpty() ? new User(cookies.get("id"), cookies.get("password")) : null;
+	public boolean cookieCheck() {
+
+		Map<String, String> cookieMap = getCookie();
+
+		if (cookieMap.isEmpty() || cookieMap.size() != 2) {
+			return false;
+		}
+
+		User user = new User(cookieMap.get("id"), cookieMap.get("password"));
+		return userDao.getUser(user) != null;
 	}
 
 	public Map<String, String> getCookie() {

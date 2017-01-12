@@ -14,12 +14,12 @@ import com.navercorp.techshare.beview.service.AuthService;
 public class AuthAop {
 
 	@Autowired
-	AuthService authService;
+	private AuthService authService;
 
 	@Around("@annotation(com.navercorp.techshare.beview.annotation.Auth)")
 	public Object auth(ProceedingJoinPoint joinPoint) throws Throwable {
 
-		if (authService.loginCheck() == null) {
+		if (authService.cookieCheck() == null) {
 			throw new AuthorizationException("로그인이 필요합니다.");
 		}
 
