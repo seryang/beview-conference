@@ -2,9 +2,16 @@ var UserService = (function () {
   'use strict';
 
   return {
+    isLogined: function () {
+      return document.cookie.length;
+    },
+    isAdmin: function () {
+      return true;
+      // return document.cookie.indexOf('id=admin@admin.com') > 0;
+    },
     join: function (data) {
       return http.post({
-        url: '/user/join',
+        url: '/user',
         data: data
       });
     },
@@ -21,13 +28,7 @@ var UserService = (function () {
       });
     },
     logout: function () {
-      // logout 은 서버로 요청을 날리지 않는다.
-      // Deffered Promise 를 리턴한다.
-      // var deferred = $.Deferred();
-      // deferred.resolve({});
-      // return deferred.promise();
-
-      return http.get({
+      return http.post({
         url: '/user/logout'
       });
     }
