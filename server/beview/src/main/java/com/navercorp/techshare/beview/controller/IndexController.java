@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by Naver on 2017. 1. 12..
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/uploadTest")
 public class IndexController {
 
 	@RequestMapping("")
