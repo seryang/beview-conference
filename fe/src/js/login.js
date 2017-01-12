@@ -43,16 +43,10 @@ $(document).ready(function () {
       return;
     };
 
-    return successLogin({
-      type: 'dummy',
-      cookie: 'dummy',
-      status: 200
-    });
-
     var data = $form.serialize();
     UserService.login(data)
       .then(successLogin, failLogin)
-      .then(handleAjaxDone);
+      .always(handleAjaxDone);
   }
 
   /**
