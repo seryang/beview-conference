@@ -112,6 +112,16 @@ ul {
   border-radius: 8px;
   cursor: pointer;
 }
+.button.sm {
+  padding: 5px;
+  font-size: 14px;
+}
+.button.edit {
+  background-color: #3bbcef;
+}
+.button.remove {
+  background-color: #ea5151;
+}
 
 /* login page css style */
 .description .form {
@@ -149,6 +159,32 @@ ul {
   margin-left: 20%;
 }
 
+/* admin page css style */
+.description .title {
+  border-bottom: 2px solid black;
+}
+.description .item-container {
+  padding-bottom: 16px;
+  border-bottom: 2px solid black;
+}
+.description .item-title {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.description .meta-info span {
+  margin-right: 5px;
+}
+.description .meta-info .item-speaker {
+  margin-right: 0px;
+}
+.description .meta-action {
+  text-align: right;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 
 /* footer css style */
 footer {
@@ -161,6 +197,12 @@ footer {
 }
 
 /* utility css style */
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
 .clear {
   clear: both;
 }

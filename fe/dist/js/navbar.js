@@ -1,2 +1,51 @@
-var NavBar=function(){"use strict";function n(){i=$(".container"),r=$(".navbar .menu"),c=$(".navbar .sidebar"),i.on("click",t),r.on("click","a.dropdown",e)}function a(n){alert("로그아웃 성공"),cookie.clear(),window.location.href="index.html"}function o(n){alert("로그아웃 실패")}function t(n){var t=$(n.target);t.hasClass("logout")&&UserService.logout().then(a,o),t.hasClass("sidebar")||c.slideUp()}function e(n){n.preventDefault(),n.stopPropagation(),c.slideDown()}var i,r,c;return{init:n}}();
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9zcmMvanMvbmF2YmFyLmpzIl0sIm5hbWVzIjpbIk5hdkJhciIsImluaXQiLCIkY29udGFpbmVyIiwiJCIsIiRuYXZiYXJNZW51IiwiJHNpZGViYXIiLCJvbiIsImNsaWNrTWVudSIsIm9wZW5NZW51Iiwic3VjY2Vzc0xvZ291dCIsInJlcyIsImFsZXJ0IiwiY29va2llIiwiY2xlYXIiLCJ3aW5kb3ciLCJsb2NhdGlvbiIsImhyZWYiLCJmYWlsTG9nb3V0IiwiZXJyb3IiLCJlIiwiJHRhcmdldCIsInRhcmdldCIsImhhc0NsYXNzIiwiVXNlclNlcnZpY2UiLCJsb2dvdXQiLCJ0aGVuIiwic2xpZGVVcCIsInByZXZlbnREZWZhdWx0Iiwic3RvcFByb3BhZ2F0aW9uIiwic2xpZGVEb3duIl0sIm1hcHBpbmdzIjoiQUFBQSxHQUFJQSxRQUFTLFdBQ1gsWUFJQSxTQUFTQyxLQUNQQyxFQUFhQyxFQUFFLGNBQ2ZDLEVBQWNELEVBQUUsaUJBQ2hCRSxFQUFXRixFQUFFLG9CQUViRCxFQUFXSSxHQUFHLFFBQVNDLEdBRXZCSCxFQUFZRSxHQUFHLFFBQVMsYUFBY0UsR0FHeEMsUUFBU0MsR0FBZUMsR0FDdEJDLE1BQU0sV0FDTkMsT0FBT0MsUUFDUEMsT0FBT0MsU0FBU0MsS0FBTyxhQUd6QixRQUFTQyxHQUFZQyxHQUNuQlAsTUFBTSxXQUdSLFFBQVNKLEdBQVdZLEdBQ2xCLEdBQUlDLEdBQVVqQixFQUFFZ0IsRUFBRUUsT0FFZEQsR0FBUUUsU0FBUyxXQUNuQkMsWUFBWUMsU0FDVEMsS0FBS2hCLEVBQWVRLEdBSXJCRyxFQUFRRSxTQUFTLFlBR3JCakIsRUFBU3FCLFVBR1gsUUFBU2xCLEdBQVVXLEdBQ2pCQSxFQUFFUSxpQkFDRlIsRUFBRVMsa0JBRUZ2QixFQUFTd0IsWUF6Q1gsR0FBSTNCLEdBQVlFLEVBQWFDLENBNEM3QixRQUNFSixLQUFNQSIsImZpbGUiOiJuYXZiYXIuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgTmF2QmFyID0gKGZ1bmN0aW9uICgpe1xuICAndXNlIHN0cmljdCc7XG5cbiAgdmFyICRjb250YWluZXIsICRuYXZiYXJNZW51LCAkc2lkZWJhcjtcblxuICBmdW5jdGlvbiBpbml0ICgpIHtcbiAgICAkY29udGFpbmVyID0gJCgnLmNvbnRhaW5lcicpO1xuICAgICRuYXZiYXJNZW51ID0gJCgnLm5hdmJhciAubWVudScpO1xuICAgICRzaWRlYmFyID0gJCgnLm5hdmJhciAuc2lkZWJhcicpO1xuXG4gICAgJGNvbnRhaW5lci5vbignY2xpY2snLCBjbGlja01lbnUpO1xuICAgIC8vIO2WhOuyhOqxsCDrqZTribQg7YG066atIOyLnCwgc2lkZWJhciDsl7TslrTspIwuXG4gICAgJG5hdmJhck1lbnUub24oJ2NsaWNrJywgJ2EuZHJvcGRvd24nLCBvcGVuTWVudSk7XG4gIH1cblxuICBmdW5jdGlvbiBzdWNjZXNzTG9nb3V0IChyZXMpIHtcbiAgICBhbGVydCgn66Gc6re47JWE7JuDIOyEseqztScpO1xuICAgIGNvb2tpZS5jbGVhcigpO1xuICAgIHdpbmRvdy5sb2NhdGlvbi5ocmVmID0gJ2luZGV4Lmh0bWwnO1xuICB9XG5cbiAgZnVuY3Rpb24gZmFpbExvZ291dCAoZXJyb3IpIHtcbiAgICBhbGVydCgn66Gc6re47JWE7JuDIOyLpO2MqCcpO1xuICB9XG5cbiAgZnVuY3Rpb24gY2xpY2tNZW51IChlKSB7XG4gICAgdmFyICR0YXJnZXQgPSAkKGUudGFyZ2V0KTtcbiAgICAvLyDroZzqt7jslYTsm4Mg67KE7Yq87J2EIOuIjOuggOycvOuptCDroZzqt7jslYTsm4Mg7ZuELCDrqZTsnbgg7Y6Y7J207KeA66GcIOuztOuCuOuLpC5cbiAgICBpZiAoJHRhcmdldC5oYXNDbGFzcygnbG9nb3V0JykpIHtcbiAgICAgIFVzZXJTZXJ2aWNlLmxvZ291dCgpXG4gICAgICAgIC50aGVuKHN1Y2Nlc3NMb2dvdXQsIGZhaWxMb2dvdXQpO1xuICAgIH1cblxuICAgIC8vIO2YhOyerCBzaWRlYmFyIOyYgeyXreydhCDriIzroIDri6TrqbQg64ur7KeAIOyViuuKlOuLpC5cbiAgICBpZiAoJHRhcmdldC5oYXNDbGFzcygnc2lkZWJhcicpKSB7XG4gICAgICByZXR1cm47XG4gICAgfVxuICAgICRzaWRlYmFyLnNsaWRlVXAoKTtcbiAgfVxuXG4gIGZ1bmN0aW9uIG9wZW5NZW51IChlKSB7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgIGUuc3RvcFByb3BhZ2F0aW9uKCk7XG5cbiAgICAkc2lkZWJhci5zbGlkZURvd24oKTtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgaW5pdDogaW5pdFxuICB9O1xufSkoKTtcbiJdfQ==
+var NavBar = (function (){
+  'use strict';
+
+  var $container, $navbarMenu, $sidebar;
+
+  function init () {
+    $container = $('.container');
+    $navbarMenu = $('.navbar .menu');
+    $sidebar = $('.navbar .sidebar');
+
+    $container.on('click', clickMenu);
+    // 햄버거 메뉴 클릭 시, sidebar 열어줌.
+    $navbarMenu.on('click', 'a.dropdown', openMenu);
+  }
+
+  function successLogout (res) {
+    alert('로그아웃 성공');
+    cookie.clear();
+    window.location.href = 'index.html';
+  }
+
+  function failLogout (error) {
+    alert('로그아웃 실패');
+  }
+
+  function clickMenu (e) {
+    var $target = $(e.target);
+    // 로그아웃 버튼을 눌렀으면 로그아웃 후, 메인 페이지로 보낸다.
+    if ($target.hasClass('logout')) {
+      UserService.logout()
+        .then(successLogout, failLogout);
+    }
+
+    // 현재 sidebar 영역을 눌렀다면 닫지 않는다.
+    if ($target.hasClass('sidebar')) {
+      return;
+    }
+    $sidebar.slideUp();
+  }
+
+  function openMenu (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    $sidebar.slideDown();
+  }
+
+  return {
+    init: init
+  };
+})();

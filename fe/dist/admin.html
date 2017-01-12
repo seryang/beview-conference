@@ -25,7 +25,63 @@
     <div class="clear"></div>
 
     <article class="description">
-      <h1>Admin Page</h1>
+      <div class="list-type">
+        <input type="radio" name="list-type" id="radio-conference" value="conference" checked>
+        <label for="radio-conference">컨퍼런스</label>
+        <input type="radio" name="list-type" id="radio-track" value="track">
+        <label for="radio-track">트랙</label>
+        <input type="radio" name="list-type" id="session-track" value="session">
+        <label for="session-track">세션</label>
+        <input type="radio" name="list-type" id="speaker-track" value="speaker">
+        <label for="speaker-track">발표자</label>
+      </div>
+
+      <h1 class="title"></h1>
+      <section class="item-container" data-id="1">
+        <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
+        <p class="item-description">
+          언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!
+        </p>
+        <div class="meta-info">
+          <span class="item-time left">[09:00 ~ 10:00]</span>
+          <span class="item-speaker right">by 현승호</span>
+          <span class="item-parent-name right">[Android]</span>
+        </div>
+        <div class="meta-action clear">
+          <a href="#" class="button sm edit">수정</a>
+          <a href="#" class="button sm remove">삭제</a>
+        </div>
+      </section>
+      <section class="item-container" data-id="2">
+        <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
+        <p class="item-description">
+          언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!
+        </p>
+        <div class="meta-info">
+          <span class="item-time left">[09:00 ~ 10:00]</span>
+          <span class="item-speaker right">by 현승호</span>
+          <span class="item-parent-name right">[Android]</span>
+        </div>
+        <div class="meta-action clear">
+          <a href="#" class="button sm edit">수정</a>
+          <a href="#" class="button sm remove">삭제</a>
+        </div>
+      </section>
+      <section class="item-container" data-id="3">
+        <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
+        <p class="item-description">
+          언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!
+        </p>
+        <div class="meta-info">
+          <span class="item-time left">[09:00 ~ 10:00]</span>
+          <span class="item-speaker right">by 현승호</span>
+          <span class="item-parent-name right">[Android]</span>
+        </div>
+        <div class="meta-action clear">
+          <a href="#" class="button sm edit">수정</a>
+          <a href="#" class="button sm remove">삭제</a>
+        </div>
+      </section>
     </article>
   </div>
 
@@ -33,6 +89,7 @@
   <script type="text/javascript" src="lib/jquery-ui-1.10.4.custom.min.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
   <script type="text/javascript" src="js/rest.service.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
   <script type="text/javascript" src="js/navbar.js"></script>
   <script type="text/javascript" src="js/admin.js"></script>
 </body>

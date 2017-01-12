@@ -1,2 +1,35 @@
-var UserService=function(){"use strict";return{join:function(t){return http.post({url:"/user/join",data:t})},idCheck:function(t){return http.get({url:"/user/check",params:t})},login:function(t){return http.post({url:"/user/login",data:t})},logout:function(){return http.get({url:"/user/logout"})}}}();
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9zcmMvanMvdXNlci5zZXJ2aWNlLmpzIl0sIm5hbWVzIjpbIlVzZXJTZXJ2aWNlIiwiam9pbiIsImRhdGEiLCJodHRwIiwicG9zdCIsInVybCIsImlkQ2hlY2siLCJwYXJhbXMiLCJnZXQiLCJsb2dpbiIsImxvZ291dCJdLCJtYXBwaW5ncyI6IkFBQUEsR0FBSUEsYUFBYyxXQUNoQixZQUVBLFFBQ0VDLEtBQU0sU0FBVUMsR0FDZCxNQUFPQyxNQUFLQyxNQUNWQyxJQUFLLGFBQ0xILEtBQU1BLEtBR1ZJLFFBQVMsU0FBVUMsR0FDakIsTUFBT0osTUFBS0ssS0FDVkgsSUFBSyxjQUNMRSxPQUFRQSxLQUdaRSxNQUFPLFNBQVVQLEdBQ2YsTUFBT0MsTUFBS0MsTUFDVkMsSUFBSyxjQUNMSCxLQUFNQSxLQUdWUSxPQUFRLFdBT04sTUFBT1AsTUFBS0ssS0FDVkgsSUFBSyIsImZpbGUiOiJ1c2VyLnNlcnZpY2UuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgVXNlclNlcnZpY2UgPSAoZnVuY3Rpb24gKCkge1xuICAndXNlIHN0cmljdCc7XG5cbiAgcmV0dXJuIHtcbiAgICBqb2luOiBmdW5jdGlvbiAoZGF0YSkge1xuICAgICAgcmV0dXJuIGh0dHAucG9zdCh7XG4gICAgICAgIHVybDogJy91c2VyL2pvaW4nLFxuICAgICAgICBkYXRhOiBkYXRhXG4gICAgICB9KTtcbiAgICB9LFxuICAgIGlkQ2hlY2s6IGZ1bmN0aW9uIChwYXJhbXMpIHtcbiAgICAgIHJldHVybiBodHRwLmdldCh7XG4gICAgICAgIHVybDogJy91c2VyL2NoZWNrJyxcbiAgICAgICAgcGFyYW1zOiBwYXJhbXNcbiAgICAgIH0pO1xuICAgIH0sXG4gICAgbG9naW46IGZ1bmN0aW9uIChkYXRhKSB7XG4gICAgICByZXR1cm4gaHR0cC5wb3N0KHtcbiAgICAgICAgdXJsOiAnL3VzZXIvbG9naW4nLFxuICAgICAgICBkYXRhOiBkYXRhXG4gICAgICB9KTtcbiAgICB9LFxuICAgIGxvZ291dDogZnVuY3Rpb24gKCkge1xuICAgICAgLy8gbG9nb3V0IOydgCDshJzrsoTroZwg7JqU7LKt7J2EIOuCoOumrOyngCDslYrripTri6QuXG4gICAgICAvLyBEZWZmZXJlZCBQcm9taXNlIOulvCDrpqzthLTtlZzri6QuXG4gICAgICAvLyB2YXIgZGVmZXJyZWQgPSAkLkRlZmVycmVkKCk7XG4gICAgICAvLyBkZWZlcnJlZC5yZXNvbHZlKHt9KTtcbiAgICAgIC8vIHJldHVybiBkZWZlcnJlZC5wcm9taXNlKCk7XG5cbiAgICAgIHJldHVybiBodHRwLmdldCh7XG4gICAgICAgIHVybDogJy91c2VyL2xvZ291dCdcbiAgICAgIH0pO1xuICAgIH1cbiAgfTtcbn0pKCk7XG4iXX0=
+var UserService = (function () {
+  'use strict';
+
+  return {
+    join: function (data) {
+      return http.post({
+        url: '/user/join',
+        data: data
+      });
+    },
+    idCheck: function (params) {
+      return http.get({
+        url: '/user/check',
+        params: params
+      });
+    },
+    login: function (data) {
+      return http.post({
+        url: '/user/login',
+        data: data
+      });
+    },
+    logout: function () {
+      // logout 은 서버로 요청을 날리지 않는다.
+      // Deffered Promise 를 리턴한다.
+      // var deferred = $.Deferred();
+      // deferred.resolve({});
+      // return deferred.promise();
+
+      return http.get({
+        url: '/user/logout'
+      });
+    }
+  };
+})();
