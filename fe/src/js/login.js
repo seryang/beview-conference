@@ -97,7 +97,7 @@ $(document).ready(function () {
     alert(message);
   }
 
-  function handlee () {
+  function handleAjaxDone () {
     ajaxDone = true;
   }
 
