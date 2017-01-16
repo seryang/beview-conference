@@ -55,4 +55,15 @@ public class Session {
 		this.trackIdx = trackIdx;
 		this.speakerIdx = speakerIdx;
 	}
+
+	public Session convertData(Session updateData) {
+		this.name = updateData.getName();
+		this.description = updateData.getDescription();
+		this.startTime = updateData.getStartTime();
+		this.endTime = updateData.getEndTime();
+		this.file = updateData.getFile();
+		this.trackIdx = updateData.getTrackIdx();
+		this.speakerIdx = updateData.getSpeakerIdx();
+		return this;
+	}
 }
