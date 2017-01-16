@@ -1,5 +1,7 @@
 package com.navercorp.techshare.beview.model.response;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,5 +31,9 @@ public class AjaxResponse {
 
 	public AjaxResponse(List data) {
 		this.data = data;
+	}
+
+	public AjaxResponse(Object clazz) {
+		this.data = new ArrayList(Arrays.asList(clazz));
 	}
 }
