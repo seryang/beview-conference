@@ -50,7 +50,13 @@ public class AuthService {
 
 	public Map<String, String> getCookie() {
 		Cookie[] cookies = httpRequest.getCookies();
+
 		Map<String, String> map = new HashMap();
+		for(Cookie c : cookies){
+			logger.info("cookie name : " + c.getName() + " / " + c.getValue());
+		}
+		String c  = httpRequest.getHeader("Set-Cookie");
+		logger.info("Set-Cookie : " + c);
 
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
