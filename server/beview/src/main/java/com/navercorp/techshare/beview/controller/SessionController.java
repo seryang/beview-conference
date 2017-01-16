@@ -30,7 +30,7 @@ import com.navercorp.techshare.beview.service.UploadService;
  * Created by Naver on 2017. 1. 12..
  */
 @RestController
-@RequestMapping("/api/session")
+@RequestMapping("/api/sessions")
 @PropertySource("application.properties")
 public class SessionController {
 

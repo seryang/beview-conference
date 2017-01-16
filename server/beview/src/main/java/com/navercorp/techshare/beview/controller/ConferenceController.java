@@ -24,7 +24,7 @@ import com.navercorp.techshare.beview.service.ConferenceService;
  * Created by Naver on 2017. 1. 12..
  */
 @RestController
-@RequestMapping("/api/conference")
+@RequestMapping("/api/conferences")
 public class ConferenceController {
 
 	@Autowired

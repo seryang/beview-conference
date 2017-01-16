@@ -24,7 +24,7 @@ import com.navercorp.techshare.beview.service.UserService;
  * Created by Naver on 2017. 1. 10..
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 
 	@Autowired
