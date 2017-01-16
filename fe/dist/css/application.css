@@ -11,9 +11,9 @@ ul {
 .container {
   width: 100%;
   height: 100%;
-  /*-webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
   padding-top: 1px;
-  margin-top: -1px;*/
+  margin-top: -1px;
 }
 
 .cover-image {
@@ -130,7 +130,7 @@ ul {
   color: #de6565;
 }
 .button.done {
-  background-color: #baff8f;
+  background-color: #c8ff8f;
   border-color: #baff6e;
   color: #3ba492;
 }
@@ -222,7 +222,7 @@ ul {
 
 /* footer css style */
 footer {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;

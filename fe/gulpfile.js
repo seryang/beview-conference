@@ -15,7 +15,7 @@ var path = {
   vendor: {
     scripts: [
       'src/lib/jquery.min.js',
-      'src/lib/jquery-ui-1.10.4.custom.min.js'
+      'src/lib/handlebars-v4.0.5.js'
     ]
   },
   dist: {
@@ -47,9 +47,9 @@ gulp.task('htmls', function () {
 gulp.task('scripts', function () {
   return gulp
     .src(path.app.scripts)
-//    .pipe(sourcemaps.init()) 
+//    .pipe(sourcemaps.init())
 //    .pipe(uglify())
-//    .pipe(sourcemaps.write()) 
+//    .pipe(sourcemaps.write())
     .pipe(copy(path.dist.scripts, {prefix: 2}))
     .pipe(gulp.dest(path.dist.scripts));
 });
@@ -58,9 +58,9 @@ gulp.task('scripts', function () {
 gulp.task('styles', function () {
   return gulp
     .src(path.app.styles)
-//    .pipe(sourcemaps.init()) 
-//    .pipe(cleanCSS()) 
-//    .pipe(sourcemaps.write()) 
+//    .pipe(sourcemaps.init())
+//    .pipe(cleanCSS())
+//    .pipe(sourcemaps.write())
     .pipe(copy(path.dist.styles, {prefix: 2}))
     .pipe(gulp.dest(path.dist.styles));
 });

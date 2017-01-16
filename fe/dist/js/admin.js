@@ -42,9 +42,7 @@ $(document).ready(function () {
   }
 
   function editItem (id) {
-    $detail
-      .data('id', id)
-      .slideDown();
+    $detail.data('id', id).slideDown();
   }
 
   function deleteItem (id) {
@@ -83,9 +81,7 @@ $(document).ready(function () {
   }
 
   function closeItem () {
-    $detail
-      .data('id', '')
-      .slideUp();
+    $detail.data('id', '').slideUp();
   }
 
   function doneEditItem (id) {
