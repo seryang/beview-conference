@@ -39,15 +39,13 @@ $(document).ready(function () {
     if (!ajaxDone) {
       return;
     }
-    if (!validation()) {
+    var data = Utils.getFormDataToJSON($form.serializeArray());
+
+    if (!validation(data)) {
       return;
     };
 
     ajaxDone = false;
-    var data = {
-      id: $id.val(),
-      password: $password.val()
-    };
     UserService.login(data)
       .then(successLogin, failLogin)
       .always(handleAjaxDone);
@@ -61,16 +59,14 @@ $(document).ready(function () {
    *
    * @return {boolean} true - 검증 통과, false - 검증 실패
    */
-  function validation () {
-    var id = $id.val();
-    var password = $password.val();
+  function validation (data) {
 
-    if (!rEmail.test(id)) {
+    if (!rEmail.test(data.id)) {
       alert('아이디가 이메일 형식이 아닙니다.');
       $id.focus();
       return;
     }
-    if (password.length < 6) {
+    if (data.password.length < 6) {
       alert('비밀번호는 6자리 이상이어야 합니다.');
       $password.focus();
       return;

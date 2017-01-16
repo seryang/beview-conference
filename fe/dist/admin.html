@@ -36,7 +36,10 @@
         <label for="speaker-track">발표자</label>
       </div>
 
-      <h1 class="title"></h1>
+      <div class="title-area">
+        <h1 class="title"></h1>
+        <a href="#" class="button sm register right">등록</a>
+      </div>
       <section class="item-container" data-id="1">
         <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
         <p class="item-description">
@@ -84,7 +87,113 @@
       </section>
     </article>
 
-    <article class="detail" data-id="1">
+    <article class="register layer">
+      <section class="form conference">
+        <h1 class="title">컨퍼런스 등록</h1>
+        <form name="conferenceForm" novalidate>
+          <label for="item-id">아이디</label>
+          <input type="text" name="id" id="item-id" placeholder="컨퍼런스 ID를 입력해주세요." required>
+          <label for="item-name">이름</label>
+          <input type="text" name="name" id="item-name" placeholder="컨퍼런스 이름을 입력해주세요." required>
+          <label for="item-start-date">시작일</label>
+          <input type="date" name="start-date" id="item-start-date" placeholder="컨퍼런스 시작일을 입력해주세요." required>
+          <label for="item-end-date">완료일</label>
+          <input type="date" name="end-date" id="item-end-date" placeholder="컨퍼런스 완료일을 입력해주세요." required>
+          <label for="item-location">장소</label>
+          <input type="text" name="location" id="item-location" placeholder="컨퍼런스 장소를 입력해주세요." required>
+          <div class="meta-action right margin-top-20">
+            <a href="#" class="button sm cancel">뒤로 가기</a>
+            <a href="#" class="button sm done create">만들기</a>
+          </div>
+        </form>
+      </section>
+
+      <section class="form track">
+        <h1 class="title">트랙 등록</h1>
+        <form name="trackForm" novalidate>
+          <label for="item-id">컨퍼런스 아이디</label>
+          <select name="id" id="item-id" required>
+            <option value="beview2015" selected>BeView 2015</option>
+            <option value="beview2016">BeView 2016</option>
+            <option value="beview2017">BeView 2017</option>
+          </select>
+          <label for="item-name">이름</label>
+          <input type="text" name="name" id="item-name" placeholder="트랙 이름을 입력해주세요." required>
+          <label for="item-location">장소</label>
+          <input type="text" name="location" id="item-location" placeholder="트랙 장소를 입력해주세요." required>
+          <div class="meta-action right margin-top-20">
+            <a href="#" class="button sm cancel">뒤로 가기</a>
+            <a href="#" class="button sm done create">만들기</a>
+          </div>
+        </form>
+      </section>
+
+      <section class="form session">
+        <h1 class="title">세션 등록</h1>
+        <form name="sessionForm" novalidate>
+          <label for="item-track-name">트랙 이름</label>
+          <select name="track-name" id="item-track-name" required>
+            <option value="Android" selected>Android</option>
+            <option value="iOS">iOS</option>
+            <option value="Front-end">Front-End</option>
+          </select>
+          <label for="item-speaker-name">발표자 이름</label>
+          <select name="speaker-id" id="item-speaker-name" required>
+            <option value="0" selected>최세량</option>
+            <option value="1">최승호</option>
+            <option value="2">현승호</option>
+            <option value="3">서찬수</option>
+            <option value="4">박성현</option>
+          </select>
+          <label for="item-name">이름</label>
+          <input type="text" name="name" id="item-name" placeholder="세션 이름을 입력해주세요." required>
+          <label for="item-description">설명</label>
+          <input type="text" name="description" id="item-description" placeholder="세션 설명을 입력해주세요." required>
+          <label for="item-time">시간</label>
+          <select name="time" id="item-time" required>
+            <option value="0">09:00 ~ 09:50</option>
+            <option value="1">10:00 ~ 10:50</option>
+            <option value="2">11:00 ~ 11:50</option>
+            <option value="3">12:00 ~ 12:50</option>
+            <option value="4">13:00 ~ 13:50</option>
+            <option value="5">14:00 ~ 14:50</option>
+            <option value="6">15:00 ~ 15:50</option>
+            <option value="7">16:00 ~ 16:50</option>
+            <option value="8">17:00 ~ 17:50</option>
+          </select>
+          <input type="hidden" name="file" required>
+          <label for="item-file">발표자료 (Option)</label>
+          <input type="file" accept="image/*,.pdf,.ppt,.txt" name="file-input" id="item-file" placeholder="발표자료를 선택해주세요.">
+          <div class="meta-action right">
+            <a href="#" class="button sm cancel">뒤로 가기</a>
+            <a href="#" class="button sm done create">만들기</a>
+          </div>
+        </form>
+      </section>
+
+      <section class="form speaker">
+        <h1 class="title">발표자 등록</h1>
+        <form name="speakerForm" novalidate>
+          <label for="item-name">이름</label>
+          <input type="text" name="name" id="item-name" placeholder="발표자 이름을 입력해주세요." required>
+          <label for="item-mail">이메일</label>
+          <input type="email" name="email" id="item-email" placeholder="발표자 이메일을 입력해주세요." required>
+          <label for="item-phone">연락처</label>
+          <input type="tel" name="phone" id="item-phone" placeholder="발표자 연락처를 입력해주세요." required>
+          <label for="item-description">소개</label>
+          <input type="text" name="description" id="item-description" placeholder="발표자 소개를 입력해주세요." required>
+          <input type="hidden" name="img">
+          <label for="item-file">사진</label>
+          <input type="file" accept="image/*" name="file-input" id="item-file" placeholder="발표자 사진을 선택해주세요.">
+          <div class="meta-action right">
+            <a href="#" class="button sm cancel">뒤로 가기</a>
+            <a href="#" class="button sm done create">만들기</a>
+          </div>
+        </form>
+      </section
+    </article>
+
+    <article class="detail layer" data-id="1">
       <h2 class="title">현승호와 함께하는 안드로이드 심화학습</h2>
       <div class="item-description">
         <p>언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!</p>
@@ -97,9 +206,25 @@
     </article>
   </div>
 
+  <script id="conference-template" type="text/x-handlebars-template">
+    {{#each items}}
+      {{> item}}
+    {{/each}}
+  </script>
+  <script id="conference-partial" type="text/x-handlebars-template">
+    <li data-id="{{id}}" {{#if completed}}class="completed"{{/if}}>
+      <div class="view">
+        <input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
+        <label>{{todo}}</label>
+        <button class="destroy"></button>
+      </div>
+      <input class="edit" value="{{todo}}">
+    </li>
+  </script>
   <script type="text/javascript" src="lib/jquery.min.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
   <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/file.service.js"></script>
   <script type="text/javascript" src="js/admin.service.js"></script>
   <script type="text/javascript" src="js/user.service.js"></script>
   <script type="text/javascript" src="js/navbar.js"></script>
