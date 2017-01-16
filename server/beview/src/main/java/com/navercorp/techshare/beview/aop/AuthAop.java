@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.navercorp.techshare.beview.exception.AuthorizationException;
+import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.service.AuthService;
 
 @Aspect
@@ -20,9 +21,8 @@ public class AuthAop {
 	public Object auth(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		if (!authService.cookieCheck()) {
-			throw new AuthorizationException("로그인이 필요합니다.");
+			throw new AuthorizationException(Error.AUTHORIZED_FAIL);
 		}
-
 		return joinPoint.proceed();
 	}
 }

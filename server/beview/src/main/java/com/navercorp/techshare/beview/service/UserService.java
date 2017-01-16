@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.sun.net.httpserver.HttpContext;
 
 import com.navercorp.techshare.beview.exception.AuthorizationException;
+import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.model.User;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
 import com.navercorp.techshare.beview.repository.UserDao;
@@ -24,14 +25,11 @@ public class UserService {
 	private HttpServletResponse response;
 
 	@Autowired
-	private HttpServletRequest request;
-
-	@Autowired
 	private UserDao userDao;
 
 	public AjaxResponse insertUser(User user) {
 		if (userDao.getUser(user.getId()) != null) {
-			throw new AuthorizationException("존재하는 ID입니다.");
+			throw new AuthorizationException(Error.EXIST_ID);
 		}
 		userDao.insertUser(user);
 		return new AjaxResponse();
@@ -41,7 +39,7 @@ public class UserService {
 		User existUser = userDao.getUser(user);
 
 		if (existUser == null) {
-			throw new AuthorizationException("ID 또는 Password가 잘못되었습니다.");
+			throw new AuthorizationException(Error.LOGIN_FAIL);
 		}
 
 		Cookie cookie = new Cookie("id", existUser.getId());
@@ -63,7 +61,7 @@ public class UserService {
 
 	public AjaxResponse checkEmail(String email) {
 		if (userDao.getUser(email) != null) {
-			throw new AuthorizationException("존재하는 ID입니다.");
+			throw new AuthorizationException(Error.EXIST_ID);
 		}
 		return new AjaxResponse();
 	}

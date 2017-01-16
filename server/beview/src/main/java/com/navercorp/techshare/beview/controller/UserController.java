@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.navercorp.techshare.beview.exception.AuthorizationException;
+import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.model.User;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
 import com.navercorp.techshare.beview.service.AuthService;
@@ -41,7 +42,7 @@ public class UserController {
 	@PostMapping
 	public AjaxResponse insertUser(@RequestBody @Valid User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			throw new AuthorizationException("잘못된 입력입니다.");
+			throw new AuthorizationException(Error.INVALID);
 		}
 		return userService.insertUser(user);
 	}
@@ -66,7 +67,7 @@ public class UserController {
 	@PostMapping("/login")
 	public AjaxResponse login(@RequestBody @Valid User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			throw new AuthorizationException("valid error");
+			throw new AuthorizationException(Error.INVALID);
 		}
 		return userService.loginUser(user);
 	}
