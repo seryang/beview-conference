@@ -23,8 +23,6 @@ import com.navercorp.techshare.beview.repository.UserDao;
 @Service
 public class AuthService {
 
-	private final Logger logger = LoggerFactory.getLogger(AuthService.class);
-
 	@Autowired
 	private HttpServletRequest httpRequest;
 
@@ -71,6 +69,7 @@ public class AuthService {
 			cookie.setPath("/");
 			httpResponse.addCookie(cookie);
 		}
+
 		return new AjaxResponse();
 	}
 }
