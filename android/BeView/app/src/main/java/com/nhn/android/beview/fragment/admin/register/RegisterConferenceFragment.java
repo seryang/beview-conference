@@ -1,8 +1,9 @@
-package com.nhn.android.beview.fragment;
+package com.nhn.android.beview.fragment.admin.register;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -20,6 +21,8 @@ import com.nhn.android.beview.listener.OnDateSelectedListener;
 import com.nhn.android.beview.model.Conference;
 
 import java.util.Calendar;
+
+import static android.view.View.GONE;
 
 public class RegisterConferenceFragment extends RegisterFragment implements View.OnClickListener, OnDateSelectedListener {
 
@@ -122,7 +125,6 @@ public class RegisterConferenceFragment extends RegisterFragment implements View
         }
     }
 
-    //TODO
     private void registerConferenceData() {
 
     }
@@ -197,6 +199,24 @@ public class RegisterConferenceFragment extends RegisterFragment implements View
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, day);
             onDateSelectedListener.OnDateSelected(currentState, calendar);
+        }
+    }
+
+    private class PostTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
         }
     }
 }

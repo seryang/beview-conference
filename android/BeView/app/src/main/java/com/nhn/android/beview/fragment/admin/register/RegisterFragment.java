@@ -1,4 +1,4 @@
-package com.nhn.android.beview.fragment;
+package com.nhn.android.beview.fragment.admin.register;
 
 import android.support.v4.app.Fragment;
 

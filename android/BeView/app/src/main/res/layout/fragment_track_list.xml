@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.nhn.android.beview.fragment.TrackFragment"
+    tools:context="com.nhn.android.beview.fragment.admin.TrackFragment"
     tools:listitem="@layout/fragment_track" />

@@ -1,5 +1,6 @@
 package com.nhn.android.beview.adapter;
 
+import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,19 +8,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nhn.android.beview.R;
-import com.nhn.android.beview.fragment.ConferenceFragment;
+import com.nhn.android.beview.fragment.admin.ConferenceFragment;
+import com.nhn.android.beview.listener.OnItemButtonClickListener;
 import com.nhn.android.beview.model.Conference;
 
 import java.util.List;
 
 public class MyConferenceRecyclerViewAdapter extends RecyclerView.Adapter<MyConferenceRecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
 
-    private final List<Conference> mValues;
-    private final ConferenceFragment.OnConferenceFragmentListener mListener;
+    private final List<Conference> conferenceList;
+    private final ConferenceFragment.OnConferenceFragmentListener onConferenceFragmentListener;
+    private OnItemButtonClickListener onItemButtonClickListener;
 
-    public MyConferenceRecyclerViewAdapter(List<Conference> items, ConferenceFragment.OnConferenceFragmentListener listener) {
-        mValues = items;
-        mListener = listener;
+    public MyConferenceRecyclerViewAdapter(List<Conference> items,
+                                           ConferenceFragment.OnConferenceFragmentListener listener,
+                                           OnItemButtonClickListener onItemButtonClickListener) {
+        conferenceList = items;
+        onConferenceFragmentListener = listener;
+        this.onItemButtonClickListener = onItemButtonClickListener;
     }
 
     @Override
@@ -31,20 +37,20 @@ public class MyConferenceRecyclerViewAdapter extends RecyclerView.Adapter<MyConf
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.conference = mValues.get(position);
-        holder.tvId.setText(mValues.get(position).getStrId());
-        holder.tvName.setText(mValues.get(position).getName());
-        holder.tvStartDate.setText(mValues.get(position).getStringStartDate());
-        holder.tvEndDate.setText(mValues.get(position).getStringEndDate());
-        holder.tvLocation.setText(mValues.get(position).getLocation());
+        holder.conference = conferenceList.get(position);
+        holder.tvId.setText(conferenceList.get(position).getStrId());
+        holder.tvName.setText(conferenceList.get(position).getName());
+        holder.tvStartDate.setText(conferenceList.get(position).getStringStartDate());
+        holder.tvEndDate.setText(conferenceList.get(position).getStringEndDate());
+        holder.tvLocation.setText(conferenceList.get(position).getLocation());
         holder.tvUpdate.setOnClickListener(this);
         holder.tvDelete.setOnClickListener(this);
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onConferenceFragmentInteraction(holder.conference);
+                if (null != onConferenceFragmentListener) {
+                    onConferenceFragmentListener.onConferenceFragmentInteraction(holder.conference);
                 }
             }
         });
@@ -52,12 +58,12 @@ public class MyConferenceRecyclerViewAdapter extends RecyclerView.Adapter<MyConf
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return conferenceList.size();
     }
 
     @Override
     public void onClick(View v) {
-
+        onItemButtonClickListener.onItemClick(v.getId());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

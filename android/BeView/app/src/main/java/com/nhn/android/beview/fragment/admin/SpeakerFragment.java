@@ -1,7 +1,8 @@
-package com.nhn.android.beview.fragment;
+package com.nhn.android.beview.fragment.admin;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +14,13 @@ import com.nhn.android.beview.R;
 import com.nhn.android.beview.adapter.MySpeakerRecyclerViewAdapter;
 import com.nhn.android.beview.fragment.dummy.DummyContent;
 import com.nhn.android.beview.fragment.dummy.DummyContent.DummyItem;
+import com.nhn.android.beview.fragment.dummy.SpeakerDummy;
+import com.nhn.android.beview.listener.OnItemButtonClickListener;
 
-public class SpeakerFragment extends Fragment {
+public class SpeakerFragment extends Fragment implements OnItemButtonClickListener{
 
-    private OnSpeakerFragmentListener mListener;
+    public static final String TAG = "SpeakerFragment";
+    private MySpeakerRecyclerViewAdapter adapter;
 
     public SpeakerFragment() {
     }
@@ -40,41 +44,18 @@ public class SpeakerFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MySpeakerRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MySpeakerRecyclerViewAdapter(SpeakerDummy.ITEMS, this));
         }
         return view;
     }
 
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnSpeakerFragmentListener) {
-            mListener = (OnSpeakerFragmentListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnConferenceFragmentListener");
-        }
+    public String toString() {
+        return TAG;
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+    public void onItemClick(@IdRes int id) {
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnSpeakerFragmentListener {
-        // TODO: Update argument type and name
-        void onSpeakerFragmentInteraction(DummyItem item);
     }
 }

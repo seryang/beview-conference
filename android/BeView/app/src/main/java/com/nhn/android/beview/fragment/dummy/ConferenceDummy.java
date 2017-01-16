@@ -28,12 +28,12 @@ public class ConferenceDummy {
 
     private static void addItem(Conference item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.getId(), item);
+        ITEM_MAP.put(item.getIdx(), item);
     }
 
     private static Conference createDummyItem(int position) {
         Conference conference = new Conference();
-        conference.setId(1);
+        conference.setIdx(1);
         conference.setEndDate(new Date());
         conference.setStartDate(new Date());
         conference.setLocation("코엑스");

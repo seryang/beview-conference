@@ -1,7 +1,6 @@
 package com.nhn.android.beview.activity;
 
 import android.content.Intent;
-import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,12 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.nhn.android.beview.R;
-import com.nhn.android.beview.fragment.JoinFragment;
-import com.nhn.android.beview.fragment.LoginFragment;
+import com.nhn.android.beview.fragment.user.JoinFragment;
+import com.nhn.android.beview.fragment.user.LoginFragment;
 
 import java.io.Serializable;
 
-import static com.nhn.android.beview.UserConstants.*;
+import static com.nhn.android.beview.AppConstants.*;
 
 public class UserActivity extends AppCompatActivity implements LoginFragment.OnLoginFragmentListener, JoinFragment.OnJoinFragmentListener {
 

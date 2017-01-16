@@ -12,45 +12,46 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
         android:textSize="30dp"
-        tools:text="2017 BeView" />
+        tools:text="Advanced Android lecture" />
 
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/text_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#969696"
+        android:text="SeungHo Hyun's Advanced Android Lecture will be opend at 11am, he is best programmer" />
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/text_track"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="idx : " />
-
-        <TextView
-            android:id="@+id/text_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:gravity="center"
             android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="deview_2017" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right">
+            android:textColor="#777777"
+            tools:text="Track 1" />
 
         <TextView
             android:id="@+id/text_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="#777777"
-            tools:text="2017. 10. 17" />
+            tools:text="10:00" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text=" ~ "
             android:textColor="#777777" />
 
@@ -59,9 +60,11 @@
             android:id="@+id/text_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="#777777"
-            tools:text="2017. 10. 24" />
+            tools:text="11:00" />
 
     </LinearLayout>
 
@@ -71,20 +74,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="장소 : "
-            android:textColor="@color/colorAccent"
-            android:textSize="22dp" />
-
-        <TextView
-            android:id="@+id/text_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:textSize="22dp"
-            tools:text="코엑스" />
 
         <LinearLayout
             android:layout_width="match_parent"

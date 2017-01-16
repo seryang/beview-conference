@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nhn.android.beview.R;
-import com.nhn.android.beview.fragment.SpeakerFragment;
-import com.nhn.android.beview.fragment.dummy.DummyContent.DummyItem;
+import com.nhn.android.beview.listener.OnItemButtonClickListener;
+import com.nhn.android.beview.model.Speaker;
 
 import java.util.List;
 
-public class MySpeakerRecyclerViewAdapter extends RecyclerView.Adapter<MySpeakerRecyclerViewAdapter.ViewHolder> {
+public class MySpeakerRecyclerViewAdapter extends RecyclerView.Adapter<MySpeakerRecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
 
-    private final List<DummyItem> mValues;
-    private final SpeakerFragment.OnSpeakerFragmentListener mListener;
+    private final List<Speaker> speakerList;
+    private final OnItemButtonClickListener onItemButtonClickListener;
 
-    public MySpeakerRecyclerViewAdapter(List<DummyItem> items, SpeakerFragment.OnSpeakerFragmentListener listener) {
-        mValues = items;
-        mListener = listener;
+    public MySpeakerRecyclerViewAdapter(List<Speaker> speakerList, OnItemButtonClickListener onItemButtonClickListener) {
+        this.speakerList = speakerList;
+        this.onItemButtonClickListener = onItemButtonClickListener;
     }
 
     @Override
@@ -31,43 +31,45 @@ public class MySpeakerRecyclerViewAdapter extends RecyclerView.Adapter<MySpeaker
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onSpeakerFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        holder.item = speakerList.get(position);
+        holder.tvName.setText(speakerList.get(position).getName());
+        holder.tvEmail.setText(speakerList.get(position).getEmail());
+        holder.tvPhone.setText(speakerList.get(position).getPhone());
+        holder.tvDescription.setText(speakerList.get(position).getDescription());
+        holder.tvUpdate.setOnClickListener(this);
+        holder.tvDelete.setOnClickListener(this);
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return speakerList.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        onItemButtonClickListener.onItemClick(v.getId());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView tvName, tvEmail, tvPhone, tvDescription;
+        public final TextView tvUpdate, tvDelete;
+        public Speaker item;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            tvName = (TextView) view.findViewById(R.id.text_name);
+            tvEmail = (TextView) view.findViewById(R.id.text_email);
+            tvPhone = (TextView) view.findViewById(R.id.text_phone);
+            tvDescription = (TextView) view.findViewById(R.id.text_description);
+            tvUpdate = (TextView) view.findViewById(R.id.text_update);
+            tvDelete = (TextView) view.findViewById(R.id.text_delete);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + tvName.getText() + "'";
         }
     }
 }

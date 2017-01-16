@@ -10,6 +10,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="conference">컨퍼런스</string>
     <string name="track">트랙</string>
-    <string name="session">세션</string>
+    <string name="section">섹션</string>
     <string name="speaker">발표자</string>
 </resources>

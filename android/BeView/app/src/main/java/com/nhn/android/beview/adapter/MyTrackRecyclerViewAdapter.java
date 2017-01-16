@@ -7,67 +7,66 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nhn.android.beview.R;
-import com.nhn.android.beview.fragment.TrackFragment;
-import com.nhn.android.beview.fragment.dummy.DummyContent.DummyItem;
+import com.nhn.android.beview.fragment.admin.TrackFragment;
+import com.nhn.android.beview.listener.OnItemButtonClickListener;
+import com.nhn.android.beview.model.Track;
 
 import java.util.List;
 
-public class MyTrackRecyclerViewAdapter extends RecyclerView.Adapter<MyTrackRecyclerViewAdapter.ViewHolder> {
+public class MyTrackRecyclerViewAdapter extends RecyclerView.Adapter<MyTrackRecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
 
-    private final List<DummyItem> mValues;
-    private final TrackFragment.OnTrackFragmentListener mListener;
+    private final List<Track> trackList;
+    private final OnItemButtonClickListener onItemButtonClickListener;
 
-    public MyTrackRecyclerViewAdapter(List<DummyItem> items, TrackFragment.OnTrackFragmentListener listener) {
-        mValues = items;
-        mListener = listener;
+    public MyTrackRecyclerViewAdapter(List<Track> trackList, OnItemButtonClickListener onItemButtonClickListener) {
+        this.trackList = trackList;
+        this.onItemButtonClickListener = onItemButtonClickListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View layout = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_track, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(layout);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onTrackFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        holder.mItem = trackList.get(position);
+        holder.tvName.setText(trackList.get(position).getName());
+        holder.tvLocation.setText(trackList.get(position).getLocation());
+        holder.tvUpdate.setOnClickListener(this);
+        holder.tvDelete.setOnClickListener(this);
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return trackList.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        onItemButtonClickListener.onItemClick(v.getId());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final View layout;
+        public final TextView tvName, tvLocation;
+        public final TextView tvUpdate, tvDelete;
+        public Track mItem;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            layout = view;
+            tvName = (TextView) view.findViewById(R.id.text_name);
+            tvLocation = (TextView) view.findViewById(R.id.text_location);
+            tvUpdate = (TextView) view.findViewById(R.id.text_update);
+            tvDelete = (TextView) view.findViewById(R.id.text_delete);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + tvLocation.getText() + "'";
         }
     }
 }

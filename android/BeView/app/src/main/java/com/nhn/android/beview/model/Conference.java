@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class Conference implements Serializable{
 
-    private int id;
+    private int idx;
     private String strId = "";
     private String name = "";
     private Date startDate;
@@ -42,12 +42,12 @@ public class Conference implements Serializable{
         this.location = location;
     }
 
-    public int getId() {
-        return id;
+    public int getIdx() {
+        return idx;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdx(int idx) {
+        this.idx = idx;
     }
 
     public String getStrId() {

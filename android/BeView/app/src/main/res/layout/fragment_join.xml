@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.nhn.android.beview.fragment.JoinFragment">
+    tools:context="com.nhn.android.beview.fragment.user.JoinFragment">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_id"
