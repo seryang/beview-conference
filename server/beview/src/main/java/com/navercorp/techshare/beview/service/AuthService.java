@@ -52,10 +52,13 @@ public class AuthService {
 		Cookie[] cookies = httpRequest.getCookies();
 
 		Map<String, String> map = new HashMap();
-		for(Cookie c : cookies){
-			logger.info("cookie name : " + c.getName() + " / " + c.getValue());
+		if(cookies.length != 0) {
+			for (Cookie c : cookies) {
+				logger.info("cookie name : " + c.getName() + " / " + c.getValue());
+			}
 		}
-		String c  = httpRequest.getHeader("Set-Cookie");
+
+		String c = httpRequest.getHeader("Set-Cookie");
 		logger.info("Set-Cookie : " + c);
 
 		if (cookies != null) {
