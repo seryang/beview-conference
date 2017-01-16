@@ -40,15 +40,13 @@ $(document).ready(function () {
     if (!ajaxDone) {
       return;
     }
-    if (!validation()) {
+    var data = Utils.getFormDataToJSON($form.serializeArray());
+
+    if (!validation(data)) {
       return;
     };
 
     ajaxDone = false;
-    var data = {
-      id: $id.val(),
-      password: $password.val()
-    };
     UserService.join(data)
       .then(successJoin, failJoin)
       .then(handleAjaxDone);
@@ -64,27 +62,24 @@ $(document).ready(function () {
    *
    * @return {boolean} true - 검증 통과, false - 검증 실패
    */
-  function validation () {
-    var id = $id.val();
-    var password = $password.val();
-    var password2 = $password2.val();
+  function validation (data) {
 
-    if (!rEmail.test(id)) {
+    if (!rEmail.test(data.id)) {
       alert('아이디가 이메일 형식이 아닙니다.');
       $id.focus();
       return;
     }
-    if (password.length < 6) {
+    if (data.password.length < 6) {
       alert('비밀번호는 6자리 이상이어야 합니다.');
       $password.focus();
       return;
     }
-    if (password2.length < 6) {
+    if (data.password2.length < 6) {
       alert('비밀번호는 6자리 이상이어야 합니다.');
       $password2.focus();
       return;
     }
-    if (password !== password2) {
+    if (data.password !== data.password2) {
       alert('비밀번호가 서로 다릅니다. 확인해주세요.');
       $password.focus();
       return;
