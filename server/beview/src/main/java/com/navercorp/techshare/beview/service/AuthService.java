@@ -23,6 +23,8 @@ import com.navercorp.techshare.beview.repository.UserDao;
 @Service
 public class AuthService {
 
+	private final Logger logger = LoggerFactory.getLogger(AuthService.class);
+
 	@Autowired
 	private HttpServletRequest httpRequest;
 
@@ -35,6 +37,8 @@ public class AuthService {
 	public boolean cookieCheck() {
 
 		Map<String, String> cookieMap = getCookie();
+
+		logger.info("Cookie : " + cookieMap);
 
 		if (cookieMap.isEmpty() || cookieMap.size() != 2) {
 			return false;
