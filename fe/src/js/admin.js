@@ -2,7 +2,7 @@ $(document).ready(function () {
   'use strict';
 
   var $description, $radioGroup, $title, $container;
-  var $layer, $register;
+  var $layer, $register, $forms;
   var type;
 
   var ajaxDone = true;
@@ -14,13 +14,15 @@ $(document).ready(function () {
     $title = $description.find('.title');
     $layer = $container.find('.layer');
     $register = $container.find('.layer.register');
+    $forms = $register.find('.form');
 
     NavBar.init();
     selectType();
 
     $radioGroup.on('click', 'input[type="radio"]', selectType);
     $description.on('click', 'a.register, a.edit, a.remove', itemAction);
-    $layer.on('click', 'a.cancel, a.done', layerAction);
+    $layer.on('click', 'a.cancel, a.done', layerAction)
+          .on('change', 'input[type="file"]', uploadFile);
   }
 
   function selectType () {
@@ -46,6 +48,11 @@ $(document).ready(function () {
   }
 
   function registerItem () {
+    $forms.hide()
+    // 1. 현재 type 에 해당하는 layer 보여주고
+    // 2. 해당 layer 기존 form data clear
+    $forms.filter('.' + type).show()
+          .find('form')[0].reset();
     $register.slideDown();
   }
 
@@ -79,21 +86,23 @@ $(document).ready(function () {
     e.stopPropagation();
 
     var $target = $(e.target);
-    var id = $layer.data('id');
 
     if ($target.hasClass('cancel')) {
       closeItem();
     } else if ($target.hasClass('create')) {
-      createItem();
+      createItem(e);
     } else if ($target.hasClass('done')) {
-      doneEditItem(id);
+      doneEditItem(e);
     }
   }
 
-  function createItem () {
-    var $form = $register.find('form');
+  function createItem (e) {
+    var $form = $(e.target).closest('form');
     var data = Utils.getFormDataToJSON($form.serializeArray());
-
+    // var files = $form.find(':file')[0].files;
+    console.log('form data ', data, files);
+    // 1. 파일 업로드
+    // 2. 아이템 생성
     return AdminService.create(type, data)
       .then(successCreateItem, failCreatItem)
       .always(handleAjaxDone);
@@ -111,11 +120,11 @@ $(document).ready(function () {
     $layer.data('id', '').slideUp();
   }
 
-  function doneEditItem (id) {
+  function doneEditItem (e) {
     if (!ajaxDone) {
       return;
     }
-
+    var id = $(e.target).closest('.layer').data('id')
     ajaxDone = false;
     return AdminService.update(type, {
       id: id
@@ -137,6 +146,32 @@ $(document).ready(function () {
 
   function handleAjaxDone () {
     ajaxDone = true;
+  }
+
+  function uploadFile (e) {
+    var file = this.files;
+    if (!file.length || !ajaxDone) {
+      return;
+    }
+    // file upload
+    ajaxDone = false;
+    return FileService.upload(type, file)
+      .then(function (res) {
+        return sucessUploadFile(e, res);
+      }, failUploadFile, progressUploadFile)
+      .always(handleAjaxDone);
+  }
+
+  function progressUploadFile (e) {
+    console.log(parseInt(e.loaded / e.total) + '%', e);
+  }
+
+  function successUploadFile (res) {
+    debugger;
+  }
+
+  function failUploadFile (error) {
+    debugger;
   }
 
   init();

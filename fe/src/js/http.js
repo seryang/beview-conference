@@ -28,16 +28,17 @@ var http = (function () {
       if (options.params) {
         options.url = convertUrl(options.url, options.params);
       }
-      if (options.data) {
+      if (options.data && !options.isFileServer) {
         options.data = JSON.stringify(options.data)
       }
 
-      Object.assign(options, {
+      options = Object.assign({
         method: method,
-        url: BASE_URL + options.url,
         contentType: 'application/json',
         dataType: 'json',
         timeout: 5000
+      }, options, {
+        url: BASE_URL + options.url        
       });
 
       return $.ajax(options);
