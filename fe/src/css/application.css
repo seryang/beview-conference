@@ -134,17 +134,22 @@ ul {
   border-color: #baff6e;
   color: #3ba492;
 }
+.button.register {
+  background-color: #3bbcef;
+  border-color: #3bbcef;
+  color: white;
+}
 
-/* login page css style */
-.description .form {
+/* form css style */
+.form {
   /*height: 100%;*/
 }
-.description .form label {
+.form label {
   margin-top: 40px;
   font-size: 14px;
   display: block;
 }
-.description .form input {
+.form input {
   display: block;
   width: 100%;
   height: 40px;
@@ -153,27 +158,36 @@ ul {
   font-size: 16px;
   padding: 0;
 }
-.description .form input:focus {
+.form input:focus {
   outline: 0px;
 }
-.description .form .action {
+.form .action {
   padding-top: 50px;
   text-align: center;
 }
-.description .form .action a {
+.form .action a {
   /*text-decoration: inherit;*/
   color: black;
   border-radius: 8px;
   padding: 10px 10px;
   font-size: 14px;
 }
-.description .form .submit {
+.form .submit {
   margin-left: 20%;
 }
 
 /* admin page css style */
-.description .title {
+.description .list-type {
+  padding-top: 20px;
+}
+.description .title-area {
   border-bottom: 2px solid black;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+.description .title {
+  display: inline;
 }
 .description .item-container {
   padding-bottom: 16px;
@@ -198,7 +212,7 @@ ul {
   padding-bottom: 10px;
 }
 
-.container .detail {
+.container .layer {
   padding: 10px 20px;
   position: fixed;
   top: 0;
@@ -207,9 +221,14 @@ ul {
   bottom: 0;
   background-color: white;
   display: none;
+  overflow: auto;
 }
 
-.container .detail .title {
+.container .layer .margin-top-20 {
+  margin-top: 20px;
+}
+
+.container .layer .title {
   padding: 10px 20px;
   background-color: black;
   color: white;

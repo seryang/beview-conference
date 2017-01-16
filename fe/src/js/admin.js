@@ -2,7 +2,7 @@ $(document).ready(function () {
   'use strict';
 
   var $description, $radioGroup, $title, $container;
-  var $detail;
+  var $layer, $register;
   var type;
 
   var ajaxDone = true;
@@ -12,14 +12,15 @@ $(document).ready(function () {
     $description = $('.description');
     $radioGroup = $('.list-type');
     $title = $description.find('.title');
-    $detail = $container.find('.detail');
+    $layer = $container.find('.layer');
+    $register = $container.find('.layer.register');
 
     NavBar.init();
     selectType();
 
     $radioGroup.on('click', 'input[type="radio"]', selectType);
-    $description.on('click', 'a.edit, a.remove', itemAction);
-    $detail.on('click', 'a.cancel, a.done', detailAction);
+    $description.on('click', 'a.register, a.edit, a.remove', itemAction);
+    $layer.on('click', 'a.cancel, a.done', layerAction);
   }
 
   function selectType () {
@@ -30,19 +31,26 @@ $(document).ready(function () {
   function itemAction (e) {
     e.preventDefault();
     e.stopPropagation();
-
     var $target = $(e.target);
-    var id = $target.closest('section.item-container').data('id');
 
-    if ($target.hasClass('edit')) {
-      editItem(id);
+    if ($target.hasClass('register')) {
+      registerItem();
     } else {
-      deleteItem(id);
+      var id = $target.closest('section.item-container').data('id');
+      if ($target.hasClass('edit')) {
+        editItem(id);
+      } else if ($target.hasClass('delete')) {
+        deleteItem(id);
+      }
     }
   }
 
+  function registerItem () {
+    $register.slideDown();
+  }
+
   function editItem (id) {
-    $detail.data('id', id).slideDown();
+    $layer.data('id', id).slideDown();
   }
 
   function deleteItem (id) {
@@ -66,22 +74,41 @@ $(document).ready(function () {
     alert(message);
   }
 
-  function detailAction (e) {
+  function layerAction (e) {
     e.preventDefault();
     e.stopPropagation();
 
     var $target = $(e.target);
-    var id = $detail.data('id');
+    var id = $layer.data('id');
 
     if ($target.hasClass('cancel')) {
       closeItem();
-    } else {
+    } else if ($target.hasClass('create')) {
+      createItem();
+    } else if ($target.hasClass('done')) {
       doneEditItem(id);
     }
   }
 
+  function createItem () {
+    var $form = $register.find('form');
+    var data = Utils.getFormDataToJSON($form.serializeArray());
+
+    return AdminService.create(type, data)
+      .then(successCreateItem, failCreatItem)
+      .always(handleAjaxDone);
+  }
+
+  function successCreateItem (res) {
+    alert('success create item');
+  }
+  function failCreatItem (error) {
+    var message = Utils.toFirstUpper(type) +  ' 생성 실패, ' + error.responseJSON.message;
+    alert(message);
+  }
+
   function closeItem () {
-    $detail.data('id', '').slideUp();
+    $layer.data('id', '').slideUp();
   }
 
   function doneEditItem (id) {
