@@ -27,6 +27,7 @@ public class ConferenceDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	// 컨퍼런스 유무 체크
 	public Conference isConference(String id) {
 		try {
 			return jdbcTemplate.queryForObject(ConferenceSQL.CONFERENCE_SELECT, conferenceRowMapper,
@@ -36,11 +37,13 @@ public class ConferenceDao {
 		}
 	}
 
+	// 컨퍼런스 생성
 	public Integer insertConference(Conference conference) {
 		return jdbcTemplate.update(ConferenceSQL.CONFERENCE_INSERT, conference.getId(), conference.getName(),
 			conference.getStartDate(), conference.getEndDate(), conference.getLocation());
 	}
 
+	// 컨퍼런스 전체 조회
 	public List<Conference> selectAllConference() {
 		try {
 			return jdbcTemplate.query(ConferenceSQL.CONFERENCE_SELECT_ALL, conferenceRowMapper);
@@ -49,11 +52,13 @@ public class ConferenceDao {
 		}
 	}
 
+	// 컨퍼런스 수정
 	public Integer updateConference(Conference conference) {
 		return jdbcTemplate.update(ConferenceSQL.CONFERENCE_UPDATE, conference.getId(), conference.getName(),
 			conference.getStartDate(), conference.getEndDate(), conference.getLocation(), conference.getIdx());
 	}
 
+	// 컨퍼런스 삭제
 	public Integer deleteConference(String id) {
 		return jdbcTemplate.update(ConferenceSQL.CONFERENCE_DELETE, id);
 	}
