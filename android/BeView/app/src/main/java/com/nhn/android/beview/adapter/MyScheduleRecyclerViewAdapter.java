@@ -1,4 +1,4 @@
-package com.nhn.android.beview.fragment;
+package com.nhn.android.beview.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nhn.android.beview.R;
+import com.nhn.android.beview.fragment.ScheduleFragment;
 import com.nhn.android.beview.fragment.dummy.DummyContent.DummyItem;
 
 import java.util.List;
