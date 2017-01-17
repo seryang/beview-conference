@@ -37,7 +37,9 @@ public class UploadService {
 		logger.info(uploadFile.getOriginalFilename());
 
 		// 파일 상대경로
-		String filePath = environment.getRequiredProperty(uploadUrl) + File.separator;
+//		String filePath = environment.getRequiredProperty(uploadUrl) + File.separator;
+		String filePath = "/home1/irteam/deploy/beview/dist/upload_files" + File.separator;
+		logger.info("filePath ------> " + filePath);
 		File file = new File(filePath);
 
 		logger.info(filePath);
