@@ -34,7 +34,7 @@ public class ConferenceService {
 
 	public AjaxResponse updateConference(Integer idx, Conference updateData) {
 
-		if (conferenceDao.isConferenceById(updateData.getId()) != null) {
+		if (conferenceDao.isConferenceById(updateData.getId(), idx) != null) {
 			throw new InvalidException(Error.EXIST_ID);
 		}
 

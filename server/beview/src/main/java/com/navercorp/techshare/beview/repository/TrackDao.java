@@ -56,6 +56,14 @@ public class TrackDao {
 		}
 	}
 
+	public Track isExistTrackInConference(Integer conferenceId, String name, String idx) {
+		try {
+			return jdbcTemplate.queryForObject(TrackSQL.IS_EXIST_TRACK_BEFORE_UPDATE, trackRowMapper, conferenceId, name, idx);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
 	public Integer updateTrack(String id, Track track) {
 		return jdbcTemplate.update(TrackSQL.UPDATE_TRACK, track.getName(), track.getLocation(),
 			id, track.getConferenceIdx());

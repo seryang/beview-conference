@@ -23,8 +23,7 @@ public class TrackService {
 	private TrackDao trackDao;
 
 	public AjaxResponse createTrack(Track track) {
-		Track dumy = trackDao.isExistTrackInConference(track.getConferenceIdx(), track.getName());
-		if (dumy != null) {
+		if (trackDao.isExistTrackInConference(track.getConferenceIdx(), track.getName()) != null) {
 			throw new InvalidException(Error.DUPLICATE);
 		}
 		trackDao.insertTrack(track);
@@ -40,7 +39,7 @@ public class TrackService {
 	}
 
 	public AjaxResponse updateTrack(String id, Track track) {
-		Track dumy = trackDao.isExistTrackInConference(track.getConferenceIdx(), track.getName());
+		Track dumy = trackDao.isExistTrackInConference(track.getConferenceIdx(), track.getName(), id);
 		if (dumy != null) {
 			throw new InvalidException(Error.DUPLICATE);
 		}

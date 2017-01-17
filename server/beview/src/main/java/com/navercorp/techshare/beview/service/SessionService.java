@@ -31,7 +31,7 @@ public class SessionService {
 	}
 
 	public AjaxResponse updateSession(Integer idx, Session updateData) {
-		if (sessionDao.isSession(updateData.getName(), updateData.getTrackIdx()) != null) {
+		if (sessionDao.isSession(updateData.getName(), updateData.getTrackIdx(), idx) != null) {
 			throw new InvalidException(Error.EXIST_NAME);
 		}
 

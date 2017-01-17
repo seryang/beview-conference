@@ -46,6 +46,15 @@ public class SessionDao {
 		}
 	}
 
+	public Session isSession(String name, Integer trackIdx, Integer idx) {
+		try {
+			return jdbcTemplate.queryForObject(SessionSQL.SESSION_CHECK_BEFORE_UPDATE, sessionRowMapper,
+				trackIdx, name, idx);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
 	// 세션 조회
 	public Session selectSession(Integer idx) {
 		try {

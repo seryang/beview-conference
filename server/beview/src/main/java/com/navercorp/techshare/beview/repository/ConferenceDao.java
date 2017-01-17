@@ -27,14 +27,29 @@ public class ConferenceDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	// 컨퍼런스 유무 체크
+	// 컨퍼런스 유무 체크 (생성전 체크)
 	public Conference isConferenceById(String id) {
 		try {
-			return jdbcTemplate.queryForObject(ConferenceSQL.CONFERENCE_SELECT_BY_ID, conferenceRowMapper,
+			return jdbcTemplate.queryForObject(ConferenceSQL.CONFERENCE_CHECK_BY_ID, conferenceRowMapper,
 				id);
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
+	}
+
+	// 컨퍼런스 유무 체크 (업데이트 전 체크)
+	public Conference isConferenceById(String id, Integer idx) {
+		try {
+			return jdbcTemplate.queryForObject(ConferenceSQL.CONFERENCE_CHECK_BY_ID_BEFORE_UPDATE, conferenceRowMapper,
+				id, idx);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	// 컨퍼런스 삭제
+	public Integer deleteConference(Integer idx) {
+		return jdbcTemplate.update(ConferenceSQL.CONFERENCE_DELETE, idx);
 	}
 
 	// 컨퍼런스 정보
@@ -66,10 +81,5 @@ public class ConferenceDao {
 	public Integer updateConference(Conference conference) {
 		return jdbcTemplate.update(ConferenceSQL.CONFERENCE_UPDATE, conference.getId(), conference.getName(),
 			conference.getStartDate(), conference.getEndDate(), conference.getLocation(), conference.getIdx());
-	}
-
-	// 컨퍼런스 삭제
-	public Integer deleteConference(Integer idx) {
-		return jdbcTemplate.update(ConferenceSQL.CONFERENCE_DELETE, idx);
 	}
 }
