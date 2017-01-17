@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -23,15 +25,12 @@ import com.navercorp.techshare.beview.model.response.AjaxResponse;
 @Service
 public class UploadService {
 
-	@Autowired
-	private Environment environment;
-
 	public AjaxResponse uploadFile(MultipartFile uploadFile, String uploadUrl, String returnUrl) {
 		// 파일
 		String filename = uploadFile.getOriginalFilename();
 
 		// 파일 상대경로
-		String filePath = environment.getRequiredProperty(uploadUrl) + File.separator;
+		String filePath = uploadUrl + File.separator;
 		File file = new File(filePath);
 
 		// 디렉토리 존재하지 않을경우 디렉토리 생성
@@ -46,6 +45,7 @@ public class UploadService {
 		String realFileNm = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 		String rlFileNm = filePath + realFileNm;
 
+
 		// 서버에 파일쓰기  ( Spring - FileCopyUtils )
 		MultipartFile upload = uploadFile;
 
@@ -56,6 +56,6 @@ public class UploadService {
 			throw new InvalidException(Error.UPLOAD_FAIL);
 		}
 
-		return new AjaxResponse(environment.getRequiredProperty(returnUrl) + realFileNm);
+		return new AjaxResponse(returnUrl + File.separator + realFileNm);
 	}
 }
