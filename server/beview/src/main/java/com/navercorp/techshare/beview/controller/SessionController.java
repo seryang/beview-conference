@@ -64,7 +64,7 @@ public class SessionController {
 	 */
 	@Auth
 	@GetMapping("{idx}")
-	public AjaxResponse selectSession(@PathVariable String idx) {
+	public AjaxResponse selectSession(@PathVariable Integer idx) {
 		return sessionService.selectSession(idx);
 	}
 
@@ -74,7 +74,7 @@ public class SessionController {
 	 * @param bindingResult
 	 * @return AjaxResponse
 	 */
-//	@Auth
+	@Auth
 	@PostMapping
 	public AjaxResponse createSession(@RequestBody @Valid Session session, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -85,13 +85,14 @@ public class SessionController {
 
 	/**
 	 * [세션 업데이트]
+	 *
 	 * @param idx
 	 * @param session
 	 * @return AjaxResponse
 	 */
 	@Auth
 	@PutMapping("/{idx}")
-	public AjaxResponse updateSession(@PathVariable String idx, @RequestBody @Valid Session session, BindingResult bindingResult){
+	public AjaxResponse updateSession(@PathVariable Integer idx, @RequestBody @Valid Session session, BindingResult bindingResult){
 		if (bindingResult.hasErrors()) {
 			throw new InvalidException(Error.INVALID);
 		}
@@ -106,12 +107,13 @@ public class SessionController {
 	 */
 	@Auth
 	@DeleteMapping("/{idx}")
-	public AjaxResponse deleteSession(@PathVariable String idx) {
+	public AjaxResponse deleteSession(@PathVariable Integer idx) {
 		return sessionService.deleteSession(idx);
 	}
 
 	/**
 	 * [발표자료 업로드]
+	 *
 	 * @param file
 	 * @return AjaxResponse
 	 */
