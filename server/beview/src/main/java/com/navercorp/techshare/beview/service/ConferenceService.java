@@ -21,7 +21,7 @@ public class ConferenceService {
 	private ConferenceDao conferenceDao;
 
 	public AjaxResponse createConference(Conference conference) {
-		if (conferenceDao.isConference(conference.getId()) != null) {
+		if (conferenceDao.isConferenceById(conference.getId()) != null) {
 			throw new InvalidException(Error.EXIST_ID);
 		}
 		conferenceDao.insertConference(conference);
@@ -32,19 +32,19 @@ public class ConferenceService {
 		return new AjaxResponse(conferenceDao.selectAllConference());
 	}
 
-	public AjaxResponse updateConference(String id, Conference updateData) {
+	public AjaxResponse updateConference(Integer idx, Conference updateData) {
 
-		if (conferenceDao.isConference(updateData.getId()) != null) {
+		if (conferenceDao.isConferenceById(updateData.getId()) != null) {
 			throw new InvalidException(Error.EXIST_ID);
 		}
 
-		Conference beforeData = conferenceDao.isConference(id);
+		Conference beforeData = conferenceDao.isConferenceByIdx(idx);
 		conferenceDao.updateConference(beforeData.convertData(updateData));
 		return new AjaxResponse();
 	}
 
-	public AjaxResponse deleteConference(String id) {
-		conferenceDao.deleteConference(id);
+	public AjaxResponse deleteConference(Integer idx) {
+		conferenceDao.deleteConference(idx);
 		return new AjaxResponse();
 	}
 }

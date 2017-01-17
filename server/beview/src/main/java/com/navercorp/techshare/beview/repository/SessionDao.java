@@ -47,14 +47,13 @@ public class SessionDao {
 	}
 
 	// 세션 조회
-	public Session selectSession(String idx) {
+	public Session selectSession(Integer idx) {
 		try {
 			return jdbcTemplate.queryForObject(SessionSQL.SESSION_SELECT, sessionRowMapper,
 				idx);
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
-
 	}
 
 	// 세션 업데이트
@@ -74,7 +73,7 @@ public class SessionDao {
 	}
 
 	// 세션 삭제
-	public Integer deleteSession(String idx) {
+	public Integer deleteSession(Integer idx) {
 		return jdbcTemplate.update(SessionSQL.SESSION_DELETE, idx);
 	}
 }
