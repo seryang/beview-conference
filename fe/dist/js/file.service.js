@@ -1,20 +1,34 @@
 var FileService = (function () {
   'use strict';
-  // 일반적으로 파일 서버는 웹 서버와 분리되어 있기 때문에
-  // 기존 http 서비스의 URL과 다른 Path를 사용한다.
+
+  // 파일 업로드 상태 indicator
+  var $uploading = $('.uploading');
 
   function upload (type, file) {
+    // 유저가 업로드한 파일을 이용해 FormData 생성
+    var data = new FormData();
+    data.append('file', file);
+
     return http.post({
       url: '/{type}/uploadFile',
       params: {type: type},
-      data: file,
+      data: data,
       isFileServer: true,
-      enctype: 'multipart/form-data',
-      contentType: false,
       dataType: false,
       cache: false,
-      processData: false
-    });
+      enctype: 'multipart/form-data',
+      contentType: false,
+      processData: false,
+      beforeSend: showUploadingState
+    }).always(hideUploadingState);
+  }
+
+  function showUploadingState () {
+    $uploading.show();
+  }
+
+  function hideUploadingState () {
+    $uploading.hide();
   }
 
   return {

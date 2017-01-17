@@ -11,25 +11,25 @@ var UserService = (function () {
     },
     join: function (data) {
       return http.post({
-        url: '/user',
+        url: '/users',
         data: data
       });
     },
     idCheck: function (params) {
       return http.get({
-        url: '/user/check',
+        url: '/users/check',
         params: params
       });
     },
     login: function (data) {
       return http.post({
-        url: '/user/login',
+        url: '/users/login',
         data: data
       });
     },
     logout: function () {
       return http.post({
-        url: '/user/logout'
+        url: '/users/logout'
       });
     }
   };
