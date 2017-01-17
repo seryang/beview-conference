@@ -54,7 +54,6 @@ public class SessionDao {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
-
 	}
 
 	// 세션 업데이트

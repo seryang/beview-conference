@@ -31,8 +31,8 @@ public class ConferenceController {
 	private ConferenceService conferenceService;
 
 	//? 컨퍼런스 조회 - 해당 컨퍼런스 전체 스케줄 조회
-//	@GetMapping("/{id}")
-//	public AjaxResponse conferenceInfo(@PathVariable String id){
+//	@GetMapping("/{idx}")
+//	public AjaxResponse conferenceInfo(@PathVariable Integer idx){
 //
 //	}
 
@@ -65,29 +65,29 @@ public class ConferenceController {
 	/**
 	 *  [컨퍼런스 정보 수정]
 	 *
-	 * @param id
+	 * @param idx
 	 * @param conference
 	 * @return AjaxResponse
 	 */
 	@Auth
-	@PutMapping("/{id}")
-	public AjaxResponse updateConference(@PathVariable String id, @RequestBody @Valid Conference conference, BindingResult bindingResult) {
+	@PutMapping("/{idx}")
+	public AjaxResponse updateConference(@PathVariable Integer idx, @RequestBody @Valid Conference conference, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new InvalidException(Error.INVALID);
 		}
-		return conferenceService.updateConference(id, conference);
+		return conferenceService.updateConference(idx, conference);
 
 	}
 
 	/**
 	 *  [컨퍼런스 삭제]
 	 *
-	 * @param id
+	 * @param idx
 	 * @return AjaxResponse
 	 */
 	@Auth
-	@DeleteMapping("/{id}")
-	public AjaxResponse deleteConference(@PathVariable String id) {
-		return conferenceService.deleteConference(id);
+	@DeleteMapping("/{idx}")
+	public AjaxResponse deleteConference(@PathVariable Integer idx) {
+		return conferenceService.deleteConference(idx);
 	}
 }

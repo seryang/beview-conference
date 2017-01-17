@@ -28,10 +28,20 @@ public class ConferenceDao {
 	}
 
 	// 컨퍼런스 유무 체크
-	public Conference isConference(String id) {
+	public Conference isConferenceById(String id) {
 		try {
-			return jdbcTemplate.queryForObject(ConferenceSQL.CONFERENCE_SELECT, conferenceRowMapper,
+			return jdbcTemplate.queryForObject(ConferenceSQL.CONFERENCE_SELECT_BY_ID, conferenceRowMapper,
 				id);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	// 컨퍼런스 정보
+	public Conference isConferenceByIdx(Integer idx) {
+		try {
+			return jdbcTemplate.queryForObject(ConferenceSQL.CONFERENCE_SELECT_BY_IDX, conferenceRowMapper,
+				idx);
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
@@ -59,7 +69,7 @@ public class ConferenceDao {
 	}
 
 	// 컨퍼런스 삭제
-	public Integer deleteConference(String id) {
-		return jdbcTemplate.update(ConferenceSQL.CONFERENCE_DELETE, id);
+	public Integer deleteConference(Integer idx) {
+		return jdbcTemplate.update(ConferenceSQL.CONFERENCE_DELETE, idx);
 	}
 }
