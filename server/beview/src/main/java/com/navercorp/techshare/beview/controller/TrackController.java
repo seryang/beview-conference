@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.navercorp.techshare.beview.exception.AuthorizationException;
+import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.model.Track;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
 import com.navercorp.techshare.beview.service.TrackService;
@@ -32,7 +33,7 @@ public class TrackController {
 	@PostMapping
 	public AjaxResponse createTrack(@RequestBody @Valid Track track, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			throw new AuthorizationException("잘못 된 정보입니다.");
+			throw new AuthorizationException(Error.INVALID);
 		}
 		return trackService.createTrack(track);
 	}
