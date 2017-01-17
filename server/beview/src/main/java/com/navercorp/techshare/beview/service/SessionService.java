@@ -7,8 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.exception.InvalidException;
 import com.navercorp.techshare.beview.model.Session;
+import com.navercorp.techshare.beview.model.Speaker;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
 import com.navercorp.techshare.beview.repository.SessionDao;
+import com.navercorp.techshare.beview.repository.SpeakerDao;
 
 /**
  * Created by Naver on 2017. 1. 12..
@@ -20,13 +22,21 @@ public class SessionService {
 	@Autowired
 	private SessionDao sessionDao;
 
+	@Autowired
+	private SpeakerDao speakerDao;
+
 	public AjaxResponse createSession(Session session) {
 		if (sessionDao.isSession(session.getName(), session.getTrackIdx()) != null) {
 			throw new InvalidException(Error.EXIST_NAME);
 		}
-		sessionDao.insertSession(session);
+		int sessionIdx = sessionDao.insertSession(session);
 
-		//? speaker 테이블에 정보도 수정 (발표자 idx로 검색해서, 해당 session_idx에 업데이트
+		System.out.println("Create Session Idx : " + sessionIdx);
+
+		// speaker 테이블에 정보도 수정 (발표자 idx로 검색해서, 해당 session_idx에 업데이트)
+		Speaker speaker = speakerDao.selectSpeaker(String.valueOf(session.getIdx()));
+		speaker.setSessionIdx(sessionIdx);
+		speakerDao.updateSpeaker(String.valueOf(speaker.getIdx()), speaker);
 		return new AjaxResponse();
 	}
 
@@ -36,8 +46,20 @@ public class SessionService {
 		}
 
 		Session beforeData = sessionDao.selectSession(idx);
+
+		// speaker 테이블에 정보도 수정 (발표자 idx로 검색해서, 해당 session_idx에 업데이트
+		// 같으면 수정할 필요 없음
+		if (! (beforeData.getSpeakerIdx().equals(updateData.getSpeakerIdx()))) {
+			Speaker speaker = speakerDao.selectSpeaker(String.valueOf(beforeData.getSpeakerIdx()));
+			speaker.setSessionIdx(null);
+			speakerDao.updateSpeaker(String.valueOf(beforeData.getIdx()), speaker);
+
+			speaker = speakerDao.selectSpeaker(String.valueOf(updateData.getSpeakerIdx()));
+			speaker.setSessionIdx(idx);
+			speakerDao.updateSpeaker(String.valueOf(idx), speaker);
+		}
+
 		sessionDao.updateSession(beforeData.convertData(updateData));
-		//? speaker 테이블에 정보도 수정 (발표자 idx로 검색해서, 해당 session_idx에 업데이트
 		return new AjaxResponse();
 	}
 
@@ -46,8 +68,12 @@ public class SessionService {
 	}
 
 	public AjaxResponse deleteSession(Integer idx) {
+		int speakerIdx = sessionDao.selectSession(idx).getSpeakerIdx();
+		// speaker 테이블에 정보도 수정 (발표자 idx로 검색해서, 해당 session_idx에 업데이트)
+		Speaker speaker = speakerDao.selectSpeaker(String.valueOf(speakerIdx));
+		speaker.setSessionIdx(null);
+		speakerDao.updateSpeaker(String.valueOf(speaker.getIdx()), speaker);
 		sessionDao.deleteSession(idx);
-		//? speaker 테이블에 정보도 수정 (발표자 idx로 검색해서, 해당 session_idx에 업데이트
 		return new AjaxResponse();
 	}
 
