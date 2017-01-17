@@ -7,6 +7,7 @@ public enum Error {
 	AUTHORIZED_FAIL("로그인이 필요합니다."),
 	LOGIN_FAIL("ID 또는 Password가 잘못되었습니다."),
 	INVALID("잘못된 입력입니다."),
+	DUPLICATE("기존에 데이터가 존재합니다."),
 	UPLOAD_FAIL("업로드에 실패했습니다."),
 	EXIST_ID("이미 존재하는 ID입니다."),
 	EXIST_NAME("이미 존재하는 이름입니다.");

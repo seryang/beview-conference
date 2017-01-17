@@ -1,13 +1,12 @@
 package com.navercorp.techshare.beview.service;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.navercorp.techshare.beview.exception.AuthorizationException;
+import com.navercorp.techshare.beview.exception.Error;
+import com.navercorp.techshare.beview.exception.InvalidException;
 import com.navercorp.techshare.beview.model.Track;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
 import com.navercorp.techshare.beview.repository.TrackDao;
@@ -26,7 +25,7 @@ public class TrackService {
 	public AjaxResponse createTrack(Track track) {
 		Track dumy = trackDao.isExistTrackInConference(track.getConferenceIdx(), track.getName());
 		if (dumy != null) {
-			throw new AuthorizationException("기존에 저장 되어있습니다.");
+			throw new InvalidException(Error.DUPLICATE);
 		}
 		trackDao.insertTrack(track);
 		return new AjaxResponse();
@@ -43,7 +42,7 @@ public class TrackService {
 	public AjaxResponse updateTrack(String id, Track track) {
 		Track dumy = trackDao.isExistTrackInConference(track.getConferenceIdx(), track.getName());
 		if (dumy != null) {
-			throw new AuthorizationException("기존에 저장 되어있습니다.");
+			throw new InvalidException(Error.DUPLICATE);
 		}
 
 		trackDao.updateTrack(id, track);

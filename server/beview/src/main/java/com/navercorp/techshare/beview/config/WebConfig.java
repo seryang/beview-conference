@@ -42,7 +42,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 			.mediaType("xml", MediaType.APPLICATION_XML)
 			.mediaType("json", MediaType.APPLICATION_JSON);
 	}
-	
+
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
 			@Override
