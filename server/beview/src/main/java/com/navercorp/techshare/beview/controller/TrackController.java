@@ -24,7 +24,7 @@ import com.navercorp.techshare.beview.service.TrackService;
  */
 
 @RestController
-@RequestMapping("/api/track")
+@RequestMapping("/api/tracks")
 public class TrackController {
 
 	@Autowired
