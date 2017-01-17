@@ -2,6 +2,8 @@ package com.navercorp.techshare.beview.controller;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -23,6 +25,7 @@ import com.navercorp.techshare.beview.exception.InvalidException;
 import com.navercorp.techshare.beview.model.Conference;
 import com.navercorp.techshare.beview.model.Session;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
+import com.navercorp.techshare.beview.service.AuthService;
 import com.navercorp.techshare.beview.service.SessionService;
 import com.navercorp.techshare.beview.service.UploadService;
 
@@ -33,6 +36,8 @@ import com.navercorp.techshare.beview.service.UploadService;
 @RequestMapping("/api/sessions")
 @PropertySource("application.properties")
 public class SessionController {
+
+	private final Logger logger = LoggerFactory.getLogger(SessionController.class);
 
 	@Autowired
 	private SessionService sessionService;
@@ -118,6 +123,8 @@ public class SessionController {
 	@Auth
 	@PostMapping("/uploadFile")
 	public AjaxResponse fileUpload(MultipartFile file) {
+		logger.info(uploadUrl + " / " + returnUrl);
+		logger.info("file : " + file);
 		return uploadService.uploadFile(file, uploadUrl, returnUrl);
 	}
 }
