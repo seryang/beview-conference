@@ -68,7 +68,7 @@ public class SessionController {
 	 * @return AjaxResponse
 	 */
 	@Auth
-	@GetMapping("{idx}")
+	@GetMapping("/{idx}")
 	public AjaxResponse selectSession(@PathVariable Integer idx) {
 		return sessionService.selectSession(idx);
 	}

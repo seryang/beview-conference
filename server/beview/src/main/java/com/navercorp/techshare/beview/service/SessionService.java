@@ -34,7 +34,7 @@ public class SessionService {
 		System.out.println("Create Session Idx : " + sessionIdx);
 
 		// speaker 테이블에 정보도 수정 (발표자 idx로 검색해서, 해당 session_idx에 업데이트)
-		Speaker speaker = speakerDao.selectSpeaker(String.valueOf(session.getIdx()));
+		Speaker speaker = speakerDao.selectSpeaker(String.valueOf(session.getSpeakerIdx()));
 		speaker.setSessionIdx(sessionIdx);
 		speakerDao.updateSpeaker(String.valueOf(speaker.getIdx()), speaker);
 		return new AjaxResponse();
