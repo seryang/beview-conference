@@ -65,7 +65,7 @@ $(document).ready(function () {
       var id = $target.closest('section.item-container').data('id');
       if ($target.hasClass('edit')) {
         editItem(id);
-      } else if ($target.hasClass('delete')) {
+      } else if ($target.hasClass('remove')) {
         deleteItem(id);
       }
     }
@@ -81,7 +81,26 @@ $(document).ready(function () {
   }
 
   function editItem (id) {
+    if (!ajaxDone) {
+      return;
+    }
+
+    ajaxDone = false;
     $layer.data('id', id).slideDown();
+    return AdminService.get(type, {
+      id: id
+    }).then(successGetDetailItem, failGetDetailItem)
+      .always(handleAjaxDone);
+  }
+
+  function successGetDetailItem (res) {
+    // TODO: 서버에서 받아온 상세 정보, html 에 삽입
+    console.log('detail ', type, res);
+  }
+
+  function failGetDetailItem () {
+    var message = typeLabel + ' 상세 정보 로딩 실패, ' + error.responseJSON.message;
+    alert(message);
   }
 
   function deleteItem (id) {

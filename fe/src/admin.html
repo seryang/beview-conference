@@ -24,68 +24,57 @@
     </nav>
     <div class="clear"></div>
 
-    <article class="description">
+    <section class="description">
       <div class="list-type">
-        <input type="radio" name="list-type" id="radio-conference" value="conferences">
+        <input type="radio" name="list-type" id="radio-conference" value="conferences" checked>
         <label for="radio-conference">컨퍼런스</label>
         <input type="radio" name="list-type" id="radio-track" value="tracks">
         <label for="radio-track">트랙</label>
-        <input type="radio" name="list-type" id="session-track" value="sessions" checked>
+        <input type="radio" name="list-type" id="session-track" value="sessions">
         <label for="session-track">세션</label>
         <input type="radio" name="list-type" id="speaker-track" value="speakers">
         <label for="speaker-track">발표자</label>
       </div>
 
       <div class="title-area">
-        <h1 class="title"></h1>
+        <h1 class="title">Conference list</h1>
         <a href="#" class="button sm register right">등록</a>
       </div>
-      <section class="item-container" data-id="1">
-        <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
-        <p class="item-description">
-          언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!
-        </p>
-        <div class="meta-info">
-          <span class="item-time left">[09:00 ~ 10:00]</span>
-          <span class="item-speaker right">by 현승호</span>
-          <span class="item-parent-name right">[Android]</span>
-        </div>
-        <div class="meta-action clear">
-          <a href="#" class="button sm edit">수정</a>
-          <a href="#" class="button sm remove">삭제</a>
-        </div>
+
+      <!-- list item area -->
+      <section class="list-item-area">
+        <section class="item-container" data-id="10">
+          <h2 class="item-title">Track A</h2>
+          <div class="meta-info">
+            <span class="item-location">[Hall A]</span>
+          </div>
+          <div class="meta-action clear">
+            <a href="#" class="button sm edit">수정</a>
+            <a href="#" class="button sm remove">삭제</a>
+          </div>
+        </section>
+        <section class="item-container" data-id="10">
+          <h2 class="item-title">Track B</h2>
+          <div class="meta-info">
+            <span class="item-location">[Hall B]</span>
+          </div>
+          <div class="meta-action clear">
+            <a href="#" class="button sm edit">수정</a>
+            <a href="#" class="button sm remove">삭제</a>
+          </div>
+        </section>
+        <section class="item-container" data-id="12">
+          <h2 class="item-title">Track C</h2>
+          <div class="meta-info">
+            <span class="item-location">[Hall C]</span>
+          </div>
+          <div class="meta-action clear">
+            <a href="#" class="button sm edit">수정</a>
+            <a href="#" class="button sm remove">삭제</a>
+          </div>
+        </section>
       </section>
-      <section class="item-container" data-id="2">
-        <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
-        <p class="item-description">
-          언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!
-        </p>
-        <div class="meta-info">
-          <span class="item-time left">[09:00 ~ 10:00]</span>
-          <span class="item-speaker right">by 현승호</span>
-          <span class="item-parent-name right">[Android]</span>
-        </div>
-        <div class="meta-action clear">
-          <a href="#" class="button sm edit">수정</a>
-          <a href="#" class="button sm remove">삭제</a>
-        </div>
-      </section>
-      <section class="item-container" data-id="3">
-        <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
-        <p class="item-description">
-          언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!
-        </p>
-        <div class="meta-info">
-          <span class="item-time left">[09:00 ~ 10:00]</span>
-          <span class="item-speaker right">by 현승호</span>
-          <span class="item-parent-name right">[Android]</span>
-        </div>
-        <div class="meta-action clear">
-          <a href="#" class="button sm edit">수정</a>
-          <a href="#" class="button sm remove">삭제</a>
-        </div>
-      </section>
-    </article>
+    </section>
 
     <article class="register layer">
       <section class="form conferences">
@@ -210,20 +199,64 @@
     <img class="icon" src="img/uploading.gif">
   </div>
 
-  <script id="conference-template" type="text/x-handlebars-template">
+  <script id="list-template" type="text/x-handlebars-template">
     {{#each items}}
       {{> item}}
     {{/each}}
   </script>
+  <script id="not-found-item-template" type="text/x-handlebars-template">
+    {{item}}
+  </script>
+  <!-- TODO: template.js 이용해서 동적으로 엘리먼트 생성하기 -->
   <script id="conference-partial" type="text/x-handlebars-template">
-    <li data-id="{{id}}" {{#if completed}}class="completed"{{/if}}>
-      <div class="view">
-        <input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
-        <label>{{todo}}</label>
-        <button class="destroy"></button>
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description">ID: {{id}}</p>
+      <div class="meta-info">
+        <span class="item-time left">[{{startTime}} ~ {{endTime}}]</span>
+        <span class="item-location right">[{{location}}]</span>
       </div>
-      <input class="edit" value="{{todo}}">
-    </li>
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+  <script id="track-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description" data-id="{{conferenceIdx}}">Confercence: {{conferenceName}}</p>
+      <div class="meta-info">
+        <span class="item-location right">[{{location}}]</span>
+      </div>
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+  <script id="session-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description">{{description}}</p>
+      <div class="meta-info">
+        <span class="item-time left">[{{startTime}} ~ {{endTime}}]</span>
+        <span class="item-speaker right" data-id="{{speakerIdx}}">by {{speakerName}}</span>
+        <span class="item-track right" data-id="{{trackIdx}}">[{{trackName}}]</span>
+      </div>
+      <div class="meta-file right">
+        <a href="{{file}}">[발표 자료]</a>
+      </div>
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+  <script id="not-found-item-partial" type="text/x-handlebars-template">
+    <section class="item-container">
+      <span>아이템이 없습니다.</span>
+    </section>
   </script>
   <script type="text/javascript" src="lib/jquery.min.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
