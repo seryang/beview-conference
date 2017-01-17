@@ -1,5 +1,7 @@
 package com.navercorp.techshare.beview.model;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +14,21 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Track {
 	private Integer idx;
+	@NotNull
 	private String name;
+	@NotNull
 	private String location;
+	@NotNull
 	private Integer conferenceIdx;
+
+	public Track() {
+	}
+
+	public Track(Integer idx, String name, String location, Integer conferenceIdx) {
+		this.idx = idx;
+		this.name = name;
+		this.location = location;
+		this.conferenceIdx = conferenceIdx;
+	}
+
 }

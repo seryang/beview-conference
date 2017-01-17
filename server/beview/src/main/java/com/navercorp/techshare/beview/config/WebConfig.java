@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -41,7 +42,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 			.mediaType("xml", MediaType.APPLICATION_XML)
 			.mediaType("json", MediaType.APPLICATION_JSON);
 	}
-
+	
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
 			@Override
