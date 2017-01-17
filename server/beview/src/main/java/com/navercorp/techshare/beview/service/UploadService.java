@@ -25,29 +25,18 @@ import com.navercorp.techshare.beview.model.response.AjaxResponse;
 @Service
 public class UploadService {
 
-	@Autowired
-	private Environment environment;
-
-	private final Logger logger = LoggerFactory.getLogger(UploadService.class);
-
 	public AjaxResponse uploadFile(MultipartFile uploadFile, String uploadUrl, String returnUrl) {
 		// 파일
 		String filename = uploadFile.getOriginalFilename();
-		logger.info(uploadFile.getName());
-		logger.info(uploadFile.getOriginalFilename());
 
 		// 파일 상대경로
-//		String filePath = environment.getRequiredProperty(uploadUrl) + File.separator;
-		String filePath = "/home1/irteam/deploy/beview/dist/upload_files" + File.separator;
-		logger.info("filePath ------> " + filePath);
+		String filePath = uploadUrl + File.separator;
 		File file = new File(filePath);
 
-		logger.info(filePath);
 		// 디렉토리 존재하지 않을경우 디렉토리 생성
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		logger.info("!");
 
 		// 파일명 중복 방지 ( 임의값 생성 )
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -56,22 +45,17 @@ public class UploadService {
 		String realFileNm = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 		String rlFileNm = filePath + realFileNm;
 
-		logger.info("realFileName : " + realFileNm);
-		logger.info("rlFileNm : " + rlFileNm);
 
 		// 서버에 파일쓰기  ( Spring - FileCopyUtils )
 		MultipartFile upload = uploadFile;
 
 		try {
-			logger.info("copy ready");
 			FileCopyUtils.copy(upload.getInputStream(), new FileOutputStream(rlFileNm));
-			logger.info("copy pass");
 		} catch (IOException e) {
-			logger.info("IO exception ~~~~~~~~");
 			e.printStackTrace();
 			throw new InvalidException(Error.UPLOAD_FAIL);
 		}
 
-		return new AjaxResponse(environment.getRequiredProperty(returnUrl) + realFileNm);
+		return new AjaxResponse(returnUrl + File.separator + realFileNm);
 	}
 }

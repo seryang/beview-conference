@@ -123,8 +123,6 @@ public class SessionController {
 	@Auth
 	@PostMapping("/uploadFile")
 	public AjaxResponse fileUpload(MultipartFile file) {
-		logger.info(uploadUrl + " / " + returnUrl);
-		logger.info("file : " + file);
 		return uploadService.uploadFile(file, uploadUrl, returnUrl);
 	}
 }
