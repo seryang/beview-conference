@@ -186,14 +186,6 @@ $(document).ready(function () {
       .always(handleAjaxDone);
   }
 
-  function progressUploadFile (e) {
-    debugger;
-    $percentage.show();
-    var pencentage = parseInt(e.loaded / e.total);
-    console.log(percentage+'%', e);
-    $percentage.find('.percentage').css('width', percentage+'%');
-  }
-
   function successUploadFile (e, res) {
     var $hidden = $(e.target).siblings('[type="hidden"]');
     $hidden.val(res.message);
