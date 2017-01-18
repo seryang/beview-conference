@@ -67,8 +67,8 @@ public class SessionService {
 		return new AjaxResponse();
 	}
 
-	public AjaxResponse selectSessionList() {
-		return new AjaxResponse(sessionDao.selectAllSession());
+	public AjaxResponse selectSessionList(Integer page) {
+		return new AjaxResponse(sessionDao.selectAllSession(page));
 	}
 
 	public AjaxResponse deleteSession(Integer idx) {

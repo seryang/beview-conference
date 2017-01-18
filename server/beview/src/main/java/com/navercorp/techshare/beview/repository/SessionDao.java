@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.navercorp.techshare.beview.Utils.Pagination;
 import com.navercorp.techshare.beview.model.Session;
 import com.navercorp.techshare.beview.repository.sql.SessionSQL;
 
@@ -87,9 +88,16 @@ public class SessionDao {
 	}
 
 	// 세션 전체 조회
-	public List<Session> selectAllSession() {
+	public List<Session> selectAllSession(Integer page) {
 		try {
-			return jdbcTemplate.query(SessionSQL.SESSION_SELECT_ALL, sessionRowMapper);
+			String SELECT_ALL_SQL = SessionSQL.SESSION_SELECT_ALL;
+
+			if (page == null) {
+				return jdbcTemplate.query(SELECT_ALL_SQL, sessionRowMapper);
+			} else {
+				return jdbcTemplate.query(buildPageSQL(SELECT_ALL_SQL), sessionRowMapper, Pagination.getStart(page),
+					Pagination.getEnd());
+			}
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
@@ -98,5 +106,15 @@ public class SessionDao {
 	// 세션 삭제
 	public Integer deleteSession(Integer idx) {
 		return jdbcTemplate.update(SessionSQL.SESSION_DELETE, idx);
+	}
+
+	//	TODO 각 DAO에서 추상화 시켜야 함
+	private static String buildPageSQL(String SELECT_SQL) {
+		StringBuilder sql = new StringBuilder(SELECT_SQL);
+
+		String part = " limit ? , ?";
+		sql.append(part);
+
+		return sql.toString();
 	}
 }
