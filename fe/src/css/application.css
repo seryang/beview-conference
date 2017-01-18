@@ -219,6 +219,7 @@ ul {
 .description .meta-info .item-speaker {
   margin-right: 0px;
 }
+.description .meta-info,
 .description .meta-file {
   padding-top: 5px;
 }
@@ -279,7 +280,7 @@ footer {
   clear: both;
 }
 
-.uploading {
+.loading {
   position: fixed;
   overflow: hidden;
   top: 0;
@@ -289,7 +290,7 @@ footer {
   background-color: rgba(0, 0, 0, 0.6);
   display: none;
 }
-.uploading .icon {
+.loading .icon {
   position: relative;
   width: 50%;
   top: 50%;

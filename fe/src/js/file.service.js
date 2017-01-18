@@ -2,7 +2,7 @@ var FileService = (function () {
   'use strict';
 
   // 파일 업로드 상태 indicator
-  var $uploading = $('.uploading');
+  var $loading = $('.loading');
 
   function upload (type, file) {
     // 유저가 업로드한 파일을 이용해 FormData 생성
@@ -19,16 +19,16 @@ var FileService = (function () {
       enctype: 'multipart/form-data',
       contentType: false,
       processData: false,
-      beforeSend: showUploadingState
-    }).always(hideUploadingState);
+      beforeSend: showLoadingState
+    }).always(hideLoadingState);
   }
 
-  function showUploadingState () {
-    $uploading.show();
+  function showLoadingState () {
+    $loading.show();
   }
 
-  function hideUploadingState () {
-    $uploading.hide();
+  function hideLoadingState () {
+    $loading.hide();
   }
 
   return {

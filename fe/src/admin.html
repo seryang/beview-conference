@@ -42,38 +42,7 @@
       </div>
 
       <!-- list item area -->
-      <section class="list-item-area">
-        <section class="item-container" data-id="10">
-          <h2 class="item-title">Track A</h2>
-          <div class="meta-info">
-            <span class="item-location">[Hall A]</span>
-          </div>
-          <div class="meta-action clear">
-            <a href="#" class="button sm edit">수정</a>
-            <a href="#" class="button sm remove">삭제</a>
-          </div>
-        </section>
-        <section class="item-container" data-id="10">
-          <h2 class="item-title">Track B</h2>
-          <div class="meta-info">
-            <span class="item-location">[Hall B]</span>
-          </div>
-          <div class="meta-action clear">
-            <a href="#" class="button sm edit">수정</a>
-            <a href="#" class="button sm remove">삭제</a>
-          </div>
-        </section>
-        <section class="item-container" data-id="12">
-          <h2 class="item-title">Track C</h2>
-          <div class="meta-info">
-            <span class="item-location">[Hall C]</span>
-          </div>
-          <div class="meta-action clear">
-            <a href="#" class="button sm edit">수정</a>
-            <a href="#" class="button sm remove">삭제</a>
-          </div>
-        </section>
-      </section>
+      <section class="list-item-area"></section>
     </section>
 
     <article class="register layer">
@@ -195,26 +164,38 @@
     </article>
   </div>
 
-  <div class="uploading">
+  <div class="loading">
     <img class="icon" src="img/uploading.gif">
   </div>
 
   <script id="list-template" type="text/x-handlebars-template">
-    {{#each items}}
-      {{> item}}
+    {{#each conferences}}
+      {{> conference}}
+    {{/each}}
+    {{#each tracks}}
+      {{> track}}
+    {{/each}}
+    {{#each sessions}}
+      {{> session}}
+    {{/each}}
+    {{#each speakers}}
+      {{> speaker}}
     {{/each}}
   </script>
-  <script id="not-found-item-template" type="text/x-handlebars-template">
-    {{item}}
+  <script id="no-item-template" type="text/x-handlebars-template">
+    <section class="item-container">
+      <span>아이템이 없습니다.</span>
+    </section>
   </script>
-  <!-- TODO: template.js 이용해서 동적으로 엘리먼트 생성하기 -->
   <script id="conference-partial" type="text/x-handlebars-template">
     <section class="item-container" data-id="{{idx}}">
       <h2 class="item-title">{{name}}</h2>
       <p class="item-description">ID: {{id}}</p>
       <div class="meta-info">
-        <span class="item-time left">[{{startTime}} ~ {{endTime}}]</span>
-        <span class="item-location right">[{{location}}]</span>
+        <span class="item-time left">[{{startDate}} ~ {{endDate}}]</span>
+      </div>
+      <div class="meta-info clear">
+        <span class="item-location">[{{location}}]</span>
       </div>
       <div class="meta-action clear">
         <a href="#" class="button sm edit">수정</a>
@@ -225,9 +206,9 @@
   <script id="track-partial" type="text/x-handlebars-template">
     <section class="item-container" data-id="{{idx}}">
       <h2 class="item-title">{{name}}</h2>
-      <p class="item-description" data-id="{{conferenceIdx}}">Confercence: {{conferenceName}}</p>
+      <p class="item-description" data-id="{{conferenceIdx}}">컨퍼런스: {{conferenceName}}</p>
       <div class="meta-info">
-        <span class="item-location right">[{{location}}]</span>
+        <span class="item-location">[{{location}}]</span>
       </div>
       <div class="meta-action clear">
         <a href="#" class="button sm edit">수정</a>
@@ -241,11 +222,13 @@
       <p class="item-description">{{description}}</p>
       <div class="meta-info">
         <span class="item-time left">[{{startTime}} ~ {{endTime}}]</span>
-        <span class="item-speaker right" data-id="{{speakerIdx}}">by {{speakerName}}</span>
-        <span class="item-track right" data-id="{{trackIdx}}">[{{trackName}}]</span>
       </div>
-      <div class="meta-file right">
-        <a href="{{file}}">[발표 자료]</a>
+      <div class="meta-info clear">
+        <span class="item-track" data-id="{{trackIdx}}">[{{trackName}}]</span>
+        <span class="item-speaker" data-id="{{speakerIdx}}">by {{speakerName}}</span>
+      </div>
+      <div class="meta-file clear right">
+        <a href="{{file}}" target="_blank">[발표 자료]</a>
       </div>
       <div class="meta-action clear">
         <a href="#" class="button sm edit">수정</a>
@@ -253,18 +236,32 @@
       </div>
     </section>
   </script>
-  <script id="not-found-item-partial" type="text/x-handlebars-template">
-    <section class="item-container">
-      <span>아이템이 없습니다.</span>
+  <script id="speaker-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description">{{description}}</p>
+      <!-- <div class="meta-info">
+        <span class="item-speaker right" data-id="{{speakerIdx}}">by {{speakerName}}</span>
+        <span class="item-track right" data-id="{{trackIdx}}">[{{trackName}}]</span>
+      </div>
+      <div class="meta-file clear right">
+        <a href="{{file}}">[발표 자료]</a>
+      </div> -->
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
     </section>
   </script>
   <script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/handlebars-v4.0.5.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
   <script type="text/javascript" src="js/utils.js"></script>
   <script type="text/javascript" src="js/file.service.js"></script>
   <script type="text/javascript" src="js/admin.service.js"></script>
   <script type="text/javascript" src="js/user.service.js"></script>
   <script type="text/javascript" src="js/navbar.js"></script>
+  <script type="text/javascript" src="js/template.js"></script>
   <script type="text/javascript" src="js/admin.js"></script>
 </body>
 </html>
