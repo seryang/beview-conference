@@ -1,25 +1,34 @@
 var Template = (function () {
   'use strict';
 
-  // register partial template
-  var confPartial = $('#conference-partial').html();
-  Handlebars.registerPartial('conference', confPartial);
+  var items = {
+    conference: $('#conference-partial').html(),
+    track: $('#track-partial').html(),
+    session: $('#session-partial').html(),
+    speaker: $('#speaker-partial').html()
+  };
 
-  var trackPartial = $('#track-partial').html();
-  Handlebars.registerPartial('track', trackPartial);
+  var forms = {
+    'conference-form': $('#form-conference-partial').html(),
+    'track-form': $('#form-track-partial').html(),
+    'session-form': $('#form-session-partial').html(),
+    'speaker-form': $('#form-speaker-partial').html()
+  };
 
-  var sessionPartial = $('#session-partial').html();
-  Handlebars.registerPartial('session', sessionPartial);
+  // register partial item template
+  Handlebars.registerPartial(items);
 
-  var speakerPartial = $('#speaker-partial').html();
-  Handlebars.registerPartial('speaker', speakerPartial);
+  // register partial form template
+  Handlebars.registerPartial(forms);
 
   // compile template
   var listTpl = $('#list-template').html();
   var noItemTpl = $('#no-item-template').html();
+  var formTpl = $('#form-template').html();
 
   return {
     item: Handlebars.compile(listTpl),
-    noItem: Handlebars.compile(noItemTpl)
+    noItem: Handlebars.compile(noItemTpl),
+    form: Handlebars.compile(formTpl)
   };
 })();

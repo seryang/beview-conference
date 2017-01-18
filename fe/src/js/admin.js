@@ -3,8 +3,8 @@ $(document).ready(function () {
 
   var $window = $(window), $document = $(document);
   var $description, $radioGroup, $title, $container;
-  var $layer, $register, $forms, $list;
-  var type, typeLabel, page, tick = 0;
+  var $layer, $list;
+  var type, typeLabel, page;
 
   // ajaxDone 상태는 ajax 요청이 끝났는지 상태를 제어하는 변수가
   // POST, PUT, DELETE 같은 경우, 요청이 끝나기 전에 다시 호출되면 문제가 발생하기 때문에
@@ -17,8 +17,6 @@ $(document).ready(function () {
     $radioGroup = $('.list-type');
     $title = $description.find('.title');
     $layer = $container.find('.layer');
-    $register = $container.find('.layer.register');
-    $forms = $register.find('.form');
     $list = $description.find('.list-item-area');
 
     NavBar.init();
@@ -80,16 +78,17 @@ $(document).ready(function () {
 
   function appendData (data, moreLoading) {
     // startTime, endTime 경우, server 에서 second 정보가 넘어오기 때문에 해당 정보 slice
-    if (type === "sessions") {
-      data.forEach(function (item) {
-        item.startTime = (item.startTime || {}).slice(0, -3);
-        item.endTime = (item.endTime || {}).slice(0, -3);
-      });
-    }
+    // if (type === "sessions") {
+      // data.forEach(function (item) {
+        // item.startTime = (item.startTime || {}).slice(0, -3);
+        // item.endTime = (item.endTime || {}).slice(0, -3);
+        // TODO: T1 ~ T4 에 해당하는 meta mapping 이 필요함
+      // });
+    // }
     // step 1: data 를 item template 에 넣어서 DOM 생성
     // step 2: 생성한 DOM 을 $list 에 넣기 (DOM Tree 삽입)
     //   - step 2.1: moreLoading 이 false 라면 기존 $list 는 초기화
-    var doms = getItemFromTemplate(type, data);
+    var doms = getItemFromTemplate(data);
 
     if (!moreLoading) {
       $list.html('');
@@ -97,10 +96,19 @@ $(document).ready(function () {
     $list.append(doms);
   }
 
-  function getItemFromTemplate (type, data) {
+  function getFormFromTemplate (data) {
+    var formType = [type.slice(0, -1), 'form'].join('-');
+    return getDOMFromTemplate('form', formType, data);
+  }
+
+  function getItemFromTemplate (data) {
+    return getDOMFromTemplate('item', type, data);
+  }
+
+  function getDOMFromTemplate (templateType, type, data) {
     var obj = {};
     obj[type] = data;
-    return Template.item(obj);
+    return Template[templateType](obj);
   }
 
   function failGetListOfType (error) {
@@ -126,12 +134,13 @@ $(document).ready(function () {
   }
 
   function registerItem () {
-    $forms.hide();
-    // 1. 현재 type 에 해당하는 layer 보여주고
-    // 2. 해당 layer 기존 form data clear
-    $forms.filter('.' + type).show()
-          .find('form')[0].reset();
-    $register.slideDown();
+    openLayer();
+  }
+
+  function openLayer (data) {
+    var form = getFormFromTemplate(data || {});
+    $layer.html(form);
+    $layer.slideDown();
   }
 
   function editItem (id) {
@@ -140,7 +149,6 @@ $(document).ready(function () {
     }
 
     ajaxDone = false;
-    $layer.data('id', id).slideDown();
     return AdminService.get(type, {
       id: id
     }).then(successGetDetailItem, failGetDetailItem)
@@ -150,6 +158,7 @@ $(document).ready(function () {
   function successGetDetailItem (res) {
     // TODO: 서버에서 받아온 상세 정보, html 에 삽입
     console.log('detail ', type, res);
+    openLayer(res.data);
   }
 
   function failGetDetailItem (error) {
@@ -195,7 +204,7 @@ $(document).ready(function () {
     var $target = $(e.target);
 
     if ($target.hasClass('cancel')) {
-      closeItem();
+      closeLayer();
     } else if ($target.hasClass('create')) {
       createItem(e);
     } else if ($target.hasClass('done')) {
@@ -216,7 +225,7 @@ $(document).ready(function () {
     var message = typeLabel + ' 생성 성공!';
     alert(message);
     // 새로 생성한 아이템을 목록 보여주기 위해 목록 reloading
-    closeItem();
+    closeLayer();
     getListOfType();
   }
 
@@ -225,8 +234,8 @@ $(document).ready(function () {
     alert(message);
   }
 
-  function closeItem () {
-    $layer.data('id', '').slideUp();
+  function closeLayer () {
+    $layer.slideUp();
   }
 
   function doneEditItem (e) {
@@ -249,6 +258,7 @@ $(document).ready(function () {
       .always(handleAjaxDone);
   }
 
+  // TODO: 테스트 필요함
   function successDoneEditItem (id, data) {
     alert('정보 변경 성공!');
     // TODO:
