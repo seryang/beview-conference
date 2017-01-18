@@ -1,5 +1,7 @@
 package com.navercorp.techshare.beview.repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -8,11 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.navercorp.techshare.beview.model.Conference;
 import com.navercorp.techshare.beview.model.Session;
-import com.navercorp.techshare.beview.repository.sql.ConferenceSQL;
 import com.navercorp.techshare.beview.repository.sql.SessionSQL;
 
 /**
@@ -31,9 +32,22 @@ public class SessionDao {
 
 	// 세션 생성
 	public Integer insertSession(Session session) {
-		return jdbcTemplate.update(SessionSQL.SESSION_INSERT, session.getName(), session.getDescription(),
-			session.getStartTime(), session.getEndTime(), session.getFile(), session.getTrackIdx(),
-			session.getSpeakerIdx());
+		GeneratedKeyHolder holder = new GeneratedKeyHolder();
+
+		jdbcTemplate.update(con -> {
+			PreparedStatement statement = con.prepareStatement(SessionSQL.SESSION_INSERT,
+				Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, session.getName());
+			statement.setString(2, session.getDescription());
+			statement.setTime(3, session.getStartTime());
+			statement.setTime(4, session.getEndTime());
+			statement.setString(5, session.getFile());
+			statement.setInt(6, session.getTrackIdx());
+			statement.setInt(7, session.getSpeakerIdx());
+			return statement;
+		}, holder);
+
+		return holder.getKey().intValue();
 	}
 
 	// 세션 유무 체크 ( track 테이블과 조인하여 체크)

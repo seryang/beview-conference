@@ -1,5 +1,7 @@
 package com.navercorp.techshare.beview.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ import com.navercorp.techshare.beview.repository.SpeakerDao;
 @Service
 @Transactional
 public class SessionService {
+
+	private final Logger logger = LoggerFactory.getLogger(SessionService.class);
 
 	@Autowired
 	private SessionDao sessionDao;
@@ -52,11 +56,11 @@ public class SessionService {
 		if (! (beforeData.getSpeakerIdx().equals(updateData.getSpeakerIdx()))) {
 			Speaker speaker = speakerDao.selectSpeaker(String.valueOf(beforeData.getSpeakerIdx()));
 			speaker.setSessionIdx(null);
-			speakerDao.updateSpeaker(String.valueOf(beforeData.getIdx()), speaker);
+			speakerDao.updateSpeaker(String.valueOf(speaker.getIdx()), speaker);
 
 			speaker = speakerDao.selectSpeaker(String.valueOf(updateData.getSpeakerIdx()));
 			speaker.setSessionIdx(idx);
-			speakerDao.updateSpeaker(String.valueOf(idx), speaker);
+			speakerDao.updateSpeaker(String.valueOf(speaker.getIdx()), speaker);
 		}
 
 		sessionDao.updateSession(beforeData.convertData(updateData));
