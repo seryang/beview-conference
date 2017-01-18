@@ -27,8 +27,13 @@ public class Session {
 	private String file;
 	@NotNull
 	private Integer trackIdx;
+	private String trackName;
+
 	@NotNull
 	private Integer speakerIdx;
+	private String speakerName;
+	private Speaker speaker;
+	private Boolean favorite;
 
 	public Session() {
 	}

@@ -5,7 +5,7 @@ package com.navercorp.techshare.beview.repository.sql;
  */
 public class SpeakerSQL {
 	public static final String SELECT_SPEAKER = "SELECT * FROM speaker WHERE idx = ?";
-	public static final String SELECT_ALL_SPEAKER = "SELECT * FROM speaker";
+	public static final String SELECT_ALL_SPEAKER = "SELECT speaker.*, session.name as sessionName FROM speaker left join session on speaker.session_idx = session.idx";
 	public static final String INSERT_SPEAKER = "INSERT INTO speaker VALUES (null, ?, ?, ?, ?, ?, ?)";
 	public static final String UPDATE_SPEAKER = "UPDATE speaker SET name = ?, img = ?, email = ?, phone = ?, description = ?, session_idx = ? WHERE idx = ?";
 	public static final String DELETE_SPEAKER = "DELETE FROM speaker WHERE idx = ?";

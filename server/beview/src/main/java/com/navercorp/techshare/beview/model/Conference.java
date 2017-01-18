@@ -1,6 +1,7 @@
 package com.navercorp.techshare.beview.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -26,6 +27,8 @@ public class Conference {
 	private Date endDate;
 	@NotNull
 	private String location;
+
+	private List<Track> trackList;
 
 	public Conference(){}
 

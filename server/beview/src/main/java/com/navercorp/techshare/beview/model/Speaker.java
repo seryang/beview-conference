@@ -23,11 +23,13 @@ public class Speaker {
 	private String phone;
 	private String description;
 	private Integer sessionIdx;
+	private String sessionName;
 
 	public Speaker() {
 	}
 
-	public Speaker(Integer idx, String name, String img, String email, String phone, String description, Integer sessionIdx) {
+	public Speaker(Integer idx, String name, String img, String email, String phone, String description,
+		Integer sessionIdx) {
 		this.idx = idx;
 		this.name = name;
 		this.img = img;
@@ -36,5 +38,4 @@ public class Speaker {
 		this.description = description;
 		this.sessionIdx = sessionIdx;
 	}
-
 }

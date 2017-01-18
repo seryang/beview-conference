@@ -1,5 +1,7 @@
 package com.navercorp.techshare.beview.model;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,6 +22,8 @@ public class Track {
 	private String location;
 	@NotNull
 	private Integer conferenceIdx;
+	private String conferenceName;
+	private List<Session> sessionList;
 
 	public Track() {
 	}
