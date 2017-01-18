@@ -30,8 +30,8 @@ public class TrackService {
 		return new AjaxResponse();
 	}
 
-	public AjaxResponse selectTrackAllList() {
-		return new AjaxResponse(trackDao.selectTrackAllList());
+	public AjaxResponse selectTrackAllList(Integer page) {
+		return new AjaxResponse(trackDao.selectTrackAllList(page));
 	}
 
 	public AjaxResponse selectTrack(String id) {

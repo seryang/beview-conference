@@ -30,6 +30,8 @@ public class TrackControllerTest {
 	static List<Track> trackList;
 	static Track dumyTrack;
 	static final String IDX = "10";
+	static final Integer PAGE = 1;
+
 	@Autowired
 	MockMvc mvc;
 
@@ -52,7 +54,7 @@ public class TrackControllerTest {
 
 	@Test
 	public void selectTrackList() throws Exception {
-		when(trackService.selectTrackAllList()).thenReturn(new AjaxResponse(trackList));
+		when(trackService.selectTrackAllList(PAGE)).thenReturn(new AjaxResponse(trackList));
 
 		mvc.perform(
 			MockMvcRequestBuilders.get("/api/tracks")

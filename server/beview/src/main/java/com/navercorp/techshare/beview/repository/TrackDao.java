@@ -9,7 +9,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
+import com.navercorp.techshare.beview.Utils.Pagination;
 import com.navercorp.techshare.beview.model.Track;
 import com.navercorp.techshare.beview.repository.sql.TrackSQL;
 
@@ -40,9 +42,16 @@ public class TrackDao {
 		jdbcTemplate.update(TrackSQL.INSERT_TRACK, track.getName(), track.getLocation(), track.getConferenceIdx());
 	}
 
-	public List<Track> selectTrackAllList() {
+	public List<Track> selectTrackAllList(Integer page) {
 		try {
-			return jdbcTemplate.query(TrackSQL.SELECT_TRACK_ALL, trackRowMapper);
+			String SELECT_ALL_SQL = TrackSQL.SELECT_TRACK_ALL;
+
+			if (page == null) {
+				return jdbcTemplate.query(SELECT_ALL_SQL, trackRowMapper);
+			} else {
+				return jdbcTemplate.query(buildPageSQL(SELECT_ALL_SQL), trackRowMapper, Pagination.getStart(page),
+					Pagination.getEnd());
+			}
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
@@ -58,7 +67,8 @@ public class TrackDao {
 
 	public Track isExistTrackInConference(Integer conferenceId, String name, String idx) {
 		try {
-			return jdbcTemplate.queryForObject(TrackSQL.IS_EXIST_TRACK_BEFORE_UPDATE, trackRowMapper, conferenceId, name, idx);
+			return jdbcTemplate.queryForObject(TrackSQL.IS_EXIST_TRACK_BEFORE_UPDATE, trackRowMapper, conferenceId,
+				name, idx);
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
@@ -71,6 +81,16 @@ public class TrackDao {
 
 	public Integer deleteTrack(String id) {
 		return jdbcTemplate.update(TrackSQL.DELETE_TRACK, id);
+	}
+
+	//	TODO 각 DAO에서 추상화 시켜야 함
+	private static String buildPageSQL(String SELECT_SQL) {
+		StringBuilder sql = new StringBuilder(SELECT_SQL);
+
+		String part = " limit ? , ?";
+		sql.append(part);
+
+		return sql.toString();
 	}
 
 }
