@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.navercorp.techshare.beview.Utils.Pagination;
 import com.navercorp.techshare.beview.model.Speaker;
 import com.navercorp.techshare.beview.repository.sql.SpeakerSQL;
 
@@ -35,9 +36,16 @@ public class SpeakerDao {
 		}
 	}
 
-	public List<Speaker> selectAllSpeaker() {
+	public List<Speaker> selectAllSpeaker(Integer page) {
 		try {
-			return jdbcTemplate.query(SpeakerSQL.SELECT_ALL_SPEAKER, speakerMapper);
+			String SELECT_ALL_SQL = SpeakerSQL.SELECT_ALL_SPEAKER;
+
+			if (page == null) {
+				return jdbcTemplate.query(SELECT_ALL_SQL, speakerMapper);
+			} else {
+				return jdbcTemplate.query(buildPageSQL(SELECT_ALL_SQL), speakerMapper, Pagination.getStart(page),
+					Pagination.getEnd());
+			}
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
@@ -64,5 +72,15 @@ public class SpeakerDao {
 			return null;
 		}
 
+	}
+
+	//	TODO 각 DAO에서 추상화 시켜야 함
+	private static String buildPageSQL(String SELECT_SQL) {
+		StringBuilder sql = new StringBuilder(SELECT_SQL);
+
+		String part = " limit ? , ?";
+		sql.append(part);
+
+		return sql.toString();
 	}
 }

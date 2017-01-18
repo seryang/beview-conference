@@ -22,8 +22,8 @@ public class SpeakerService {
 		return new AjaxResponse(speakerDao.selectSpeaker(id));
 	}
 
-	public AjaxResponse selectAllSpeaker() {
-		return new AjaxResponse(speakerDao.selectAllSpeaker());
+	public AjaxResponse selectAllSpeaker(Integer page) {
+		return new AjaxResponse(speakerDao.selectAllSpeaker(page));
 	}
 
 	public AjaxResponse createSpeaker(Speaker speaker) {
