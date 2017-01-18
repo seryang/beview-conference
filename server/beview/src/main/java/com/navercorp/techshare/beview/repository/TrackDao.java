@@ -76,7 +76,7 @@ public class TrackDao {
 
 	public Integer updateTrack(String id, Track track) {
 		return jdbcTemplate.update(TrackSQL.UPDATE_TRACK, track.getName(), track.getLocation(),
-			id, track.getConferenceIdx());
+			track.getConferenceIdx(), id);
 	}
 
 	public Integer deleteTrack(String id) {
