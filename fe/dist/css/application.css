@@ -235,6 +235,7 @@ ul {
   background-color: white;
   display: none;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .container .layer .meta-action {
@@ -272,4 +273,34 @@ footer {
 }
 .clear {
   clear: both;
+}
+
+.uploading {
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+}
+.uploading .icon {
+  position: relative;
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  margin-left: -25%;
+  margin-top: -25%;
+}
+
+.percentage {
+  position: fixed;
+  top: 48%;
+  margin: auto 20px;
+  height: 10px;
+  width: 10%;
+  background-color: #ffe78f;
+  border-radius: 8px;
+  max-width: 100%;
 }

@@ -3,7 +3,7 @@ $(document).ready(function () {
 
   var $description, $radioGroup, $title, $container;
   var $layer, $register, $forms;
-  var type;
+  var type, typeLabel;
 
   var ajaxDone = true;
 
@@ -27,7 +27,31 @@ $(document).ready(function () {
 
   function selectType () {
     type = $radioGroup.find('input:checked').val();
-    $title.text(Utils.toFirstUpper(type) + ' list');
+    typeLabel = Utils.toFirstUpper(type).slice(0, type.length-1);
+    $title.text(typeLabel + ' list');
+
+    getListOfType();
+  }
+
+  function getListOfType () {
+    if (!ajaxDone) {
+      return;
+    }
+
+    ajaxDone = false;
+    return AdminService.getListOf(type)
+      .then(successGetListOfType, failGetListOfType)
+      .always(handleAjaxDone);
+  }
+
+  function successGetListOfType (res) {
+    console.log(type, res);
+  }
+
+  function failGetListOfType (error) {
+    var message = typeLabel + ' 조회 실패, ' + error.responseJSON.message;
+    console.log(message, error);
+    alert(message);
   }
 
   function itemAction (e) {
@@ -48,7 +72,7 @@ $(document).ready(function () {
   }
 
   function registerItem () {
-    $forms.hide()
+    $forms.hide();
     // 1. 현재 type 에 해당하는 layer 보여주고
     // 2. 해당 layer 기존 form data clear
     $forms.filter('.' + type).show()
@@ -77,7 +101,7 @@ $(document).ready(function () {
   }
 
   function failDeleteItem (error) {
-    var message = '삭제 실패, ' + error.responseJSON.message;
+    var message = typeLabel + ' 삭제 실패, ' + error.responseJSON.message;
     alert(message);
   }
 
@@ -99,20 +123,20 @@ $(document).ready(function () {
   function createItem (e) {
     var $form = $(e.target).closest('form');
     var data = Utils.getFormDataToJSON($form.serializeArray());
-    // var files = $form.find(':file')[0].files;
-    console.log('form data ', data, files);
-    // 1. 파일 업로드
-    // 2. 아이템 생성
+
     return AdminService.create(type, data)
       .then(successCreateItem, failCreatItem)
       .always(handleAjaxDone);
   }
 
   function successCreateItem (res) {
-    alert('success create item');
+    var message = typeLabel + ' 생성 성공!';
+    alert(message);
+    closeItem();
   }
+
   function failCreatItem (error) {
-    var message = Utils.toFirstUpper(type) +  ' 생성 실패, ' + error.responseJSON.message;
+    var message = typeLabel + ' 생성 실패, ' + error.responseJSON.message;
     alert(message);
   }
 
@@ -140,7 +164,7 @@ $(document).ready(function () {
   }
 
   function faileDoneEditItem (error) {
-    var message = '정보 변경 실패, ' + error.responseJSON.message;
+    var message = typeLabel + ' 정보 변경 실패, ' + error.responseJSON.message;
     alert(message);
   }
 
@@ -149,29 +173,35 @@ $(document).ready(function () {
   }
 
   function uploadFile (e) {
-    var file = this.files;
-    if (!file.length || !ajaxDone) {
+    var file = this.files[0];
+    if (!file || !ajaxDone) {
       return;
     }
-    // file upload
+
     ajaxDone = false;
     return FileService.upload(type, file)
       .then(function (res) {
-        return sucessUploadFile(e, res);
-      }, failUploadFile, progressUploadFile)
+        return successUploadFile(e, res);
+      }, failUploadFile)
       .always(handleAjaxDone);
   }
 
   function progressUploadFile (e) {
-    console.log(parseInt(e.loaded / e.total) + '%', e);
+    debugger;
+    $percentage.show();
+    var pencentage = parseInt(e.loaded / e.total);
+    console.log(percentage+'%', e);
+    $percentage.find('.percentage').css('width', percentage+'%');
   }
 
-  function successUploadFile (res) {
-    debugger;
+  function successUploadFile (e, res) {
+    var $hidden = $(e.target).siblings('[type="hidden"]');
+    $hidden.val(res.message);
   }
 
   function failUploadFile (error) {
-    debugger;
+    var message = '파일 업로드 실패, ' + error.responseJSON.message;
+    alert(message);
   }
 
   init();
