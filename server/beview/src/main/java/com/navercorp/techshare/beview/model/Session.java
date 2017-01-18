@@ -21,9 +21,7 @@ public class Session {
 	@NotNull
 	private String description;
 	@NotNull
-	private Time startTime;
-	@NotNull
-	private Time endTime;
+	private String time;
 	private String file;
 	@NotNull
 	private Integer trackIdx;
@@ -38,24 +36,22 @@ public class Session {
 	public Session() {
 	}
 
-	public Session(String name, String description, String startTime, String endTime, String file, int trackIdx,
+	public Session(String name, String description, String time, String file, int trackIdx,
 		int speakerIdx) {
 		this.name = name;
 		this.description = description;
-		this.startTime = Time.valueOf(startTime);
-		this.endTime = Time.valueOf(endTime);
+		this.time = time;
 		this.file = file;
 		this.trackIdx = trackIdx;
 		this.speakerIdx = speakerIdx;
 	}
 
-	public Session(int idx, String name, String description, Time startTime, Time endTime, String file, int trackIdx,
+	public Session(int idx, String name, String description, String file, int trackIdx,
 		int speakerIdx) {
 		this.idx = idx;
 		this.name = name;
 		this.description = description;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.time = time;
 		this.file = file;
 		this.trackIdx = trackIdx;
 		this.speakerIdx = speakerIdx;
@@ -64,8 +60,7 @@ public class Session {
 	public Session convertData(Session updateData) {
 		this.name = updateData.getName();
 		this.description = updateData.getDescription();
-		this.startTime = updateData.getStartTime();
-		this.endTime = updateData.getEndTime();
+		this.time = updateData.getTime();
 		this.file = updateData.getFile();
 		this.trackIdx = updateData.getTrackIdx();
 		this.speakerIdx = updateData.getSpeakerIdx();

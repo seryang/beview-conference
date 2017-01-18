@@ -41,11 +41,10 @@ public class SessionDao {
 				Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, session.getName());
 			statement.setString(2, session.getDescription());
-			statement.setTime(3, session.getStartTime());
-			statement.setTime(4, session.getEndTime());
-			statement.setString(5, session.getFile());
-			statement.setInt(6, session.getTrackIdx());
-			statement.setInt(7, session.getSpeakerIdx());
+			statement.setString(3, session.getTime());
+			statement.setString(4, session.getFile());
+			statement.setInt(5, session.getTrackIdx());
+			statement.setInt(6, session.getSpeakerIdx());
 			return statement;
 		}, holder);
 
@@ -84,7 +83,7 @@ public class SessionDao {
 	// 세션 업데이트
 	public Integer updateSession(Session session) {
 		return jdbcTemplate.update(SessionSQL.SESSION_UPDATE, session.getName(), session.getDescription(),
-			session.getStartTime(), session.getEndTime(), session.getFile(), session.getTrackIdx(),
+			session.getTime(), session.getFile(), session.getTrackIdx(),
 			session.getSpeakerIdx(), session.getIdx());
 	}
 

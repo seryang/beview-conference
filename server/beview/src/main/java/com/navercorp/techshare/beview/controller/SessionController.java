@@ -38,8 +38,6 @@ import com.navercorp.techshare.beview.service.UploadService;
 @PropertySource("application.properties")
 public class SessionController {
 
-	private final Logger logger = LoggerFactory.getLogger(SessionController.class);
-
 	@Autowired
 	private SessionService sessionService;
 
