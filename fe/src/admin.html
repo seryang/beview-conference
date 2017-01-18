@@ -24,71 +24,29 @@
     </nav>
     <div class="clear"></div>
 
-    <article class="description">
+    <section class="description">
       <div class="list-type">
-        <input type="radio" name="list-type" id="radio-conference" value="conference">
+        <input type="radio" name="list-type" id="radio-conference" value="conferences" checked>
         <label for="radio-conference">컨퍼런스</label>
-        <input type="radio" name="list-type" id="radio-track" value="track">
+        <input type="radio" name="list-type" id="radio-track" value="tracks">
         <label for="radio-track">트랙</label>
-        <input type="radio" name="list-type" id="session-track" value="session" checked>
+        <input type="radio" name="list-type" id="session-track" value="sessions">
         <label for="session-track">세션</label>
-        <input type="radio" name="list-type" id="speaker-track" value="speaker">
+        <input type="radio" name="list-type" id="speaker-track" value="speakers">
         <label for="speaker-track">발표자</label>
       </div>
 
       <div class="title-area">
-        <h1 class="title"></h1>
+        <h1 class="title">Conference list</h1>
         <a href="#" class="button sm register right">등록</a>
       </div>
-      <section class="item-container" data-id="1">
-        <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
-        <p class="item-description">
-          언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!
-        </p>
-        <div class="meta-info">
-          <span class="item-time left">[09:00 ~ 10:00]</span>
-          <span class="item-speaker right">by 현승호</span>
-          <span class="item-parent-name right">[Android]</span>
-        </div>
-        <div class="meta-action clear">
-          <a href="#" class="button sm edit">수정</a>
-          <a href="#" class="button sm remove">삭제</a>
-        </div>
-      </section>
-      <section class="item-container" data-id="2">
-        <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
-        <p class="item-description">
-          언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!
-        </p>
-        <div class="meta-info">
-          <span class="item-time left">[09:00 ~ 10:00]</span>
-          <span class="item-speaker right">by 현승호</span>
-          <span class="item-parent-name right">[Android]</span>
-        </div>
-        <div class="meta-action clear">
-          <a href="#" class="button sm edit">수정</a>
-          <a href="#" class="button sm remove">삭제</a>
-        </div>
-      </section>
-      <section class="item-container" data-id="3">
-        <h2 class="item-title">현승호와 함께하는 안드로이드 심화학습</h2>
-        <p class="item-description">
-          언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!
-        </p>
-        <div class="meta-info">
-          <span class="item-time left">[09:00 ~ 10:00]</span>
-          <span class="item-speaker right">by 현승호</span>
-          <span class="item-parent-name right">[Android]</span>
-        </div>
-        <div class="meta-action clear">
-          <a href="#" class="button sm edit">수정</a>
-          <a href="#" class="button sm remove">삭제</a>
-        </div>
-      </section>
-    </article>
+
+      <!-- list item area -->
+      <section class="list-item-area"></section>
+    </section>
 
     <article class="register layer">
-      <section class="form conference">
+      <section class="form conferences">
         <h1 class="title">컨퍼런스 등록</h1>
         <form name="conferenceForm" novalidate>
           <label for="item-id">아이디</label>
@@ -96,9 +54,9 @@
           <label for="item-name">이름</label>
           <input type="text" name="name" id="item-name" placeholder="컨퍼런스 이름을 입력해주세요." required>
           <label for="item-start-date">시작일</label>
-          <input type="date" name="start-date" id="item-start-date" placeholder="컨퍼런스 시작일을 입력해주세요." required>
+          <input type="date" name="startDate" id="item-start-date" placeholder="컨퍼런스 시작일을 입력해주세요." required>
           <label for="item-end-date">완료일</label>
-          <input type="date" name="end-date" id="item-end-date" placeholder="컨퍼런스 완료일을 입력해주세요." required>
+          <input type="date" name="endDate" id="item-end-date" placeholder="컨퍼런스 완료일을 입력해주세요." required>
           <label for="item-location">장소</label>
           <input type="text" name="location" id="item-location" placeholder="컨퍼런스 장소를 입력해주세요." required>
           <div class="meta-action right margin-top-20">
@@ -108,11 +66,11 @@
         </form>
       </section>
 
-      <section class="form track">
+      <section class="form tracks">
         <h1 class="title">트랙 등록</h1>
         <form name="trackForm" novalidate>
           <label for="item-id">컨퍼런스 아이디</label>
-          <select name="id" id="item-id" required>
+          <select name="conferenceIdx" id="item-id" required>
             <option value="beview2015" selected>BeView 2015</option>
             <option value="beview2016">BeView 2016</option>
             <option value="beview2017">BeView 2017</option>
@@ -128,17 +86,17 @@
         </form>
       </section>
 
-      <section class="form session">
+      <section class="form sessions">
         <h1 class="title">세션 등록</h1>
         <form name="sessionForm" novalidate>
           <label for="item-track-name">트랙 이름</label>
-          <select name="track-name" id="item-track-name" required>
-            <option value="Android" selected>Android</option>
-            <option value="iOS">iOS</option>
-            <option value="Front-end">Front-End</option>
+          <select name="trackIdx" id="item-track-name" required>
+            <option value="0" selected>Android</option>
+            <option value="1">iOS</option>
+            <option value="2">Front-End</option>
           </select>
           <label for="item-speaker-name">발표자 이름</label>
-          <select name="speaker-id" id="item-speaker-name" required>
+          <select name="speakerIdx" id="item-speaker-name" required>
             <option value="0" selected>최세량</option>
             <option value="1">최승호</option>
             <option value="2">현승호</option>
@@ -171,7 +129,7 @@
         </form>
       </section>
 
-      <section class="form speaker">
+      <section class="form speakers">
         <h1 class="title">발표자 등록</h1>
         <form name="speakerForm" novalidate>
           <label for="item-name">이름</label>
@@ -206,28 +164,104 @@
     </article>
   </div>
 
-  <script id="conference-template" type="text/x-handlebars-template">
-    {{#each items}}
-      {{> item}}
+  <div class="loading">
+    <img class="icon" src="img/uploading.gif">
+  </div>
+
+  <script id="list-template" type="text/x-handlebars-template">
+    {{#each conferences}}
+      {{> conference}}
+    {{/each}}
+    {{#each tracks}}
+      {{> track}}
+    {{/each}}
+    {{#each sessions}}
+      {{> session}}
+    {{/each}}
+    {{#each speakers}}
+      {{> speaker}}
     {{/each}}
   </script>
+  <script id="no-item-template" type="text/x-handlebars-template">
+    <section class="item-container">
+      <span>아이템이 없습니다.</span>
+    </section>
+  </script>
   <script id="conference-partial" type="text/x-handlebars-template">
-    <li data-id="{{id}}" {{#if completed}}class="completed"{{/if}}>
-      <div class="view">
-        <input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
-        <label>{{todo}}</label>
-        <button class="destroy"></button>
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description">ID: {{id}}</p>
+      <div class="meta-info">
+        <span class="item-time left">[{{startDate}} ~ {{endDate}}]</span>
       </div>
-      <input class="edit" value="{{todo}}">
-    </li>
+      <div class="meta-info clear">
+        <span class="item-location">[{{location}}]</span>
+      </div>
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+  <script id="track-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description" data-id="{{conferenceIdx}}">컨퍼런스: {{conferenceName}}</p>
+      <div class="meta-info">
+        <span class="item-location">[{{location}}]</span>
+      </div>
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+  <script id="session-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description">{{description}}</p>
+      <div class="meta-info">
+        <span class="item-time left">[{{startTime}} ~ {{endTime}}]</span>
+      </div>
+      <div class="meta-info clear">
+        <span class="item-track" data-id="{{trackIdx}}">[{{trackName}}]</span>
+        <span class="item-speaker" data-id="{{speakerIdx}}">by {{speakerName}}</span>
+      </div>
+      <div class="meta-file clear right">
+        <a href="{{file}}" target="_blank">[발표 자료]</a>
+      </div>
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+  <script id="speaker-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description">{{description}}</p>
+      <!-- <div class="meta-info">
+        <span class="item-speaker right" data-id="{{speakerIdx}}">by {{speakerName}}</span>
+        <span class="item-track right" data-id="{{trackIdx}}">[{{trackName}}]</span>
+      </div>
+      <div class="meta-file clear right">
+        <a href="{{file}}">[발표 자료]</a>
+      </div> -->
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
   </script>
   <script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/handlebars-v4.0.5.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
   <script type="text/javascript" src="js/utils.js"></script>
   <script type="text/javascript" src="js/file.service.js"></script>
   <script type="text/javascript" src="js/admin.service.js"></script>
   <script type="text/javascript" src="js/user.service.js"></script>
   <script type="text/javascript" src="js/navbar.js"></script>
+  <script type="text/javascript" src="js/template.js"></script>
   <script type="text/javascript" src="js/admin.js"></script>
 </body>
 </html>

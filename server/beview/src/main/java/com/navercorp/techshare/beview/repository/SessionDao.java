@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
@@ -106,6 +107,14 @@ public class SessionDao {
 	// 세션 삭제
 	public Integer deleteSession(Integer idx) {
 		return jdbcTemplate.update(SessionSQL.SESSION_DELETE, idx);
+	}
+
+	public List<Session> selectSessionAllListByTrackId(Integer trackIdx) {
+		try {
+			return jdbcTemplate.query(SessionSQL.SESSION_SELECT_ALL_BY_TRACK_ID, sessionRowMapper, trackIdx);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	//	TODO 각 DAO에서 추상화 시켜야 함

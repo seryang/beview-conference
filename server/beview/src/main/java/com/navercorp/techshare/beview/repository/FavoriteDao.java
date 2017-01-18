@@ -3,10 +3,15 @@ package com.navercorp.techshare.beview.repository;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.navercorp.techshare.beview.model.Favorite;
+import com.navercorp.techshare.beview.model.Speaker;
 import com.navercorp.techshare.beview.repository.sql.FavoriteSQL;
+import com.navercorp.techshare.beview.repository.sql.SpeakerSQL;
 
 /**
  * Created by Naver on 2017. 1. 17..
@@ -14,6 +19,7 @@ import com.navercorp.techshare.beview.repository.sql.FavoriteSQL;
 @Repository
 public class FavoriteDao {
 	private JdbcTemplate jdbcTemplate;
+	private BeanPropertyRowMapper<Favorite> favoriteMapper = BeanPropertyRowMapper.newInstance(Favorite.class);
 
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
@@ -26,5 +32,13 @@ public class FavoriteDao {
 
 	public Integer deleteFavorite(Integer sessionIdx, String id) {
 		return jdbcTemplate.update(FavoriteSQL.FAVORITE_DELETE, id, sessionIdx);
+	}
+
+	public Favorite selectFavoriteById(String userId, Integer sessionIdx) {
+		try {
+			return jdbcTemplate.queryForObject(FavoriteSQL.FAVORITE_SELECT, favoriteMapper, userId, sessionIdx);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 }

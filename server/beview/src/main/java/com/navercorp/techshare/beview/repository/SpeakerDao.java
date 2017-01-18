@@ -71,7 +71,6 @@ public class SpeakerDao {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
-
 	}
 
 	//	TODO 각 DAO에서 추상화 시켜야 함

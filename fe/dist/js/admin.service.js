@@ -6,6 +6,11 @@ var AdminService = (function () {
   }
 
   return {
+    getListOf: function (type) {
+      return http.get({
+        url: convertUrl(type)
+      });
+    },
     get: function (type, params) {
       return http.get({
         url: convertUrl(type, '/{id}'),

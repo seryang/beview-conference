@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.navercorp.techshare.beview.exception.InvalidException;
 import com.navercorp.techshare.beview.model.Conference;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
 import com.navercorp.techshare.beview.service.ConferenceService;
+import com.navercorp.techshare.beview.service.ScheduleService;
 
 /**
  * Created by Naver on 2017. 1. 12..
@@ -30,11 +32,20 @@ public class ConferenceController {
 	@Autowired
 	private ConferenceService conferenceService;
 
-	//? 컨퍼런스 조회 - 해당 컨퍼런스 전체 스케줄 조회
-//	@GetMapping("/{idx}")
-//	public AjaxResponse conferenceInfo(@PathVariable Integer idx){
-//
-//	}
+	@Autowired
+	private ScheduleService scheduleService;
+
+	/**
+	 * [컨퍼런스 조회 - 해당 컨퍼런스 전체 스케줄 조회]
+	 *
+	 * @param idx
+	 * @param userId
+	 * @return AjaxResponse
+	 */
+	@GetMapping("/{idx}")
+	public AjaxResponse conferenceInfo(@PathVariable Integer idx, @CookieValue(value = "id", required = false) String userId){
+		return scheduleService.getSchedule(idx, userId);
+	}
 
 	/**
 	 *  [컨퍼런스 전체 리스트 조회]
