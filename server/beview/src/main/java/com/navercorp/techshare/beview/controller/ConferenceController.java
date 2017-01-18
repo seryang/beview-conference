@@ -35,7 +35,13 @@ public class ConferenceController {
 	@Autowired
 	private ScheduleService scheduleService;
 
-	//? 컨퍼런스 조회 - 해당 컨퍼런스 전체 스케줄 조회
+	/**
+	 * [컨퍼런스 조회 - 해당 컨퍼런스 전체 스케줄 조회]
+	 *
+	 * @param idx
+	 * @param userId
+	 * @return AjaxResponse
+	 */
 	@GetMapping("/{idx}")
 	public AjaxResponse conferenceInfo(@PathVariable Integer idx, @CookieValue(value = "id", required = false) String userId){
 		return scheduleService.getSchedule(idx, userId);
