@@ -63,6 +63,5 @@ public class SpeakerDao {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
-
 	}
 }
