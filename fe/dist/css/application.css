@@ -188,6 +188,11 @@ ul {
   font-size: 16px;
   background-color: #f6f6f6;
 }
+.form .text-muted {
+  font-size: 0.75em;
+  word-break: break-all;
+  color: #555;
+}
 
 /* admin page css style */
 .description .list-type {

@@ -38,6 +38,10 @@ var http = (function () {
       if (options.params) {
         options.url = convertUrl(options.url, options.params);
       }
+      // TODO: options 객체에 search 정보가 들어오면, url query string 으로 변경
+      // if (options.search) {
+      //   options.url = options.url + $.params(options.search);
+      // }
       if (options.data && !options.isFileServer) {
         options.data = JSON.stringify(options.data)
       }

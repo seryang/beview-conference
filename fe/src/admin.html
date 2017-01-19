@@ -137,6 +137,7 @@
         <input type="hidden" name="file" value="{{file}}" required>
         <label for="item-file">발표자료 (Option)</label>
         <input type="file" accept="image/*,.pdf,.ppt,.txt" name="file-input" id="item-file" placeholder="발표자료를 선택해주세요.">
+        <div class="text-muted">파일: {{file}}</div>
         <div class="meta-action right">
           <a href="#" class="button sm cancel">뒤로 가기</a>
           {{#if isRegister}}
@@ -160,9 +161,10 @@
         <input type="tel" name="phone" id="item-phone" value="{{phone}}" placeholder="발표자 연락처를 입력해주세요." required>
         <label for="item-description">소개</label>
         <input type="text" name="description" id="item-description" value="{{description}}" placeholder="발표자 소개를 입력해주세요." required>
-        <input type="hidden" name="img" value="img">
+        <input type="hidden" name="img" value="{{img}}">
         <label for="item-file">사진</label>
         <input type="file" accept="image/*" name="file-input" id="item-file" placeholder="발표자 사진을 선택해주세요.">
+        <div class="text-muted">파일: {{img}}</div>
         <div class="meta-action right">
           <a href="#" class="button sm cancel">뒤로 가기</a>
           {{#if isRegister}}

@@ -376,8 +376,11 @@ $(document).ready(function () {
   }
 
   function successUploadFile (e, res) {
-    var $hidden = $(e.target).siblings('[type="hidden"]');
+    var $target = $(e.target);
+    var $hidden = $target.siblings('[type="hidden"]');
+    var $text = $target.siblings('.text-muted');
     $hidden.val(res.message);
+    $text.text('파일: ' + res.message);
   }
 
   function failUploadFile (error) {

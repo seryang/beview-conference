@@ -23,6 +23,7 @@ var AdminService = (function () {
       });
     },
     getListOf: function (type, params) {
+      // TODO: params 대신 search 정보를 받아서, http 에서 url converting 을 수행하도록 변경
       return http.get({
         url: convertUrl(type, '?page={page}'),
         params: params,
