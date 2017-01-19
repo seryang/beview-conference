@@ -97,15 +97,14 @@ $(document).ready(function () {
   }
 
   function getFormFromTemplate (data) {
-    var formType = [type.slice(0, -1), 'form'].join('-');
-    return getDOMFromTemplate('form', formType, data);
+    return getDOMFromTemplate('form', data || {});
   }
 
   function getItemFromTemplate (data) {
-    return getDOMFromTemplate('item', type, data);
+    return getDOMFromTemplate('item', data);
   }
 
-  function getDOMFromTemplate (templateType, type, data) {
+  function getDOMFromTemplate (templateType, data) {
     var obj = {};
     obj[type] = data;
     return Template[templateType](obj);
@@ -134,11 +133,15 @@ $(document).ready(function () {
   }
 
   function registerItem () {
-    openLayer();
+    openLayer({
+      isRegister: true
+    });
   }
 
   function openLayer (data) {
-    var form = getFormFromTemplate(data || {});
+    var form = getFormFromTemplate(data);
+    // TODO: type 에 따라 동적으로 로딩해야 하는 select option 정보가 있다면
+    // 여기서 로딩
     $layer.html(form);
     $layer.slideDown();
   }
@@ -158,7 +161,7 @@ $(document).ready(function () {
   function successGetDetailItem (res) {
     // TODO: 서버에서 받아온 상세 정보, html 에 삽입
     console.log('detail ', type, res);
-    openLayer(res.data);
+    openLayer(res.data[0]);
   }
 
   function failGetDetailItem (error) {
@@ -207,7 +210,7 @@ $(document).ready(function () {
       closeLayer();
     } else if ($target.hasClass('create')) {
       createItem(e);
-    } else if ($target.hasClass('done')) {
+    } else if ($target.hasClass('edit')) {
       doneEditItem(e);
     }
   }

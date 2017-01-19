@@ -47,18 +47,6 @@
 
     <!-- register item / edit item layer -->
     <article class="register layer"></article>
-
-    <article class="detail layer">
-      <h2 class="title">현승호와 함께하는 안드로이드 심화학습</h2>
-      <div class="item-description">
-        <p>언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!</p>
-        <p>여기까지 오셨으니 알려드리는데, 여러분들에게 돈 받아서 한우집 갈겁니다!</p>
-      </div>
-      <div class="meta-action right">
-        <a href="#" class="button sm cancel">취소</a>
-        <a href="#" class="button sm done">완료</a>
-      </div>
-    </article>
   </div>
 
   <div class="loading">
@@ -66,18 +54,20 @@
   </div>
 
   <script id="form-template" type="text/x-handlebars-template">
-    {{#each conference-form}}
-      {{> conference-form}}
-    {{/each}}
-    {{#each track-form}}
-      {{> track-form}}
-    {{/each}}
-    {{#each session-form}}
-      {{> session-form}}
-    {{/each}}
-    {{#each speaker-form}}
-      {{> speaker-form}}
-    {{/each}}
+    {{!-- 현재 타입에 맞춰 필요한 레이어 선택 후 --}}
+    {{!-- 해당 타입 Object 를 새로운 context 로 설정하며 partial rendering --}}
+    {{#if conferences}}
+      {{> conference-form this.conferences}}
+    {{/if}}
+    {{#if tracks}}
+      {{> track-form this.tracks}}
+    {{/if}}
+    {{#if sessions}}
+      {{> session-form this.sessions}}
+    {{/if}}
+    {{#if speakers}}
+      {{> speaker-form this.speakers}}
+    {{/if}}
   </script>
   <script id="form-conference-partial" type="text/x-handlebars-template">
     <section class="form conferences" data-id="{{idx}}">
@@ -95,7 +85,12 @@
         <input type="text" name="location" id="item-location" value="{{location}}" placeholder="컨퍼런스 장소를 입력해주세요." required>
         <div class="meta-action right margin-top-20">
           <a href="#" class="button sm cancel">뒤로 가기</a>
-          <a href="#" class="button sm done create">만들기</a>
+          {{#if isRegister}}
+            <a href="#" class="button sm done create">만들기</a>
+          {{else}}
+            <a href="#" class="button sm done edit">수정하기</a>
+          {{/if}}
+
         </div>
       </form>
     </section>
