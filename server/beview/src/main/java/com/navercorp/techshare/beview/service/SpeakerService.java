@@ -34,11 +34,13 @@ public class SpeakerService {
 		return new AjaxResponse();
 	}
 
-	public AjaxResponse updateSpeaker(String id, Speaker speaker) {
-		if (speakerDao.isExistSpeaker(speaker, id) != null) {
+	public AjaxResponse updateSpeaker(String id, Speaker updateSpeaker) {
+		if (speakerDao.isExistSpeaker(updateSpeaker, id) != null) {
 			throw new InvalidException(Error.DUPLICATE);
 		}
-		speakerDao.updateSpeaker(id, speaker);
+
+		Speaker beforeSpeaker = speakerDao.selectSpeaker(id);
+		speakerDao.updateSpeaker(id, beforeSpeaker.convertData(updateSpeaker));
 		return new AjaxResponse();
 	}
 

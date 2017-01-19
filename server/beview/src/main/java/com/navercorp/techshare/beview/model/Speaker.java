@@ -38,4 +38,13 @@ public class Speaker {
 		this.description = description;
 		this.sessionIdx = sessionIdx;
 	}
+
+	public Speaker convertData(Speaker updateData) {
+		this.name = updateData.getName();
+		this.img = updateData.getImg();
+		this.email = updateData.getEmail();
+		this.phone = updateData.getPhone();
+		this.description = updateData.getDescription();
+		return this;
+	}
 }
