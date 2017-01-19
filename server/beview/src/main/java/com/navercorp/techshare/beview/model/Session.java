@@ -1,7 +1,5 @@
 package com.navercorp.techshare.beview.model;
 
-import java.sql.Time;
-
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -46,7 +44,7 @@ public class Session {
 		this.speakerIdx = speakerIdx;
 	}
 
-	public Session(int idx, String name, String description, String file, int trackIdx,
+	public Session(int idx, String name, String description, String time, String file, int trackIdx,
 		int speakerIdx) {
 		this.idx = idx;
 		this.name = name;
