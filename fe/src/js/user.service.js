@@ -6,8 +6,7 @@ var UserService = (function () {
       return document.cookie.length;
     },
     isAdmin: function () {
-      return true;
-      // return document.cookie.indexOf('id=admin@admin.com') > 0;
+      return document.cookie.indexOf('admin@beview.kr') > 0;
     },
     join: function (data) {
       return http.post({

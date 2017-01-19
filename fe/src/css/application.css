@@ -104,41 +104,73 @@ ul {
   margin-bottom: 50px;
 }
 
-.button {
-  text-decoration: none;
-  color: inherit;
-  padding: 10px 40px;
-  border: 1px solid white;
-  border-radius: 8px;
-  cursor: pointer;
+/* schedule page css style */
+.time-section .time-label {
+  font-size: 1em;
+  background-color: #f3f3f3;
+  padding: 10px 20px;
+  color: black;
+  font-weight: normal;
+  margin: 0 -20px;
 }
-.button.sm {
-  padding: 5px;
+.time-section .time-item {
+  margin: 0 -20px;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+.time-section .time-item-info {
+  display: inline-block;
+  width: 80%;
+  padding-top: 10px;
+}
+.time-section .item-title {
+  margin: 0;
+}
+.time-section .time-item-favorite {
+  display: inline-block;
+  text-align: center;
+  width: 18%;
+}
+.time-section .time-item-favorite .heart::after,
+.session-detail .heart::after {
+  content: '\2661';
+  font-size: 32px;
+}
+.time-section .time-item-favorite .heart.on,
+.session-detail .heart.on {
+  color: #f74747;
+}
+.time-section .time-item-favorite .heart.on::after,
+.session-detail .heart.on::after {
+  content: '\2665';
+  font-size: 32px;
+}
+.session-detail .item-speaker {
+  padding: 10px;
+  background-color: #aaa;
+}
+.session-detail .item-speaker .speaker-title {
+  margin: 0;
+}
+.session-detail .item-speaker .speaker-image {
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+}
+.session-detail .item-speaker .speaker-description {
+  display: inline-block;
+  width: 60%;
+  padding-left: 10px;
   font-size: 14px;
 }
-.button.edit {
-  background-color: #3bbcef;
-  border-color: #3bbcef;
+
+.text-align-right {
+  text-align: right;
 }
-.button.remove {
-  background-color: #ea5151;
-  border-color: #ea5151;
+.margin-top-20 {
+  margin-top: 20px;
 }
-.button.cancel {
-  background-color: #ffe78f;
-  border-color: #ffe76e;
-  color: #de6565;
-}
-.button.done {
-  background-color: #c8ff8f;
-  border-color: #baff6e;
-  color: #3ba492;
-}
-.button.register {
-  background-color: #3bbcef;
-  border-color: #3bbcef;
-  color: white;
-}
+
 
 /* form css style */
 .form {
@@ -187,6 +219,11 @@ ul {
   border-bottom: 2px solid black;
   font-size: 16px;
   background-color: #f6f6f6;
+}
+.form .text-muted {
+  font-size: 0.75em;
+  word-break: break-all;
+  color: #555;
 }
 
 /* admin page css style */
@@ -257,6 +294,7 @@ ul {
 
 .container .detail .item-description {
   margin-top: 40px;
+  min-height: 20%;
 }
 
 /* footer css style */
@@ -309,4 +347,40 @@ footer {
   background-color: #ffe78f;
   border-radius: 8px;
   max-width: 100%;
+}
+
+.button {
+  text-decoration: none;
+  color: inherit;
+  padding: 10px 40px;
+  border: 1px solid white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.button.sm {
+  padding: 5px;
+  font-size: 14px;
+}
+.button.edit {
+  background-color: #3bbcef;
+  border-color: #3bbcef;
+}
+.button.remove {
+  background-color: #ea5151;
+  border-color: #ea5151;
+}
+.button.cancel {
+  background-color: #ffe78f;
+  border-color: #ffe76e;
+  color: #de6565;
+}
+.button.done {
+  background-color: #c8ff8f;
+  border-color: #baff6e;
+  color: #3ba492;
+}
+.button.register {
+  background-color: #3bbcef;
+  border-color: #3bbcef;
+  color: white;
 }

@@ -27,7 +27,7 @@ var NavBar = (function (){
       $sidebar.find('li.not-logined').hide();
 
       if (!UserService.isAdmin()) {
-        $sdiebar.find('li.is-admin').hide();
+        $sidebar.find('li.is-admin').hide();
       }
     }
   }
