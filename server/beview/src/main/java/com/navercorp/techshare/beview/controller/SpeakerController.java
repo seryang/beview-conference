@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import com.navercorp.techshare.beview.annotation.Auth;
 import com.navercorp.techshare.beview.exception.AuthorizationException;
 import com.navercorp.techshare.beview.exception.Error;
@@ -29,6 +32,7 @@ import com.navercorp.techshare.beview.service.UploadService;
  */
 @RestController
 @RequestMapping("/api/speakers")
+@Api(value = "Speaker CRUD", description = "발표자 정보 API")
 public class SpeakerController {
 
 	@Autowired
@@ -44,18 +48,21 @@ public class SpeakerController {
 	private String returnUrl;
 
 	@GetMapping("/{id}")
+	@ApiOperation("발표자 단건 조회")
 	public AjaxResponse selectSpeaker(@PathVariable String id) {
 		return speakerService.selectSpeaker(id);
 	}
 
 	@Auth
 	@GetMapping
+	@ApiOperation("발표자 전체 리스트 조회")
 	public AjaxResponse selectAllSpeaker(@RequestParam(value = "page", required = false) Integer page) {
 		return speakerService.selectAllSpeaker(page);
 	}
 
 	@Auth
 	@PostMapping
+	@ApiOperation("발표자 정보 생성")
 	public AjaxResponse createSpeaker(@RequestBody @Valid Speaker speaker, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new AuthorizationException(Error.INVALID);
@@ -66,18 +73,21 @@ public class SpeakerController {
 
 	@Auth
 	@PutMapping("/{id}")
+	@ApiOperation("발표자 정보 수정")
 	public AjaxResponse updateSpeaker(@PathVariable String id, @RequestBody @Valid Speaker speaker) {
 		return speakerService.updateSpeaker(id, speaker);
 	}
 
 	@Auth
 	@DeleteMapping("/{id}")
+	@ApiOperation("발표자 정보 삭제")
 	public AjaxResponse deleteSpeaker(@PathVariable String id) {
 		return speakerService.deleteSpeaker(id);
 	}
 
 	@Auth
 	@PostMapping("/uploadImg")
+	@ApiOperation("발표자 이미지 업로드")
 	public AjaxResponse imgUpload(MultipartFile file) {
 		return uploadService.uploadFile(file, uploadUrl, returnUrl);
 	}

@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import com.navercorp.techshare.beview.annotation.Auth;
 import com.navercorp.techshare.beview.exception.AuthorizationException;
 import com.navercorp.techshare.beview.exception.Error;
@@ -36,6 +39,7 @@ import com.navercorp.techshare.beview.service.UploadService;
 @RestController
 @RequestMapping("/api/sessions")
 @PropertySource("application.properties")
+@Api(value = "Session CRUD", description = "세션 정보 API")
 public class SessionController {
 
 	@Autowired
@@ -57,6 +61,7 @@ public class SessionController {
 	 */
 	@Auth
 	@GetMapping
+	@ApiOperation("세션 전체 리스트 조회")
 	public AjaxResponse selectSessionList(@RequestParam(value = "page", required = false) Integer page) {
 		return sessionService.selectSessionList(page);
 	}
@@ -68,6 +73,7 @@ public class SessionController {
 	 */
 	@Auth
 	@GetMapping("/{idx}")
+	@ApiOperation("세션 단건 조회")
 	public AjaxResponse selectSession(@PathVariable Integer idx) {
 		return sessionService.selectSession(idx);
 	}
@@ -80,6 +86,7 @@ public class SessionController {
 	 */
 	@Auth
 	@PostMapping
+	@ApiOperation("세션 정보 등록")
 	public AjaxResponse createSession(@RequestBody @Valid Session session, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new InvalidException(Error.INVALID);
@@ -96,6 +103,7 @@ public class SessionController {
 	 */
 	@Auth
 	@PutMapping("/{idx}")
+	@ApiOperation("세션 정보 수정")
 	public AjaxResponse updateSession(@PathVariable Integer idx, @RequestBody @Valid Session session, BindingResult bindingResult){
 		if (bindingResult.hasErrors()) {
 			throw new InvalidException(Error.INVALID);
@@ -111,6 +119,7 @@ public class SessionController {
 	 */
 	@Auth
 	@DeleteMapping("/{idx}")
+	@ApiOperation("세션 정보 삭제")
 	public AjaxResponse deleteSession(@PathVariable Integer idx) {
 		return sessionService.deleteSession(idx);
 	}
@@ -123,6 +132,7 @@ public class SessionController {
 	 */
 	@Auth
 	@PostMapping("/uploadFile")
+	@ApiOperation("세션 파일 업로드")
 	public AjaxResponse fileUpload(MultipartFile file) {
 		return uploadService.uploadFile(file, uploadUrl, returnUrl);
 	}

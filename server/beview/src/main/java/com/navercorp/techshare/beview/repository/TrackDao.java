@@ -9,7 +9,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import com.navercorp.techshare.beview.Utils.Pagination;
 import com.navercorp.techshare.beview.model.Track;
@@ -43,14 +42,16 @@ public class TrackDao extends ParentDao {
 
 	public List<Track> selectTrackAllList(Integer page) {
 		try {
-			String SELECT_ALL_SQL = TrackSQL.SELECT_TRACK_ALL;
 
-			if (page == null) {
-				return jdbcTemplate.query(SELECT_ALL_SQL, trackRowMapper);
-			} else {
-				return jdbcTemplate.query(buildPageSQL(SELECT_ALL_SQL), trackRowMapper, Pagination.getStart(page),
-					Pagination.getEnd());
+			String selectSql = TrackSQL.SELECT_TRACK_ALL;
+
+			if (page != null) {
+				selectSql = buildPageSQL(selectSql);
 			}
+
+			return jdbcTemplate.query(selectSql, trackRowMapper, Pagination.getStart(page),
+					Pagination.getEnd());
+
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
