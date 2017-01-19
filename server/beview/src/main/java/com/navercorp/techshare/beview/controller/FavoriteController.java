@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import com.navercorp.techshare.beview.annotation.Auth;
 import com.navercorp.techshare.beview.exception.AuthorizationException;
 import com.navercorp.techshare.beview.exception.Error;
@@ -19,6 +22,7 @@ import com.navercorp.techshare.beview.service.FavoriteService;
  */
 @RestController
 @RequestMapping("/api/favorites")
+@Api(value = "찜하기 CD", description = "세션 찜하기에 대한 API")
 public class FavoriteController {
 
 	@Autowired
@@ -33,6 +37,7 @@ public class FavoriteController {
 	 */
 	@Auth
 	@PostMapping("{sessionIdx}")
+	@ApiOperation("찜하기 정보 생성")
 	public AjaxResponse createFavorite(@PathVariable Integer sessionIdx,
 		@CookieValue(value = "id", defaultValue = "0") String userId) {
 		if ("0".equals(userId)) {
@@ -50,6 +55,7 @@ public class FavoriteController {
 	 */
 	@Auth
 	@DeleteMapping("/{sessionIdx}")
+	@ApiOperation("찜하기 정보 삭제")
 	public AjaxResponse deleteFavorite(@PathVariable Integer sessionIdx,
 		@CookieValue(value = "id", defaultValue = "0") String userId) {
 		if ("0".equals(userId)) {

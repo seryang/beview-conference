@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import io.swagger.annotations.Api;
+
 import com.navercorp.techshare.beview.exception.AuthorizationException;
 import com.navercorp.techshare.beview.exception.InvalidException;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
 
 @RestControllerAdvice
+@Api(value = "ExceptionCotroller", description = "지정 된 예외 처리")
 public class ExceptionController {
 
 	private final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
@@ -29,4 +32,5 @@ public class ExceptionController {
 		logger.error(e.getMessage());
 		return new AjaxResponse(e.getMessage());
 	}
+
 }

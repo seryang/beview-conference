@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import com.navercorp.techshare.beview.annotation.Auth;
 import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.exception.InvalidException;
@@ -28,6 +31,7 @@ import com.navercorp.techshare.beview.service.ScheduleService;
  */
 @RestController
 @RequestMapping("/api/conferences")
+@Api(value = "Conference CURD", description = "컨퍼런스 정보 API")
 public class ConferenceController {
 
 	@Autowired
@@ -44,6 +48,7 @@ public class ConferenceController {
 	 * @return AjaxResponse
 	 */
 	@GetMapping("/{idx}")
+	@ApiOperation("컨퍼런스 전체 스케쥴 조회")
 	public AjaxResponse conferenceInfo(@PathVariable Integer idx,
 		@CookieValue(value = "id", required = false) String userId) {
 		return scheduleService.getSchedule(idx, userId);
@@ -56,6 +61,7 @@ public class ConferenceController {
 	 */
 	@Auth
 	@GetMapping
+	@ApiOperation("컨퍼런스 전체 리스트 조회 ")
 	public AjaxResponse selectConferenceList(@RequestParam(value = "page", required = false) Integer page) {
 		return conferenceService.selectConferenceList(page);
 	}
@@ -68,6 +74,7 @@ public class ConferenceController {
 	 */
 	@Auth
 	@PostMapping
+	@ApiOperation("컨퍼런스 등록")
 	public AjaxResponse createConference(@RequestBody @Valid Conference conference, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new InvalidException(Error.INVALID);
@@ -84,6 +91,7 @@ public class ConferenceController {
 	 */
 	@Auth
 	@PutMapping("/{idx}")
+	@ApiOperation("컨퍼런스 정보 수정")
 	public AjaxResponse updateConference(@PathVariable Integer idx, @RequestBody @Valid Conference conference,
 		BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -101,6 +109,7 @@ public class ConferenceController {
 	 */
 	@Auth
 	@DeleteMapping("/{idx}")
+	@ApiOperation("컨퍼런스 정보 삭제")
 	public AjaxResponse deleteConference(@PathVariable Integer idx) {
 		return conferenceService.deleteConference(idx);
 	}

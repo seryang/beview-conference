@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import com.navercorp.techshare.beview.exception.AuthorizationException;
 import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.model.User;
@@ -25,6 +28,7 @@ import com.navercorp.techshare.beview.service.UserService;
  */
 @RestController
 @RequestMapping("/api/users")
+@Api(value = "User API", description = "사용자 정보 API")
 public class UserController {
 
 	@Autowired
@@ -40,6 +44,7 @@ public class UserController {
 	 * @return AjaxResponse
 	 */
 	@PostMapping
+	@ApiOperation("사용자 정보 생성")
 	public AjaxResponse insertUser(@RequestBody @Valid User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new AuthorizationException(Error.INVALID);
@@ -54,6 +59,7 @@ public class UserController {
 	 * @return AjaxResponse
 	 */
 	@GetMapping("/check")
+	@ApiOperation("사용자 정보 중복체크")
 	public AjaxResponse checkUser(@RequestParam String email) {
 		return userService.checkEmail(email);
 	}
@@ -65,6 +71,7 @@ public class UserController {
 	 * @return AjaxResponse
 	 */
 	@PostMapping("/login")
+	@ApiOperation("사용자 정보 로그인")
 	public AjaxResponse login(@RequestBody @Valid User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new AuthorizationException(Error.INVALID);
@@ -76,6 +83,7 @@ public class UserController {
 	 * [로그아웃]
 	 */
 	@PostMapping("/logout")
+	@ApiOperation("사용자 정보 로그아웃")
 	@ResponseStatus(HttpStatus.OK)
 	public AjaxResponse logout() {
 		return authService.logout();

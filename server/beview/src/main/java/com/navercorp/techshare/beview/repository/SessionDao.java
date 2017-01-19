@@ -88,14 +88,15 @@ public class SessionDao extends ParentDao {
 	// 세션 전체 조회
 	public List<Session> selectAllSession(Integer page) {
 		try {
-			String SELECT_ALL_SQL = SessionSQL.SESSION_SELECT_ALL;
+
+			String selectSql = SessionSQL.SESSION_SELECT_ALL;
 
 			if (page == null) {
-				return jdbcTemplate.query(SELECT_ALL_SQL, sessionRowMapper);
-			} else {
-				return jdbcTemplate.query(buildPageSQL(SELECT_ALL_SQL), sessionRowMapper, Pagination.getStart(page),
-					Pagination.getEnd());
+				selectSql = buildPageSQL(selectSql);
 			}
+			return jdbcTemplate.query(selectSql, sessionRowMapper, Pagination.getStart(page),
+				Pagination.getEnd());
+
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}

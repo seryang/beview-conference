@@ -42,14 +42,16 @@ public class TrackDao extends ParentDao {
 
 	public List<Track> selectTrackAllList(Integer page) {
 		try {
-			String SELECT_ALL_SQL = TrackSQL.SELECT_TRACK_ALL;
 
-			if (page == null) {
-				return jdbcTemplate.query(SELECT_ALL_SQL, trackRowMapper);
-			} else {
-				return jdbcTemplate.query(buildPageSQL(SELECT_ALL_SQL), trackRowMapper, Pagination.getStart(page),
-					Pagination.getEnd());
+			String selectSql = TrackSQL.SELECT_TRACK_ALL;
+
+			if (page != null) {
+				selectSql = buildPageSQL(selectSql);
 			}
+
+			return jdbcTemplate.query(selectSql, trackRowMapper, Pagination.getStart(page),
+					Pagination.getEnd());
+
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}

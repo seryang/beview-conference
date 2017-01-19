@@ -7,7 +7,10 @@ public class Pagination {
 	static private final Integer PAGESIZE = 10;
 
 	static public Integer getStart(Integer page) {
-		return (page - 1) * PAGESIZE;
+		if (page == null) {
+			return 0;
+		}
+		return (page-1) * PAGESIZE;
 	}
 
 	static public Integer getEnd() {

@@ -18,7 +18,7 @@ import com.navercorp.techshare.beview.repository.sql.SpeakerSQL;
  * Created by seungdols on 2017. 1. 17..
  */
 @Repository
-public class SpeakerDao extends ParentDao{
+public class SpeakerDao extends ParentDao {
 
 	private BeanPropertyRowMapper<Speaker> speakerMapper = BeanPropertyRowMapper.newInstance(Speaker.class);
 
@@ -37,17 +37,22 @@ public class SpeakerDao extends ParentDao{
 
 	public List<Speaker> selectAllSpeaker(Integer page) {
 		try {
-			String SELECT_ALL_SQL = SpeakerSQL.SELECT_ALL_SPEAKER;
 
-			if (page == null) {
-				return jdbcTemplate.query(SELECT_ALL_SQL, speakerMapper);
-			} else {
-				return jdbcTemplate.query(buildPageSQL(SELECT_ALL_SQL), speakerMapper, Pagination.getStart(page),
-					Pagination.getEnd());
+			String selectSql = SpeakerSQL.SELECT_ALL_SPEAKER;
+
+			if (page != null) {
+				selectSql = buildPageSQL(selectSql);
 			}
-		} catch (EmptyResultDataAccessException e) {
+			return jdbcTemplate.query(selectSql, speakerMapper, Pagination.getStart(page),
+				Pagination.getEnd());
+
+		} catch (
+			EmptyResultDataAccessException e)
+
+		{
 			return null;
 		}
+
 	}
 
 	public Integer updateSpeaker(String id, Speaker speaker) {
@@ -74,7 +79,8 @@ public class SpeakerDao extends ParentDao{
 
 	public Speaker isExistSpeaker(Speaker speaker, String id) {
 		try {
-			return jdbcTemplate.queryForObject(SpeakerSQL.SELECT_CHECK_BEFORE_UPDATE, speakerMapper, speaker.getEmail(), id);
+			return jdbcTemplate.queryForObject(SpeakerSQL.SELECT_CHECK_BEFORE_UPDATE, speakerMapper, speaker.getEmail(),
+				id);
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
