@@ -29,7 +29,7 @@ public class AuthAop {
 			throw new AuthorizationException(Error.AUTHORIZED_FAIL);
 		}
 
-		if(! "ADMIN_USER".equals(loginUser.getId()) ){
+		if(! ADMIN_USER.equals(loginUser.getId()) ){
 			throw new AuthorizationException(Error.ACCESS_DENY);
 		}
 
