@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.navercorp.techshare.beview.annotation.Auth;
 import com.navercorp.techshare.beview.exception.AuthorizationException;
 import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.model.Speaker;
@@ -47,11 +48,13 @@ public class SpeakerController {
 		return speakerService.selectSpeaker(id);
 	}
 
+	@Auth
 	@GetMapping
 	public AjaxResponse selectAllSpeaker(@RequestParam(value = "page", required = false) Integer page) {
 		return speakerService.selectAllSpeaker(page);
 	}
 
+	@Auth
 	@PostMapping
 	public AjaxResponse createSpeaker(@RequestBody @Valid Speaker speaker, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -61,16 +64,19 @@ public class SpeakerController {
 		return speakerService.createSpeaker(speaker);
 	}
 
+	@Auth
 	@PutMapping("/{id}")
 	public AjaxResponse updateSpeaker(@PathVariable String id, @RequestBody @Valid Speaker speaker) {
 		return speakerService.updateSpeaker(id, speaker);
 	}
 
+	@Auth
 	@DeleteMapping("/{id}")
 	public AjaxResponse deleteSpeaker(@PathVariable String id) {
 		return speakerService.deleteSpeaker(id);
 	}
 
+	@Auth
 	@PostMapping("/uploadImg")
 	public AjaxResponse imgUpload(MultipartFile file) {
 		return uploadService.uploadFile(file, uploadUrl, returnUrl);

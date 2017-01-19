@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.navercorp.techshare.beview.annotation.Auth;
 import com.navercorp.techshare.beview.exception.AuthorizationException;
 import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.model.Track;
@@ -31,6 +32,7 @@ public class TrackController {
 	@Autowired
 	private TrackService trackService;
 
+	@Auth
 	@PostMapping
 	public AjaxResponse createTrack(@RequestBody @Valid Track track, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -39,21 +41,25 @@ public class TrackController {
 		return trackService.createTrack(track);
 	}
 
+	@Auth
 	@GetMapping
 	public AjaxResponse selectTrackList(@RequestParam(value = "page", required = false) Integer page) {
 		return trackService.selectTrackAllList(page);
 	}
 
+	@Auth
 	@GetMapping("/{id}")
 	public AjaxResponse selectTrack(@PathVariable String id) {
 		return trackService.selectTrack(id);
 	}
 
+	@Auth
 	@PutMapping("/{id}")
 	public AjaxResponse updateTrack(@PathVariable String id, @RequestBody @Valid Track track) {
 		return trackService.updateTrack(id, track);
 	}
 
+	@Auth
 	@DeleteMapping("/{id}")
 	public AjaxResponse deleteTrack(@PathVariable String id) {
 		return trackService.deleteTrack(id);
