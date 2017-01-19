@@ -35,7 +35,7 @@ public class SpeakerService {
 	}
 
 	public AjaxResponse updateSpeaker(String id, Speaker speaker) {
-		if (speakerDao.isExistSpeaker(speaker) != null) {
+		if (speakerDao.isExistSpeaker(speaker, id) != null) {
 			throw new InvalidException(Error.DUPLICATE);
 		}
 		speakerDao.updateSpeaker(id, speaker);

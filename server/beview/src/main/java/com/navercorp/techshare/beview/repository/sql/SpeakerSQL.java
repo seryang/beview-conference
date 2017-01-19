@@ -10,4 +10,5 @@ public class SpeakerSQL {
 	public static final String UPDATE_SPEAKER = "UPDATE speaker SET name = ?, img = ?, email = ?, phone = ?, description = ?, session_idx = ? WHERE idx = ?";
 	public static final String DELETE_SPEAKER = "DELETE FROM speaker WHERE idx = ?";
 	public static final String SELECT_CHECK = "SELECT * FROM speaker WHERE email = ?";
+	public static final String SELECT_CHECK_BEFORE_UPDATE = "SELECT * FROM speaker WHERE email = ? and idx != ?";
 }

@@ -72,4 +72,11 @@ public class SpeakerDao extends ParentDao{
 		}
 	}
 
+	public Speaker isExistSpeaker(Speaker speaker, String id) {
+		try {
+			return jdbcTemplate.queryForObject(SpeakerSQL.SELECT_CHECK_BEFORE_UPDATE, speakerMapper, speaker.getEmail(), id);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
 }
