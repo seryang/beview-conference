@@ -15,6 +15,7 @@ import com.navercorp.techshare.beview.model.response.AjaxResponse;
 import com.navercorp.techshare.beview.repository.FavoriteDao;
 import com.navercorp.techshare.beview.repository.SessionDao;
 import com.navercorp.techshare.beview.repository.SpeakerDao;
+import com.navercorp.techshare.beview.repository.TrackDao;
 
 /**
  * Created by Naver on 2017. 1. 12..
@@ -30,6 +31,9 @@ public class SessionService {
 
 	@Autowired
 	private SpeakerDao speakerDao;
+
+	@Autowired
+	private TrackDao trackDao;
 
 	@Autowired
 	private FavoriteDao favoriteDao;
@@ -86,11 +90,16 @@ public class SessionService {
 
 	public AjaxResponse selectSession(Integer idx, String id) {
 		Session session = sessionDao.selectSession(idx);
+
+		session.setTrackName(trackDao.selectTrack(String.valueOf(session.getTrackIdx())).getName());
+		session.setSpeaker(speakerDao.selectSpeaker(String.valueOf(session.getSpeakerIdx())));
+
 		if (!StringUtils.isEmpty(id)) {
 			session.setFavorite(favoriteDao.selectFavoriteById(id, session.getIdx()) != null);
 		} else {
 			session.setFavorite(false);
 		}
+
 		return new AjaxResponse(session);
 	}
 }
