@@ -2,6 +2,7 @@ $(document).ready(function () {
   'use strict';
 
   var $timeTable, $detail;
+  var sessions;
 
   var ajaxDone = true;
 
@@ -32,6 +33,9 @@ $(document).ready(function () {
   function successGetTimeTable (res) {
     var data = res.data[0];
     data.times = changeColumn(data.trackList);
+    sessions = data.times.reduce(function (flatten, time) {
+      return flatten.concat(time.sessions);
+    }, []);
     var schedule = getScheduleFromTemplate(data);
     $timeTable.html(schedule);
   }
@@ -49,6 +53,7 @@ $(document).ready(function () {
       var sessions = trackList.reduce(function (flatten, track) {
         return flatten.concat(track.sessionList);
       }, []).filter(function (session) {
+        session.timeInfo = Utils.getTimeInfoFromKey(session.time);
         return session.time === time;
       });
 
@@ -95,6 +100,13 @@ $(document).ready(function () {
   function successFavoriteItem (e, id, isDetail) {
     var $target = $(e.target);
     $target.toggleClass('on');
+
+    sessions.forEach(function (session) {
+      if (session.idx === id) {
+        session.favorite = !session.favorite;
+      }
+    });
+
     if (isDetail) {
       var selector = '.time-item[data-id="'+id+'"] .heart';
       $timeTable.find(selector).toggleClass('on');
@@ -111,31 +123,13 @@ $(document).ready(function () {
     e.stopPropagation();
 
     var $timeItem = $(e.target).closest('.time-item');
+    var id = $timeItem.data('id');
 
-    return $.when(
-      ScheduleService.detail({id: $timeItem.data('id')}),
-      ScheduleService.track({id: $timeItem.data('track-id')}),
-      ScheduleService.speaker({id: $timeItem.data('speaker-id')})
-    ).then(successGetDetailItem, failGetDetailItem)
-     .always(handleAjaxDone);
-  }
+    var filtered = sessions.filter(function (session) {
+    	return session.idx === id;
+    });
 
-  // 나쁜 코드... index 하드 코딩이 많네...
-  function successGetDetailItem (resDetail, resTrack, resSpeaker) {
-    var data = combineDetailInfo(resDetail[0].data[0], resTrack[0].data[0], resSpeaker[0].data[0]);
-    openLayer(data);
-  }
-
-  function combineDetailInfo (detail, track, speaker) {
-    detail.timeInfo = Utils.getTimeInfoFromKey(detail.time);
-    detail.track = track;
-    detail.speaker = speaker;
-    return detail;
-  }
-
-  function failGetDetailItem (error) {
-    var message = '세션 상세 정보 로딩 실패, ' + error.responseJSON.message;
-    alert(message);
+    openLayer(filtered[0]);
   }
 
   function openLayer (data) {
