@@ -39,10 +39,12 @@ public class AuthAop {
 
 		logger.info("Method call : " + method);
 		if (!("createFavorite".equals(method) || "deleteFavorite".equals(method) || "selectSession".equals(method))) {
-			logger.info("ADMIN");
+			logger.info("접속 사용자 : " + loginUser.getId());
 			if (!adminId.equals(loginUser.getId())) {
+				logger.info("일반 사용자입니다.");
 				throw new AuthorizationException(Error.ACCESS_DENY);
 			}
+			logger.info("관리자입니다");
 		}
 
 		return joinPoint.proceed();
