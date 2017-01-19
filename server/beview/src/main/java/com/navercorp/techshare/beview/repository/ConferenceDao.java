@@ -73,7 +73,7 @@ public class ConferenceDao extends ParentDao {
 		try {
 			String selectSql = ConferenceSQL.CONFERENCE_SELECT_ALL;
 
-			if (page == null) {
+			if (page != null) {
 				selectSql = buildPageSQL(selectSql);
 				return jdbcTemplate.query(selectSql, conferenceRowMapper, Pagination.getStart(page), Pagination.getEnd());
 			} else {

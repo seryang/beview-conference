@@ -91,7 +91,7 @@ public class SessionDao extends ParentDao {
 
 			String selectSql = SessionSQL.SESSION_SELECT_ALL;
 
-			if (page == null) {
+			if (page != null) {
 				selectSql = buildPageSQL(selectSql);
 				return jdbcTemplate.query(selectSql, sessionRowMapper, Pagination.getStart(page),
 					Pagination.getEnd());
