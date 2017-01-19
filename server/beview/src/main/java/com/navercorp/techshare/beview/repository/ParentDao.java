@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 /**
  * Created by seungdols on 2017. 1. 19..
  */
-public abstract class ParentDao {
+public class ParentDao {
 
 	protected JdbcTemplate jdbcTemplate;
 
@@ -17,5 +17,4 @@ public abstract class ParentDao {
 
 		return sql.toString();
 	}
-
 }

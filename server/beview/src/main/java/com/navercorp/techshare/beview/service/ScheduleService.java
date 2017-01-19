@@ -1,6 +1,5 @@
 package com.navercorp.techshare.beview.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,13 +49,13 @@ public class ScheduleService {
 		conference.setTrackList(trackList);
 
 		// 컨터런스 - 트랙 리스트별 - 세션 리스트
-		for(int i = 0 ; i < trackList.size() ; i++){
+		for (int i = 0; i < trackList.size(); i++) {
 			Integer trackIdx = conference.getTrackList().get(i).getIdx();
 			List<Session> sessionList = sessionDao.selectSessionAllListByTrackId(trackIdx);
 			conference.getTrackList().get(i).setSessionList(sessionList);
 
 			// 컨퍼런스 - 트랙 리스트별 - 세션 리스트별 - 발표자
-			for(int j = 0 ; j < sessionList.size() ; j++){
+			for (int j = 0; j < sessionList.size(); j++) {
 				Integer speakerIdx = sessionList.get(j).getSpeakerIdx();
 				Speaker speaker = speakerDao.selectSpeaker(String.valueOf(speakerIdx));
 				conference.getTrackList().get(i).getSessionList().get(j).setSpeaker(speaker);

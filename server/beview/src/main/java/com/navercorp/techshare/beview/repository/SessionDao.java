@@ -22,7 +22,7 @@ import com.navercorp.techshare.beview.repository.sql.SessionSQL;
  * Created by Naver on 2017. 1. 12..
  */
 @Repository
-public class SessionDao extends ParentDao{
+public class SessionDao extends ParentDao {
 
 	private BeanPropertyRowMapper<Session> sessionRowMapper = BeanPropertyRowMapper.newInstance(Session.class);
 
