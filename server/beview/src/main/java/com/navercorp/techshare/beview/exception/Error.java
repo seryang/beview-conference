@@ -10,7 +10,8 @@ public enum Error {
 	DUPLICATE("기존에 데이터가 존재합니다."),
 	UPLOAD_FAIL("업로드에 실패했습니다."),
 	EXIST_ID("이미 존재하는 ID입니다."),
-	EXIST_NAME("이미 존재하는 이름입니다.");
+	EXIST_NAME("이미 존재하는 이름입니다."),
+	ACCESS_DENY("관리자가 아닙니다.");
 
 	private String description;
 

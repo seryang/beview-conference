@@ -34,18 +34,18 @@ public class AuthService {
 	@Autowired
 	private UserDao userDao;
 
-	public boolean cookieCheck() {
+	public User cookieCheck() {
 
 		Map<String, String> cookieMap = getCookie();
 
 		logger.info("Cookie : " + cookieMap);
 
 		if (cookieMap.isEmpty() || cookieMap.size() != 2) {
-			return false;
+			return null;
 		}
 
 		User user = new User(cookieMap.get("id"), cookieMap.get("password"));
-		return userDao.getUser(user) != null;
+		return userDao.getUser(user);
 	}
 
 	public Map<String, String> getCookie() {
