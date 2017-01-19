@@ -31,6 +31,7 @@ public class FavoriteController {
 	 * @param userId
 	 * @return AjaxResponse
 	 */
+	@Auth
 	@PostMapping("{sessionIdx}")
 	public AjaxResponse createFavorite(@PathVariable Integer sessionIdx, @CookieValue(value = "id", defaultValue = "0") String userId){
 		if("0".equals(userId)){
@@ -46,6 +47,7 @@ public class FavoriteController {
 	 * @param userId
 	 * @return
 	 */
+	@Auth
 	@DeleteMapping("/{sessionIdx}")
 	public AjaxResponse deleteFavorite(@PathVariable Integer sessionIdx, @CookieValue(value = "id", defaultValue = "0") String userId){
 		if("0".equals(userId)){

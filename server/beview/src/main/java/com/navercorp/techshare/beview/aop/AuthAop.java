@@ -31,22 +31,22 @@ public class AuthAop {
 			throw new AuthorizationException(Error.AUTHORIZED_FAIL);
 		}
 
-		if(! adminId.equals(loginUser.getId()) ){
-			throw new AuthorizationException(Error.ACCESS_DENY);
-		}
+//		if(! adminId.equals(loginUser.getId()) ){
+//			throw new AuthorizationException(Error.ACCESS_DENY);
+//		}
 
 		return joinPoint.proceed();
 	}
 
-	@Around("within(com.navercorp.techshare.beview.controller.FavoriteController..*)")
-	public Object auth(ProceedingJoinPoint joinPoint) throws Throwable {
-
-		User loginUser = authService.cookieCheck();
-
-		if (loginUser == null) {
-			throw new AuthorizationException(Error.AUTHORIZED_FAIL);
-		}
-
-		return joinPoint.proceed();
-	}
+//	@Around("within(com.navercorp.techshare.beview.controller.FavoriteController..*)")
+//	public Object auth(ProceedingJoinPoint joinPoint) throws Throwable {
+//
+//		User loginUser = authService.cookieCheck();
+//
+//		if (loginUser == null) {
+//			throw new AuthorizationException(Error.AUTHORIZED_FAIL);
+//		}
+//
+//		return joinPoint.proceed();
+//	}
 }
