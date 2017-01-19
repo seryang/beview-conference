@@ -86,15 +86,19 @@ $(document).ready(function () {
 
     return ScheduleService.favorite({
       id: id
-    }, cancel).then(function (res) {
-      return successFavoriteItem(res, e, id);
+    }, cancel).then(function () {
+      return successFavoriteItem(e, id, isDetail);
     }, failFavoriteItem)
       .always(handleAjaxDone);
   }
 
-  function successFavoriteItem (res, e, id) {
+  function successFavoriteItem (e, id, isDetail) {
     var $target = $(e.target);
     $target.toggleClass('on');
+    if (isDetail) {
+      var selector = '.time-item[data-id="'+id+'"] .heart';
+      $timeTable.find(selector).toggleClass('on');
+    }
   }
 
   function failFavoriteItem (error) {
