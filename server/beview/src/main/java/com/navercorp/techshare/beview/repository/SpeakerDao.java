@@ -42,9 +42,11 @@ public class SpeakerDao extends ParentDao {
 
 			if (page != null) {
 				selectSql = buildPageSQL(selectSql);
+				return jdbcTemplate.query(selectSql, speakerMapper, Pagination.getStart(page),
+					Pagination.getEnd());
+			} else {
+				return jdbcTemplate.query(selectSql, speakerMapper);
 			}
-			return jdbcTemplate.query(selectSql, speakerMapper, Pagination.getStart(page),
-				Pagination.getEnd());
 
 		} catch (
 			EmptyResultDataAccessException e)

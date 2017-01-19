@@ -47,10 +47,11 @@ public class TrackDao extends ParentDao {
 
 			if (page != null) {
 				selectSql = buildPageSQL(selectSql);
-			}
-
-			return jdbcTemplate.query(selectSql, trackRowMapper, Pagination.getStart(page),
+				return jdbcTemplate.query(selectSql, trackRowMapper, Pagination.getStart(page),
 					Pagination.getEnd());
+			} else {
+				return jdbcTemplate.query(selectSql, trackRowMapper);
+			}
 
 		} catch (EmptyResultDataAccessException e) {
 			return null;

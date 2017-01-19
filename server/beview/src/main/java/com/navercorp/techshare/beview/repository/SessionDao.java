@@ -93,9 +93,11 @@ public class SessionDao extends ParentDao {
 
 			if (page == null) {
 				selectSql = buildPageSQL(selectSql);
+				return jdbcTemplate.query(selectSql, sessionRowMapper, Pagination.getStart(page),
+					Pagination.getEnd());
+			} else {
+				return jdbcTemplate.query(selectSql, sessionRowMapper);
 			}
-			return jdbcTemplate.query(selectSql, sessionRowMapper, Pagination.getStart(page),
-				Pagination.getEnd());
 
 		} catch (EmptyResultDataAccessException e) {
 			return null;
