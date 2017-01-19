@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,8 +64,9 @@ public class SessionController {
 	 */
 	@Auth
 	@GetMapping("/{idx}")
-	public AjaxResponse selectSession(@PathVariable Integer idx) {
-		return sessionService.selectSession(idx);
+	public AjaxResponse selectSession(@PathVariable Integer idx,
+		@CookieValue(value = "id", required = false) String id) {
+		return sessionService.selectSession(idx, id);
 	}
 
 	/**

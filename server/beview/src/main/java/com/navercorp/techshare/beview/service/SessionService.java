@@ -5,12 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.exception.InvalidException;
 import com.navercorp.techshare.beview.model.Session;
 import com.navercorp.techshare.beview.model.Speaker;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
+import com.navercorp.techshare.beview.repository.FavoriteDao;
 import com.navercorp.techshare.beview.repository.SessionDao;
 import com.navercorp.techshare.beview.repository.SpeakerDao;
 
@@ -28,6 +30,9 @@ public class SessionService {
 
 	@Autowired
 	private SpeakerDao speakerDao;
+
+	@Autowired
+	private FavoriteDao favoriteDao;
 
 	public AjaxResponse createSession(Session session) {
 		if (sessionDao.isSession(session.getName(), session.getTrackIdx()) != null) {
@@ -79,7 +84,13 @@ public class SessionService {
 		return new AjaxResponse();
 	}
 
-	public AjaxResponse selectSession(Integer idx) {
-		return new AjaxResponse(sessionDao.selectSession(idx));
+	public AjaxResponse selectSession(Integer idx, String id) {
+		Session session = sessionDao.selectSession(idx);
+		if (!StringUtils.isEmpty(id)) {
+			session.setFavorite(favoriteDao.selectFavoriteById(id, session.getIdx()) != null);
+		} else {
+			session.setFavorite(false);
+		}
+		return new AjaxResponse(session);
 	}
 }
