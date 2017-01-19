@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.navercorp.techshare.beview.Utils.Pagination;
 import com.navercorp.techshare.beview.model.Conference;
 import com.navercorp.techshare.beview.repository.sql.ConferenceSQL;
 
@@ -69,9 +70,16 @@ public class ConferenceDao {
 	}
 
 	// 컨퍼런스 전체 조회
-	public List<Conference> selectAllConference() {
+	public List<Conference> selectAllConference(Integer page) {
 		try {
-			return jdbcTemplate.query(ConferenceSQL.CONFERENCE_SELECT_ALL, conferenceRowMapper);
+			String SELECT_ALL_SQL = ConferenceSQL.CONFERENCE_SELECT_ALL;
+
+			if (page == null) {
+				return jdbcTemplate.query(SELECT_ALL_SQL, conferenceRowMapper);
+			} else {
+				return jdbcTemplate.query(buildPageSQL(SELECT_ALL_SQL), conferenceRowMapper, Pagination.getStart(page),
+					Pagination.getEnd());
+			}
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
@@ -81,5 +89,15 @@ public class ConferenceDao {
 	public Integer updateConference(Conference conference) {
 		return jdbcTemplate.update(ConferenceSQL.CONFERENCE_UPDATE, conference.getId(), conference.getName(),
 			conference.getStartDate(), conference.getEndDate(), conference.getLocation(), conference.getIdx());
+	}
+
+	//	TODO 각 DAO에서 추상화 시켜야 함
+	private static String buildPageSQL(String SELECT_SQL) {
+		StringBuilder sql = new StringBuilder(SELECT_SQL);
+
+		String part = " limit ? , ?";
+		sql.append(part);
+
+		return sql.toString();
 	}
 }

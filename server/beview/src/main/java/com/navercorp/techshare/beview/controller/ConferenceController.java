@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.navercorp.techshare.beview.annotation.Auth;
@@ -43,7 +44,8 @@ public class ConferenceController {
 	 * @return AjaxResponse
 	 */
 	@GetMapping("/{idx}")
-	public AjaxResponse conferenceInfo(@PathVariable Integer idx, @CookieValue(value = "id", required = false) String userId){
+	public AjaxResponse conferenceInfo(@PathVariable Integer idx,
+		@CookieValue(value = "id", required = false) String userId) {
 		return scheduleService.getSchedule(idx, userId);
 	}
 
@@ -54,8 +56,8 @@ public class ConferenceController {
 	 */
 	@Auth
 	@GetMapping
-	public AjaxResponse selectConferenceList() {
-		return conferenceService.selectConferenceList();
+	public AjaxResponse selectConferenceList(@RequestParam(value = "page", required = false) Integer page) {
+		return conferenceService.selectConferenceList(page);
 	}
 
 	/**
@@ -82,7 +84,8 @@ public class ConferenceController {
 	 */
 	@Auth
 	@PutMapping("/{idx}")
-	public AjaxResponse updateConference(@PathVariable Integer idx, @RequestBody @Valid Conference conference, BindingResult bindingResult) {
+	public AjaxResponse updateConference(@PathVariable Integer idx, @RequestBody @Valid Conference conference,
+		BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new InvalidException(Error.INVALID);
 		}
