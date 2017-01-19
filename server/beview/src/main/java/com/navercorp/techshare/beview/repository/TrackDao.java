@@ -19,9 +19,8 @@ import com.navercorp.techshare.beview.repository.sql.TrackSQL;
  * Created by seungdols on 2017. 1. 12..
  */
 @Repository
-public class TrackDao {
+public class TrackDao extends ParentDao {
 
-	private JdbcTemplate jdbcTemplate;
 	private BeanPropertyRowMapper<Track> trackRowMapper = BeanPropertyRowMapper.newInstance(Track.class);
 
 	@Autowired
@@ -91,13 +90,5 @@ public class TrackDao {
 		}
 	}
 
-	//	TODO 각 DAO에서 추상화 시켜야 함
-	private static String buildPageSQL(String SELECT_SQL) {
-		StringBuilder sql = new StringBuilder(SELECT_SQL);
 
-		String part = " limit ? , ?";
-		sql.append(part);
-
-		return sql.toString();
-	}
 }

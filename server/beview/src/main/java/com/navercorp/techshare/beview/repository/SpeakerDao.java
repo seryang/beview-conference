@@ -18,9 +18,8 @@ import com.navercorp.techshare.beview.repository.sql.SpeakerSQL;
  * Created by seungdols on 2017. 1. 17..
  */
 @Repository
-public class SpeakerDao {
+public class SpeakerDao extends ParentDao{
 
-	private JdbcTemplate jdbcTemplate;
 	private BeanPropertyRowMapper<Speaker> speakerMapper = BeanPropertyRowMapper.newInstance(Speaker.class);
 
 	@Autowired
@@ -73,13 +72,4 @@ public class SpeakerDao {
 		}
 	}
 
-	//	TODO 각 DAO에서 추상화 시켜야 함
-	private static String buildPageSQL(String SELECT_SQL) {
-		StringBuilder sql = new StringBuilder(SELECT_SQL);
-
-		String part = " limit ? , ?";
-		sql.append(part);
-
-		return sql.toString();
-	}
 }

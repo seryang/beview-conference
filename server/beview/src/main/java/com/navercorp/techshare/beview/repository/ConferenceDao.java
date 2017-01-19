@@ -18,9 +18,8 @@ import com.navercorp.techshare.beview.repository.sql.ConferenceSQL;
  * Created by Naver on 2017. 1. 12..
  */
 @Repository
-public class ConferenceDao {
+public class ConferenceDao extends ParentDao{
 
-	private JdbcTemplate jdbcTemplate;
 	private BeanPropertyRowMapper<Conference> conferenceRowMapper = BeanPropertyRowMapper.newInstance(Conference.class);
 
 	@Autowired
@@ -91,13 +90,4 @@ public class ConferenceDao {
 			conference.getStartDate(), conference.getEndDate(), conference.getLocation(), conference.getIdx());
 	}
 
-	//	TODO 각 DAO에서 추상화 시켜야 함
-	private static String buildPageSQL(String SELECT_SQL) {
-		StringBuilder sql = new StringBuilder(SELECT_SQL);
-
-		String part = " limit ? , ?";
-		sql.append(part);
-
-		return sql.toString();
-	}
 }

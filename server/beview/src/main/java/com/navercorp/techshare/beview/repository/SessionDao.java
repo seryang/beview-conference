@@ -22,9 +22,8 @@ import com.navercorp.techshare.beview.repository.sql.SessionSQL;
  * Created by Naver on 2017. 1. 12..
  */
 @Repository
-public class SessionDao {
+public class SessionDao extends ParentDao{
 
-	private JdbcTemplate jdbcTemplate;
 	private BeanPropertyRowMapper<Session> sessionRowMapper = BeanPropertyRowMapper.newInstance(Session.class);
 
 	@Autowired
@@ -114,15 +113,5 @@ public class SessionDao {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
-	}
-
-	//	TODO 각 DAO에서 추상화 시켜야 함
-	private static String buildPageSQL(String SELECT_SQL) {
-		StringBuilder sql = new StringBuilder(SELECT_SQL);
-
-		String part = " limit ? , ?";
-		sql.append(part);
-
-		return sql.toString();
 	}
 }
