@@ -28,7 +28,6 @@ $(document).ready(function () {
 
     NavBar.init();
     selectType();
-    getSelectOptionData();
 
     $radioGroup.on('click', 'input[type="radio"]', selectType);
     $description.on('click', 'a.register, a.edit, a.remove', itemAction);
@@ -89,9 +88,13 @@ $(document).ready(function () {
     page = 1;
 
     getListOfType();
+    getSelectOptionData();
   }
 
   function getListOfType (moreLoading) {
+    if (!moreLoading) {
+      page = 1;
+    }
     // 여기서는 ajax request done handling 을 할 필요가 없어서 제거함
     // GET 요청은 safe, idempotent 하기 때문이다.
     return AdminService.getListOf(type, {
