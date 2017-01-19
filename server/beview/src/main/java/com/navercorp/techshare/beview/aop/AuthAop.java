@@ -18,7 +18,7 @@ public class AuthAop {
 	@Autowired
 	private AuthService authService;
 
-	private final String ADMIN_USER = "admin@deview.kr";
+	private final String ADMIN_USER = "admin@beview.kr";
 
 	@Around("@annotation(com.navercorp.techshare.beview.annotation.Auth)")
 	public Object auth(ProceedingJoinPoint joinPoint) throws Throwable {
