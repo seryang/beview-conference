@@ -9,8 +9,10 @@ var FileService = (function () {
     var data = new FormData();
     data.append('file', file);
 
+    var url = '/{type}/' + ((type === 'sessions') ? 'uploadFile' : 'uploadImg');
+
     return http.post({
-      url: '/{type}/uploadFile',
+      url: url,
       params: {type: type},
       data: data,
       isFileServer: true,

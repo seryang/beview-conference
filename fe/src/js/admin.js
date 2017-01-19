@@ -3,8 +3,15 @@ $(document).ready(function () {
 
   var $window = $(window), $document = $(document);
   var $description, $radioGroup, $title, $container;
-  var $layer, $register, $forms, $list;
-  var type, typeLabel, page, tick = 0;
+  var $layer, $list;
+  var type, typeLabel, page;
+
+  // TODO: 발표를 위한 임시 select option 데이터
+  var selectOptions = {
+    conferences: {},
+    tracks: {},
+    speakers: {}
+  };
 
   // ajaxDone 상태는 ajax 요청이 끝났는지 상태를 제어하는 변수가
   // POST, PUT, DELETE 같은 경우, 요청이 끝나기 전에 다시 호출되면 문제가 발생하기 때문에
@@ -17,12 +24,11 @@ $(document).ready(function () {
     $radioGroup = $('.list-type');
     $title = $description.find('.title');
     $layer = $container.find('.layer');
-    $register = $container.find('.layer.register');
-    $forms = $register.find('.form');
     $list = $description.find('.list-item-area');
 
     NavBar.init();
     selectType();
+    getSelectOptionData();
 
     $radioGroup.on('click', 'input[type="radio"]', selectType);
     $description.on('click', 'a.register, a.edit, a.remove', itemAction);
@@ -30,6 +36,36 @@ $(document).ready(function () {
           .on('change', 'input[type="file"]', uploadFile);
 
     $window.on('scroll', scrolledToBottom);
+  }
+
+  function getSelectOptionData () {
+    // 1. 트랙 리스트 받아오기
+    // 2. 세션 리스트 받아오기
+    return $.when(
+      AdminService.getMetaInfo('conferences'),
+      AdminService.getMetaInfo('tracks'),
+      AdminService.getMetaInfo('speakers')
+    ).then(function (conferences, tracks, speakers) {
+      selectOptions.conferences = conferences[0].data.map(function (conference) {
+        return {
+          text: conference.name,
+          value: conference.idx
+        };
+      });
+      selectOptions.tracks = tracks[0].data.map(function (track) {
+        return {
+          text: track.name,
+          value: track.idx
+        };
+      });
+      selectOptions.speakers = speakers[0].data.map(function (speaker) {
+        return {
+          text: speaker.name,
+          value: speaker.idx
+        };
+      });
+      console.log(selectOptions);
+    });
   }
 
   function scrolledToBottom (e) {
@@ -69,27 +105,25 @@ $(document).ready(function () {
   // 현재 item 이 아니것도 없을 때, noItem 템플릿 보여줌
   function successGetListOfType (res, moreLoading) {
     console.log(type, res, page);
-    var isEmpty = !res.data.length;
+    var isEmpty = !moreLoading && !res.data.length;
 
     if (isEmpty) {
       return $list.html(Template.noItem());
     }
-    appendData(res.data.slice(0, 3), moreLoading);
-    // appendData(res.data, moreLoading);
+
+    appendData(res.data, moreLoading);
   }
 
   function appendData (data, moreLoading) {
-    // startTime, endTime 경우, server 에서 second 정보가 넘어오기 때문에 해당 정보 slice
     if (type === "sessions") {
       data.forEach(function (item) {
-        item.startTime = (item.startTime || {}).slice(0, -3);
-        item.endTime = (item.endTime || {}).slice(0, -3);
+        item.timeInfo = Utils.getTimeInfoFromKey(item.time);
       });
     }
     // step 1: data 를 item template 에 넣어서 DOM 생성
     // step 2: 생성한 DOM 을 $list 에 넣기 (DOM Tree 삽입)
     //   - step 2.1: moreLoading 이 false 라면 기존 $list 는 초기화
-    var doms = getItemFromTemplate(type, data);
+    var doms = getItemFromTemplate(data);
 
     if (!moreLoading) {
       $list.html('');
@@ -97,10 +131,18 @@ $(document).ready(function () {
     $list.append(doms);
   }
 
-  function getItemFromTemplate (type, data) {
+  function getFormFromTemplate (data) {
+    return getDOMFromTemplate('form', data || {});
+  }
+
+  function getItemFromTemplate (data) {
+    return getDOMFromTemplate('item', data);
+  }
+
+  function getDOMFromTemplate (templateType, data) {
     var obj = {};
     obj[type] = data;
-    return Template.item(obj);
+    return Template[templateType](obj);
   }
 
   function failGetListOfType (error) {
@@ -126,12 +168,66 @@ $(document).ready(function () {
   }
 
   function registerItem () {
-    $forms.hide();
-    // 1. 현재 type 에 해당하는 layer 보여주고
-    // 2. 해당 layer 기존 form data clear
-    $forms.filter('.' + type).show()
-          .find('form')[0].reset();
-    $register.slideDown();
+    openLayer({
+      isRegister: true
+    });
+  }
+
+  function openLayer (data) {
+    var form = getFormFromTemplate(data);
+    // type 에 따라 동적으로 로딩해야 하는 select option 정보 넣어주기
+    if (type === 'tracks' || type === 'sessions') {
+      var options = getOptionDOM(type);
+      $layer.html(form);
+      insertOptionDOM(options);
+      resolveSelectItem();
+    } else {
+      $layer.html(form);
+    }
+
+    $layer.slideDown();
+  }
+
+  function resolveSelectItem () {
+    $layer.find('select')
+      .each(function (idx, select) {
+        var elem = $(select);
+        var selected = elem.data('value');
+        elem.val(selected);
+      });
+  }
+
+  function insertOptionDOM (options) {
+    if (!options) {
+      return;
+    }
+
+    var $form = $layer.find('form');
+    if (options.conference) {
+      $form.find('#item-id').html(options.conference);
+    }
+    if (options.track) {
+      $form.find('#item-track-name').html(options.track);
+    }
+    if (options.speaker) {
+      $form.find('#item-speaker-name').html(options.speaker)
+    }
+  }
+
+  function optionDOM (obj) {
+    return ['<option value="', obj.value, '">', obj.text, '</options>'].join('');
+  }
+
+  function getOptionDOM (type) {
+    var doms = {};
+
+    if (type === 'tracks') {
+      doms.conference = selectOptions.conferences.map(optionDOM).join('');
+    } else {
+      doms.track = selectOptions.tracks.map(optionDOM).join('');
+      doms.speaker = selectOptions.speakers.map(optionDOM).join('');
+    }
+    return doms;
   }
 
   function editItem (id) {
@@ -140,7 +236,6 @@ $(document).ready(function () {
     }
 
     ajaxDone = false;
-    $layer.data('id', id).slideDown();
     return AdminService.get(type, {
       id: id
     }).then(successGetDetailItem, failGetDetailItem)
@@ -148,8 +243,9 @@ $(document).ready(function () {
   }
 
   function successGetDetailItem (res) {
-    // TODO: 서버에서 받아온 상세 정보, html 에 삽입
+    // 서버에서 받아온 상세 정보, html 에 삽입
     console.log('detail ', type, res);
+    openLayer(res.data[0]);
   }
 
   function failGetDetailItem (error) {
@@ -195,10 +291,10 @@ $(document).ready(function () {
     var $target = $(e.target);
 
     if ($target.hasClass('cancel')) {
-      closeItem();
+      closeLayer();
     } else if ($target.hasClass('create')) {
       createItem(e);
-    } else if ($target.hasClass('done')) {
+    } else if ($target.hasClass('edit')) {
       doneEditItem(e);
     }
   }
@@ -215,9 +311,9 @@ $(document).ready(function () {
   function successCreateItem (res) {
     var message = typeLabel + ' 생성 성공!';
     alert(message);
-    // 새로 생성한 아이템을 목록 보여주기 위해 목록 reloading
-    closeItem();
+    // 새로 생성한 아이템 목록 보여주기 위해 목록 reloading
     getListOfType();
+    closeLayer();
   }
 
   function failCreatItem (error) {
@@ -225,25 +321,22 @@ $(document).ready(function () {
     alert(message);
   }
 
-  function closeItem () {
-    $layer.data('id', '').slideUp();
+  function closeLayer () {
+    $layer.slideUp();
   }
 
   function doneEditItem (e) {
     if (!ajaxDone) {
       return;
     }
-    var id = $(e.target).closest('.layer').data('id');
+    var $form = $layer.find('form');
+    var data = Utils.getFormDataToJSON($form.serializeArray());
+    var id = $layer.find('.form').data('id');
     ajaxDone = false;
 
-    // TODO: update data object 생성
-    debugger;
     return AdminService.update(type, {
       id: id
-    }, {
-      // title, description, track, location, time, speaker
-      dummy: true
-    }).then(function (res) {
+    }, data).then(function (res) {
       return successDoneEditItem(id, data);
     }, faileDoneEditItem)
       .always(handleAjaxDone);
@@ -251,15 +344,9 @@ $(document).ready(function () {
 
   function successDoneEditItem (id, data) {
     alert('정보 변경 성공!');
-    // TODO:
-    //  step 1: 생성을 요청한 data 를 기준으로 Template 을 이용해 새로운 DOM 을 만든다.
-    //  step 2: 새로운 DOM 기존 위치에 삽입 후, 기존 DOM 을 제거한다.
-    var selector = ['section[data-id="', id, '"]'].join('');
-    var item = getItemFromTemplate(type, data);
-    var $position = $list.find(selector);
-    debugger;
-    $(item).insertBefore($position);
-    $position.remove();
+    // 업데이트 한 아이템을 보여주기 위해 목록 reloading
+    getListOfType();
+    closeLayer();
   }
 
   function faileDoneEditItem (error) {

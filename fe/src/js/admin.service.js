@@ -17,6 +17,11 @@ var AdminService = (function () {
   }
 
   return {
+    getMetaInfo: function (type) {
+      return http.get({
+        url: convertUrl(type)
+      });
+    },
     getListOf: function (type, params) {
       return http.get({
         url: convertUrl(type, '?page={page}'),
