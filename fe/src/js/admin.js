@@ -4,7 +4,7 @@ $(document).ready(function () {
   var $window = $(window), $document = $(document);
   var $description, $radioGroup, $title, $container;
   var $layer, $list;
-  var type, typeLabel, page;
+  var type, typeLabel, page, isEnd;
 
   // TODO: 발표를 위한 임시 select option 데이터
   var selectOptions = {
@@ -38,43 +38,35 @@ $(document).ready(function () {
   }
 
   function getSelectOptionData () {
-    // 1. 트랙 리스트 받아오기
-    // 2. 세션 리스트 받아오기
+    // 1. 컨퍼런스 리스트 받아오기
+    // 2. 트랙 리스트 받아오기
+    // 3. 발표자 리스트 받아오기
     return $.when(
       AdminService.getMetaInfo('conferences'),
       AdminService.getMetaInfo('tracks'),
       AdminService.getMetaInfo('speakers')
     ).then(function (conferences, tracks, speakers) {
-      selectOptions.conferences = conferences[0].data.map(function (conference) {
-        return {
-          text: conference.name,
-          value: conference.idx
-        };
-      });
-      selectOptions.tracks = tracks[0].data.map(function (track) {
-        return {
-          text: track.name,
-          value: track.idx
-        };
-      });
-      selectOptions.speakers = speakers[0].data.map(function (speaker) {
-        return {
-          text: speaker.name,
-          value: speaker.idx
-        };
-      });
+      selectOptions.conferences = conferences[0].data.map(getPair);
+      selectOptions.tracks = tracks[0].data.map(getPair);
+      selectOptions.speakers = speakers[0].data.map(getPair);
       console.log(selectOptions);
     });
+  }
+
+  function getPair (item) {
+    return {
+      text: item.name,
+      value: item.idx
+    };
   }
 
   function scrolledToBottom (e) {
     // 현재 스크롤 위치를 파악 후,
     // container 와 비교해서 bottom 으로부터 # px 이내 범위 안에 있을 때
     // 다음 페이지를 불러옴
-    var bottom = parseInt($list.height());
-    var isNeedMoreLoading = (bottom - 300 < ($window.scrollTop() + 120));
+    var isNeedMoreLoading = document.body.scrollHeight == document.body.scrollTop + window.innerHeight;
 
-    if (isNeedMoreLoading && ajaxDone) {
+    if (isNeedMoreLoading && ajaxDone && !isEnd) {
       page++;
       ajaxDone = false;
       getListOfType(true);
@@ -86,6 +78,7 @@ $(document).ready(function () {
     typeLabel = Utils.toFirstUpper(type).slice(0, -1);
     $title.text(typeLabel + ' list');
     page = 1;
+    isEnd = false;
 
     getListOfType();
     getSelectOptionData();
@@ -107,8 +100,9 @@ $(document).ready(function () {
 
   // 현재 item 이 아니것도 없을 때, noItem 템플릿 보여줌
   function successGetListOfType (res, moreLoading) {
-    console.log(type, res, page);
+    console.log(type, res, page, isEnd);
     var isEmpty = !moreLoading && !res.data.length;
+    isEnd = !res.data.length;
 
     if (isEmpty) {
       return $list.html(Template.noItem());
@@ -380,7 +374,8 @@ $(document).ready(function () {
     var $hidden = $target.siblings('[type="hidden"]');
     var $text = $target.siblings('.text-muted');
     $hidden.val(res.message);
-    $text.text('파일: ' + res.message);
+    var $img = $('<img src="' + res.message + '" width="64px" height="64px" alt="">');
+    $text.html($img);
   }
 
   function failUploadFile (error) {

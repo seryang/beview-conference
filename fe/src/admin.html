@@ -137,7 +137,11 @@
         <input type="hidden" name="file" value="{{file}}" required>
         <label for="item-file">발표자료 (Option)</label>
         <input type="file" accept="image/*,.pdf,.ppt,.txt" name="file-input" id="item-file" placeholder="발표자료를 선택해주세요.">
-        <div class="text-muted">파일: {{file}}</div>
+        <div class="text-muted">
+          {{#if file}}
+          <img src="{{file}}" width="64px" height="64px" alt="{{name}}">
+          {{/if}}
+        </div>
         <div class="meta-action right">
           <a href="#" class="button sm cancel">뒤로 가기</a>
           {{#if isRegister}}
@@ -164,7 +168,11 @@
         <input type="hidden" name="img" value="{{img}}">
         <label for="item-file">사진</label>
         <input type="file" accept="image/*" name="file-input" id="item-file" placeholder="발표자 사진을 선택해주세요.">
-        <div class="text-muted">파일: {{img}}</div>
+        <div class="text-muted">
+          {{#if img}}
+          <img src="{{img}}" width="64px" height="64px" alt="{{name}}">
+          {{/if}}
+        </div>
         <div class="meta-action right">
           <a href="#" class="button sm cancel">뒤로 가기</a>
           {{#if isRegister}}

@@ -24,27 +24,80 @@
     </nav>
     <div class="clear"></div>
 
-    <article class="description">
-      <h1>schedule</h1>
-    </article>
+    <article class="description time-table"></article>
 
-    <article class="detail layer">
-      <h2 class="title">현승호와 함께하는 안드로이드 심화학습</h2>
-      <div class="item-description">
-        <p>언제나 오는 시간이 아닙니다. 가끔 찾아오는 특별한 시간. 단돈 $499에 모십니다. 어서 신청하세요!</p>
-        <p>여기까지 오셨으니 알려드리는데, 여러분들에게 돈 받아서 한우집 갈겁니다!</p>
-      </div>
-      <div class="meta-action right">
-        <a href="#" class="button sm cancel">취소</a>
-        <a href="#" class="button sm done">완료</a>
-      </div>
-    </article>
+    <article class="detail layer"></article>
   </div>
 
+
+  <script id="schedule-template" type="text/x-handlebars-template">
+    <h1 class="conference-name">{{name}}</h1>
+    {{#each times}}
+      {{> time-section}}
+    {{/each}}
+  </script>
+
+  <script id="time-section-partial" type="text/x-handlebars-template">
+    <div class="time-section">
+      <h2 class="time-label">{{timeInfo}}</h2>
+      {{#each sessions}}
+        {{> session-item}}
+      {{/each}}
+    </div>
+  </script>
+  <script id="session-item-partial" type="text/x-handlebars-template">
+    <div class="time-item" data-id="{{idx}}" data-track-id="{{trackIdx}}" data-speaker-id="{{speakerIdx}}">
+      <div class="time-item-info">
+        <h3 class="item-title">{{name}}</h3>
+        <p class="item-description">{{description}}</p>
+      </div>
+      <div class="time-item-favorite">
+        <button type="button" class="favorite heart {{#if favorite}}on{{/if}}"></button>
+      </div>
+    </div>
+  </script>
+
+  <script id="detail-template" type="text/x-handlebars-template">
+    {{> session-detail}}
+  </script>
+  <script id="detail-partial" type="text/x-handlebars-template">
+    <section class="session-detail" data-id={{idx}}>
+      <h2 class="title">{{name}}</h2>
+      <p class="item-description">{{description}}</p>
+
+      <div class="meta-info item-time">Time: [{{timeInfo}}]</div>
+      <div class="meta-info item-track">Track: [#{{track.name}}]</div>
+      <div class="meta-info item-speaker">
+        <h3 class="speaker-title">Speaker</h3>
+        <div class="speaker-image">
+          <img src="{{speaker.img}}" width="100%" alt="{{speaker.name}}">
+          <span>{{speaker.name}}</span>
+        </div>
+        <div class="speaker-description">
+          <div>{{speaker.description}}</div>
+          <div>컨퍼런스 발표는 처음이지만, 발표를 너무나 잘해서 발표왕라는 칭호를 가지고 있다.</div>
+        </div>
+      </div>
+      <div class="meta-file clear right">
+        {{#if file}}
+          <a href="{{file}}" class="download" target="_blank">[발표 자료]</a>
+        {{/if}}
+        <button type="button" class="favorite heart {{#if favorite}}on{{/if}}"></button>
+      </div>
+      <div class="meta-action clear right">
+        <a href="#" class="button sm cancel">닫기</a>
+      </div>
+    </section>
+  </script>
+
   <script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/handlebars-v4.0.5.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
   <script type="text/javascript" src="js/user.service.js"></script>
+  <script type="text/javascript" src="js/schedule.service.js"></script>
   <script type="text/javascript" src="js/navbar.js"></script>
+  <script type="text/javascript" src="js/template.js"></script>
   <script type="text/javascript" src="js/schedule.js"></script>
 </body>
 </html>
