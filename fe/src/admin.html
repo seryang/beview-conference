@@ -106,13 +106,17 @@
         <input type="text" name="location" id="item-location" value="{{location}}" placeholder="트랙 장소를 입력해주세요." required>
         <div class="meta-action right margin-top-20">
           <a href="#" class="button sm cancel">뒤로 가기</a>
-          <a href="#" class="button sm done create">만들기</a>
+          {{#if isRegister}}
+            <a href="#" class="button sm done create">만들기</a>
+          {{else}}
+            <a href="#" class="button sm done edit">수정하기</a>
+          {{/if}}
         </div>
       </form>
     </section>
   </script>
   <script id="form-session-partial" type="text/x-handlebars-template">
-    <section class="form sessions" data-id="{{id}}">
+    <section class="form sessions" data-id="{{idx}}">
       <h1 class="title">세션 등록</h1>
       <form name="sessionForm" novalidate>
         <label for="item-track-name">트랙 이름</label>
@@ -135,7 +139,11 @@
         <input type="file" accept="image/*,.pdf,.ppt,.txt" name="file-input" id="item-file" placeholder="발표자료를 선택해주세요.">
         <div class="meta-action right">
           <a href="#" class="button sm cancel">뒤로 가기</a>
-          <a href="#" class="button sm done create">만들기</a>
+          {{#if isRegister}}
+            <a href="#" class="button sm done create">만들기</a>
+          {{else}}
+            <a href="#" class="button sm done edit">수정하기</a>
+          {{/if}}
         </div>
       </form>
     </section>
@@ -157,7 +165,11 @@
         <input type="file" accept="image/*" name="file-input" id="item-file" placeholder="발표자 사진을 선택해주세요.">
         <div class="meta-action right">
           <a href="#" class="button sm cancel">뒤로 가기</a>
-          <a href="#" class="button sm done create">만들기</a>
+          {{#if isRegister}}
+            <a href="#" class="button sm done create">만들기</a>
+          {{else}}
+            <a href="#" class="button sm done edit">수정하기</a>
+          {{/if}}
         </div>
       </form>
     </section>
