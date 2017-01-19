@@ -9,9 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.navercorp.techshare.beview.model.Favorite;
-import com.navercorp.techshare.beview.model.Speaker;
 import com.navercorp.techshare.beview.repository.sql.FavoriteSQL;
-import com.navercorp.techshare.beview.repository.sql.SpeakerSQL;
 
 /**
  * Created by Naver on 2017. 1. 17..

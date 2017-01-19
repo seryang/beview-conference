@@ -2,8 +2,6 @@ package com.navercorp.techshare.beview.controller;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -20,13 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.navercorp.techshare.beview.annotation.Auth;
-import com.navercorp.techshare.beview.exception.AuthorizationException;
 import com.navercorp.techshare.beview.exception.Error;
 import com.navercorp.techshare.beview.exception.InvalidException;
-import com.navercorp.techshare.beview.model.Conference;
 import com.navercorp.techshare.beview.model.Session;
 import com.navercorp.techshare.beview.model.response.AjaxResponse;
-import com.navercorp.techshare.beview.service.AuthService;
 import com.navercorp.techshare.beview.service.SessionService;
 import com.navercorp.techshare.beview.service.UploadService;
 
@@ -96,7 +91,8 @@ public class SessionController {
 	 */
 	@Auth
 	@PutMapping("/{idx}")
-	public AjaxResponse updateSession(@PathVariable Integer idx, @RequestBody @Valid Session session, BindingResult bindingResult){
+	public AjaxResponse updateSession(@PathVariable Integer idx, @RequestBody @Valid Session session,
+		BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new InvalidException(Error.INVALID);
 		}

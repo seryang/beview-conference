@@ -51,7 +51,7 @@ public class SessionService {
 
 		// speaker 테이블에 정보도 수정 (발표자 idx로 검색해서, 해당 session_idx에 업데이트
 		// 같으면 수정할 필요 없음
-		if (! (beforeData.getSpeakerIdx().equals(updateData.getSpeakerIdx()))) {
+		if (!(beforeData.getSpeakerIdx().equals(updateData.getSpeakerIdx()))) {
 			Speaker speaker = speakerDao.selectSpeaker(String.valueOf(beforeData.getSpeakerIdx()));
 			speaker.setSessionIdx(null);
 			speakerDao.updateSpeaker(String.valueOf(speaker.getIdx()), speaker);

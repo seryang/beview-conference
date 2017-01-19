@@ -1,13 +1,10 @@
 package com.navercorp.techshare.beview.service;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.sun.net.httpserver.HttpContext;
 
 import com.navercorp.techshare.beview.exception.AuthorizationException;
 import com.navercorp.techshare.beview.exception.Error;

@@ -33,8 +33,9 @@ public class FavoriteController {
 	 */
 	@Auth
 	@PostMapping("{sessionIdx}")
-	public AjaxResponse createFavorite(@PathVariable Integer sessionIdx, @CookieValue(value = "id", defaultValue = "0") String userId){
-		if("0".equals(userId)){
+	public AjaxResponse createFavorite(@PathVariable Integer sessionIdx,
+		@CookieValue(value = "id", defaultValue = "0") String userId) {
+		if ("0".equals(userId)) {
 			throw new AuthorizationException(Error.AUTHORIZED_FAIL);
 		}
 		return favoriteService.createFavorite(sessionIdx, userId);
@@ -49,8 +50,9 @@ public class FavoriteController {
 	 */
 	@Auth
 	@DeleteMapping("/{sessionIdx}")
-	public AjaxResponse deleteFavorite(@PathVariable Integer sessionIdx, @CookieValue(value = "id", defaultValue = "0") String userId){
-		if("0".equals(userId)){
+	public AjaxResponse deleteFavorite(@PathVariable Integer sessionIdx,
+		@CookieValue(value = "id", defaultValue = "0") String userId) {
+		if ("0".equals(userId)) {
 			throw new AuthorizationException(Error.AUTHORIZED_FAIL);
 		}
 		return favoriteService.deleteFavorite(sessionIdx, userId);

@@ -5,9 +5,11 @@ package com.navercorp.techshare.beview.Utils;
  */
 public class Pagination {
 	static private final Integer PAGESIZE = 10;
+
 	static public Integer getStart(Integer page) {
-		return (page-1) * PAGESIZE;
+		return (page - 1) * PAGESIZE;
 	}
+
 	static public Integer getEnd() {
 		return PAGESIZE;
 	}

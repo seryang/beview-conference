@@ -29,11 +29,4 @@ public class ExceptionController {
 		logger.error(e.getMessage());
 		return new AjaxResponse(e.getMessage());
 	}
-
-//	@ExceptionHandler(NullPointerException.class)
-//	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-//	public AjaxResponse exception(NullPointerException e) {
-//		logger.error(e.printStackTrace());
-//		return new AjaxResponse(e.getMessage());
-//	}
 }

@@ -7,10 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,14 +41,12 @@ public class UploadService {
 		String realFileNm = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 		String rlFileNm = filePath + realFileNm;
 
-
 		// 서버에 파일쓰기  ( Spring - FileCopyUtils )
 		MultipartFile upload = uploadFile;
 
 		try {
 			FileCopyUtils.copy(upload.getInputStream(), new FileOutputStream(rlFileNm));
 		} catch (IOException e) {
-			e.printStackTrace();
 			throw new InvalidException(Error.UPLOAD_FAIL);
 		}
 
