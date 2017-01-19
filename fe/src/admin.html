@@ -90,7 +90,6 @@
           {{else}}
             <a href="#" class="button sm done edit">수정하기</a>
           {{/if}}
-
         </div>
       </form>
     </section>
@@ -100,11 +99,7 @@
       <h1 class="title">트랙 등록</h1>
       <form name="trackForm" novalidate>
         <label for="item-id">컨퍼런스 아이디</label>
-        <select name="conferenceIdx" id="item-id" value="{{conferenceIdx}}" required>
-          <option value="10">BeView 2015</option>
-          <option value="11">BeView 2016</option>
-          <option value="12">BeView 2017</option>
-        </select>
+        <select name="conferenceIdx" id="item-id" value="{{conferenceIdx}}" data-value="{{conferenceIdx}}" required></select>
         <label for="item-name">이름</label>
         <input type="text" name="name" id="item-name" value="{{name}}" placeholder="트랙 이름을 입력해주세요." required>
         <label for="item-location">장소</label>
@@ -121,25 +116,15 @@
       <h1 class="title">세션 등록</h1>
       <form name="sessionForm" novalidate>
         <label for="item-track-name">트랙 이름</label>
-        <select name="trackIdx" id="item-track-name" value="{{trackIdx}}" required>
-          <option value="0" selected>Android</option>
-          <option value="1">iOS</option>
-          <option value="2">Front-End</option>
-        </select>
+        <select name="trackIdx" id="item-track-name" value="{{trackIdx}}" data-value="{{trackIdx}}" required></select>
         <label for="item-speaker-name">발표자 이름</label>
-        <select name="speakerIdx" id="item-speaker-name" value="{{speakerIdx}}" required>
-          <option value="0" selected>최세량</option>
-          <option value="1">최승호</option>
-          <option value="2">현승호</option>
-          <option value="3">서찬수</option>
-          <option value="4">박성현</option>
-        </select>
+        <select name="speakerIdx" id="item-speaker-name" value="{{speakerIdx}}" data-value="{{speakerIdx}}" required></select>
         <label for="item-name">이름</label>
         <input type="text" name="name" id="item-name" value="{{name}}" placeholder="세션 이름을 입력해주세요." required>
         <label for="item-description">설명</label>
         <input type="text" name="description" id="item-description" value="{{description}}" placeholder="세션 설명을 입력해주세요." required>
         <label for="item-time">시간</label>
-        <select name="time" id="item-time" value="{{time}}" required>
+        <select name="time" id="item-time" value="{{time}}" data-value="{{time}}" required>
           <option value="T1">09:00 ~ 10:50</option>
           <option value="T2">11:00 ~ 12:50</option>
           <option value="T3">14:00 ~ 15:50</option>
@@ -232,7 +217,7 @@
       <h2 class="item-title">{{name}}</h2>
       <p class="item-description">{{description}}</p>
       <div class="meta-info">
-        <span class="item-time left">[{{startTime}} ~ {{endTime}}]</span>
+        <span class="item-time left">[{{timeInfo}}]</span>
       </div>
       <div class="meta-info clear">
         <span class="item-track" data-id="{{trackIdx}}">[{{trackName}}]</span>
@@ -252,14 +237,16 @@
   <script id="speaker-partial" type="text/x-handlebars-template">
     <section class="item-container" data-id="{{idx}}">
       <h2 class="item-title">{{name}}</h2>
+      <img src="{{img}}" width="64px" height="64px">
       <p class="item-description">{{description}}</p>
-      <!-- <div class="meta-info">
-        <span class="item-speaker right" data-id="{{speakerIdx}}">by {{speakerName}}</span>
-        <span class="item-track right" data-id="{{trackIdx}}">[{{trackName}}]</span>
+      <div class="meta-info">
+        {{#if phone}}
+        <span class="item-phone">[{{phone}}]</span>
+        {{/if}}
+        {{#if email}}
+        <span class="item-email">[{{email}}]</span>
+        {{/if}}
       </div>
-      <div class="meta-file clear right">
-        <a href="{{file}}">[발표 자료]</a>
-      </div> -->
       <div class="meta-action clear">
         <a href="#" class="button sm edit">수정</a>
         <a href="#" class="button sm remove">삭제</a>
