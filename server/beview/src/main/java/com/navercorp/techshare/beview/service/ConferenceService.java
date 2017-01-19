@@ -28,8 +28,8 @@ public class ConferenceService {
 		return new AjaxResponse();
 	}
 
-	public AjaxResponse selectConferenceList() {
-		return new AjaxResponse(conferenceDao.selectAllConference());
+	public AjaxResponse selectConferenceList(Integer page) {
+		return new AjaxResponse(conferenceDao.selectAllConference(page));
 	}
 
 	public AjaxResponse updateConference(Integer idx, Conference updateData) {
