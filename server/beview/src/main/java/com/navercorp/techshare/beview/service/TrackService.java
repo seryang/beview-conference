@@ -17,8 +17,6 @@ import com.navercorp.techshare.beview.repository.TrackDao;
 @Service
 public class TrackService {
 
-	private final Logger logger = LoggerFactory.getLogger(TrackService.class);
-
 	@Autowired
 	private TrackDao trackDao;
 
