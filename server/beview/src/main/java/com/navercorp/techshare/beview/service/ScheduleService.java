@@ -53,11 +53,18 @@ public class ScheduleService {
 			Integer trackIdx = conference.getTrackList().get(i).getIdx();
 			List<Session> sessionList = sessionDao.selectSessionAllListByTrackId(trackIdx);
 			conference.getTrackList().get(i).setSessionList(sessionList);
+			conference.getTrackList().get(i).setConferenceName(conference.getName());
 
 			// 컨퍼런스 - 트랙 리스트별 - 세션 리스트별 - 발표자
 			for (int j = 0; j < sessionList.size(); j++) {
 				Integer speakerIdx = sessionList.get(j).getSpeakerIdx();
 				Speaker speaker = speakerDao.selectSpeaker(String.valueOf(speakerIdx));
+				speaker.setSessionIdx(conference.getTrackList().get(i).getSessionList().get(j).getIdx());
+				speaker.setSessionName(conference.getTrackList().get(i).getSessionList().get(j).getName());
+				conference.getTrackList().get(i).getSessionList().get(j).setSpeaker(speaker);
+				conference.getTrackList().get(i).getSessionList().get(j).setSpeakerName(speaker.getName());
+				conference.getTrackList().get(i).getSessionList().get(j).setTrackName(
+					conference.getTrackList().get(i).getName());
 				conference.getTrackList().get(i).getSessionList().get(j).setSpeaker(speaker);
 
 				// 현재 사용자가 찜한 세션인지 체크
