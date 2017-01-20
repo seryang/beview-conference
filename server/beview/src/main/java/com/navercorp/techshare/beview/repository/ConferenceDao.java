@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.navercorp.techshare.beview.Utils.Pagination;
+import com.navercorp.techshare.beview.utils.Pagination;
 import com.navercorp.techshare.beview.model.Conference;
 import com.navercorp.techshare.beview.repository.sql.ConferenceSQL;
 

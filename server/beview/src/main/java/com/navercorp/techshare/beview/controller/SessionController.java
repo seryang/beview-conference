@@ -34,7 +34,6 @@ import com.navercorp.techshare.beview.service.UploadService;
  */
 @RestController
 @RequestMapping("/api/sessions")
-@PropertySource("application.properties")
 @Api(value = "Session CRUD", description = "세션 정보 API")
 public class SessionController {
 

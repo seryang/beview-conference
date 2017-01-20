@@ -15,9 +15,8 @@ import com.navercorp.techshare.beview.repository.sql.UserSQL;
  * Created by Naver on 2017. 1. 10..
  */
 @Repository
-public class UserDao {
+public class UserDao extends ParentDao {
 
-	private JdbcTemplate jdbcTemplate;
 	private BeanPropertyRowMapper<User> userRowMapper = BeanPropertyRowMapper.newInstance(User.class);
 
 	@Autowired

@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.navercorp.techshare.beview.Utils.Pagination;
+import com.navercorp.techshare.beview.utils.Pagination;
 import com.navercorp.techshare.beview.model.Session;
 import com.navercorp.techshare.beview.repository.sql.SessionSQL;
 

@@ -15,7 +15,9 @@ public class EnvironmentConfig {
 		ignoreResourceNotFound = true,
 		value = {
 			"classpath:/properties/database.properties",
-			"file:/home1/irteam/deploy/beview/dist/project_properties/database.properties"
+			"classpath:/properties/file.properties",
+			"file:/home1/irteam/deploy/beview/dist/project_properties/database.properties",
+			"file:/home1/irteam/deploy/beview/dist/project_properties/file.properties"
 		}
 	)
 

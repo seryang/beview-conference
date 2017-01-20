@@ -16,7 +16,6 @@ import javax.sql.DataSource;
  */
 @Configuration
 @ComponentScan
-@PropertySource("application.properties")
 public class DatabaseConfig {
 
 	@Value("${spring.datasource.url}")

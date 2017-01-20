@@ -15,8 +15,7 @@ import com.navercorp.techshare.beview.repository.sql.FavoriteSQL;
  * Created by Naver on 2017. 1. 17..
  */
 @Repository
-public class FavoriteDao {
-	private JdbcTemplate jdbcTemplate;
+public class FavoriteDao extends ParentDao {
 	private BeanPropertyRowMapper<Favorite> favoriteMapper = BeanPropertyRowMapper.newInstance(Favorite.class);
 
 	@Autowired
