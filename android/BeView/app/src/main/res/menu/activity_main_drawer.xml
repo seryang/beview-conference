@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="홈" />
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/ic_schedule_black_24dp"
+            android:title="스케쥴" />
+
+        <item
+            android:id="@+id/nav_dashboard"
+            android:checkable="false"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="대쉬보드"
+            android:visible="false" />
+
+        <item
+            android:id="@+id/nav_login"
+            android:checkable="false"
+            android:icon="@drawable/ic_input_black_24dp"
+            android:title="로그인" />
+        <item
+            android:id="@+id/nav_join"
+            android:checkable="false"
+            android:icon="@drawable/ic_person_add_black_24dp"
+            android:title="회원가입" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:checkable="false"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="로그아웃"
+            android:visible="false" />
+    </group>
+</menu>

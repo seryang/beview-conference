@@ -1,0 +1,103 @@
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <title>Schedule of Conference</title>
+  <link rel="stylesheet" href="css/application.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <div class="menu">
+        <a href="index.html" class="brand">Conference</a>
+        <a href="#" class="dropdown"></a>
+      </div>
+      <ul class="sidebar">
+        <li><a href="index.html">Main</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="active"><a href="schedule.html">Schedule</a></li>
+        <li class="not-logined"><a href="login.html">Login</a></li>
+        <li class="logined"><a href="#" class="logout">Logout</a></li>
+        <li class="not-logined"><a href="join.html">Join</a></li>
+        <li class="logined is-admin"><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+    <div class="clear"></div>
+
+    <article class="description time-table"></article>
+
+    <article class="detail layer"></article>
+  </div>
+
+
+  <script id="schedule-template" type="text/x-handlebars-template">
+    <h1 class="conference-name">{{name}}</h1>
+    {{#each times}}
+      {{> time-section}}
+    {{/each}}
+  </script>
+
+  <script id="time-section-partial" type="text/x-handlebars-template">
+    <div class="time-section">
+      <h2 class="time-label">{{timeInfo}}</h2>
+      {{#each sessions}}
+        {{> session-item}}
+      {{/each}}
+    </div>
+  </script>
+  <script id="session-item-partial" type="text/x-handlebars-template">
+    <div class="time-item" data-id="{{idx}}" data-track-id="{{trackIdx}}" data-speaker-id="{{speakerIdx}}">
+      <div class="time-item-info">
+        <h3 class="item-title">{{name}}</h3>
+        <p class="item-description">{{description}}</p>
+      </div>
+      <div class="time-item-favorite">
+        <button type="button" class="favorite heart {{#if favorite}}on{{/if}}"></button>
+      </div>
+    </div>
+  </script>
+
+  <script id="detail-template" type="text/x-handlebars-template">
+    {{> session-detail}}
+  </script>
+  <script id="detail-partial" type="text/x-handlebars-template">
+    <section class="session-detail" data-id={{idx}}>
+      <h2 class="title">{{name}}</h2>
+      <p class="item-description">{{description}}</p>
+
+      <div class="meta-info item-time">Time: [{{timeInfo}}]</div>
+      <div class="meta-info item-track">Track: [#{{trackName}}]</div>
+      <div class="meta-info item-speaker">
+        <h3 class="speaker-title">Speaker</h3>
+        <div class="speaker-image">
+          <img src="{{speaker.img}}" width="100%" alt="{{speaker.name}}">
+          <span>{{speaker.name}}</span>
+        </div>
+        <div class="speaker-description">
+          <div>{{speaker.description}}</div>
+          <div>컨퍼런스 발표는 처음이지만, 발표를 너무나 잘해서 발표왕라는 칭호를 가지고 있다.</div>
+        </div>
+      </div>
+      <div class="meta-file clear right">
+        {{#if file}}
+          <a href="{{file}}" class="download" target="_blank">[발표 자료]</a>
+        {{/if}}
+        <button type="button" class="favorite heart {{#if favorite}}on{{/if}}"></button>
+      </div>
+      <div class="meta-action clear right">
+        <a href="#" class="button sm cancel">닫기</a>
+      </div>
+    </section>
+  </script>
+
+  <script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/handlebars-v4.0.5.js"></script>
+  <script type="text/javascript" src="js/http.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/user.service.js"></script>
+  <script type="text/javascript" src="js/schedule.service.js"></script>
+  <script type="text/javascript" src="js/navbar.js"></script>
+  <script type="text/javascript" src="js/template.js"></script>
+  <script type="text/javascript" src="js/schedule.js"></script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <title>Schedule of Conference</title>
+  <link rel="stylesheet" href="css/application.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <div class="menu">
+        <a href="index.html" class="brand">Conference</a>
+        <a href="#" class="dropdown"></a>
+      </div>
+      <ul class="sidebar">
+        <li><a href="index.html">Main</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li class="not-logined"><a href="login.html">Login</a></li>
+        <li class="logined"><a href="#" class="logout">Logout</a></li>
+        <li class="not-logined"><a href="join.html">Join</a></li>
+        <li class="logined is-admin active"><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+    <div class="clear"></div>
+
+    <section class="description">
+      <div class="list-type">
+        <input type="radio" name="list-type" id="radio-conference" value="conferences" checked>
+        <label for="radio-conference">컨퍼런스</label>
+        <input type="radio" name="list-type" id="radio-track" value="tracks">
+        <label for="radio-track">트랙</label>
+        <input type="radio" name="list-type" id="session-track" value="sessions">
+        <label for="session-track">세션</label>
+        <input type="radio" name="list-type" id="speaker-track" value="speakers">
+        <label for="speaker-track">발표자</label>
+      </div>
+
+      <div class="title-area">
+        <h1 class="title">Conference list</h1>
+        <a href="#" class="button sm register right">등록</a>
+      </div>
+
+      <!-- list item area -->
+      <section class="list-item-area"></section>
+    </section>
+
+    <!-- register item / edit item layer -->
+    <article class="register layer"></article>
+  </div>
+
+  <div class="loading">
+    <img class="icon" src="img/uploading.gif">
+  </div>
+
+  <script id="form-template" type="text/x-handlebars-template">
+    {{!-- 현재 타입에 맞춰 필요한 레이어 선택 후 --}}
+    {{!-- 해당 타입 Object 를 새로운 context 로 설정하며 partial rendering --}}
+    {{#if conferences}}
+      {{> conference-form this.conferences}}
+    {{/if}}
+    {{#if tracks}}
+      {{> track-form this.tracks}}
+    {{/if}}
+    {{#if sessions}}
+      {{> session-form this.sessions}}
+    {{/if}}
+    {{#if speakers}}
+      {{> speaker-form this.speakers}}
+    {{/if}}
+  </script>
+  <script id="form-conference-partial" type="text/x-handlebars-template">
+    <section class="form conferences" data-id="{{idx}}">
+      <h1 class="title">컨퍼런스 등록</h1>
+      <form name="conferenceForm" novalidate>
+        <label for="item-id">아이디</label>
+        <input type="text" name="id" id="item-id" value="{{id}}" placeholder="컨퍼런스 ID를 입력해주세요." required>
+        <label for="item-name">이름</label>
+        <input type="text" name="name" id="item-name" value="{{name}}" placeholder="컨퍼런스 이름을 입력해주세요." required>
+        <label for="item-start-date">시작일</label>
+        <input type="date" name="startDate" id="item-start-date" value="{{startDate}}" placeholder="컨퍼런스 시작일을 입력해주세요." required>
+        <label for="item-end-date">완료일</label>
+        <input type="date" name="endDate" id="item-end-date" value="{{endDate}}" placeholder="컨퍼런스 완료일을 입력해주세요." required>
+        <label for="item-location">장소</label>
+        <input type="text" name="location" id="item-location" value="{{location}}" placeholder="컨퍼런스 장소를 입력해주세요." required>
+        <div class="meta-action right margin-top-20">
+          <a href="#" class="button sm cancel">뒤로 가기</a>
+          {{#if isRegister}}
+            <a href="#" class="button sm done create">만들기</a>
+          {{else}}
+            <a href="#" class="button sm done edit">수정하기</a>
+          {{/if}}
+        </div>
+      </form>
+    </section>
+  </script>
+  <script id="form-track-partial" type="text/x-handlebars-template">
+    <section class="form tracks" data-id="{{idx}}">
+      <h1 class="title">트랙 등록</h1>
+      <form name="trackForm" novalidate>
+        <label for="item-id">컨퍼런스 아이디</label>
+        <select name="conferenceIdx" id="item-id" value="{{conferenceIdx}}" data-value="{{conferenceIdx}}" required></select>
+        <label for="item-name">이름</label>
+        <input type="text" name="name" id="item-name" value="{{name}}" placeholder="트랙 이름을 입력해주세요." required>
+        <label for="item-location">장소</label>
+        <input type="text" name="location" id="item-location" value="{{location}}" placeholder="트랙 장소를 입력해주세요." required>
+        <div class="meta-action right margin-top-20">
+          <a href="#" class="button sm cancel">뒤로 가기</a>
+          {{#if isRegister}}
+            <a href="#" class="button sm done create">만들기</a>
+          {{else}}
+            <a href="#" class="button sm done edit">수정하기</a>
+          {{/if}}
+        </div>
+      </form>
+    </section>
+  </script>
+  <script id="form-session-partial" type="text/x-handlebars-template">
+    <section class="form sessions" data-id="{{idx}}">
+      <h1 class="title">세션 등록</h1>
+      <form name="sessionForm" novalidate>
+        <label for="item-track-name">트랙 이름</label>
+        <select name="trackIdx" id="item-track-name" value="{{trackIdx}}" data-value="{{trackIdx}}" required></select>
+        <label for="item-speaker-name">발표자 이름</label>
+        <select name="speakerIdx" id="item-speaker-name" value="{{speakerIdx}}" data-value="{{speakerIdx}}" required></select>
+        <label for="item-name">이름</label>
+        <input type="text" name="name" id="item-name" value="{{name}}" placeholder="세션 이름을 입력해주세요." required>
+        <label for="item-description">설명</label>
+        <input type="text" name="description" id="item-description" value="{{description}}" placeholder="세션 설명을 입력해주세요." required>
+        <label for="item-time">시간</label>
+        <select name="time" id="item-time" value="{{time}}" data-value="{{time}}" required>
+          <option value="T1">09:00 ~ 10:50</option>
+          <option value="T2">11:00 ~ 12:50</option>
+          <option value="T3">14:00 ~ 15:50</option>
+          <option value="T4">16:00 ~ 17:50</option>
+        </select>
+        <input type="hidden" name="file" value="{{file}}" required>
+        <label for="item-file">발표자료 (Option)</label>
+        <input type="file" accept="image/*,.pdf,.ppt,.txt" name="file-input" id="item-file" placeholder="발표자료를 선택해주세요.">
+        <div class="text-muted">
+          {{#if file}}
+          <img src="{{file}}" width="64px" height="64px" alt="{{name}}">
+          {{/if}}
+        </div>
+        <div class="meta-action right">
+          <a href="#" class="button sm cancel">뒤로 가기</a>
+          {{#if isRegister}}
+            <a href="#" class="button sm done create">만들기</a>
+          {{else}}
+            <a href="#" class="button sm done edit">수정하기</a>
+          {{/if}}
+        </div>
+      </form>
+    </section>
+  </script>
+  <script id="form-speaker-partial" type="text/x-handlebars-template">
+    <section class="form speakers" data-id="{{idx}}">
+      <h1 class="title">발표자 등록</h1>
+      <form name="speakerForm" novalidate>
+        <label for="item-name">이름</label>
+        <input type="text" name="name" id="item-name" value="{{name}}" placeholder="발표자 이름을 입력해주세요." required>
+        <label for="item-mail">이메일</label>
+        <input type="email" name="email" id="item-email" value="{{email}}" placeholder="발표자 이메일을 입력해주세요." required>
+        <label for="item-phone">연락처</label>
+        <input type="tel" name="phone" id="item-phone" value="{{phone}}" placeholder="발표자 연락처를 입력해주세요." required>
+        <label for="item-description">소개</label>
+        <input type="text" name="description" id="item-description" value="{{description}}" placeholder="발표자 소개를 입력해주세요." required>
+        <input type="hidden" name="img" value="{{img}}">
+        <label for="item-file">사진</label>
+        <input type="file" accept="image/*" name="file-input" id="item-file" placeholder="발표자 사진을 선택해주세요.">
+        <div class="text-muted">
+          {{#if img}}
+          <img src="{{img}}" width="64px" height="64px" alt="{{name}}">
+          {{/if}}
+        </div>
+        <div class="meta-action right">
+          <a href="#" class="button sm cancel">뒤로 가기</a>
+          {{#if isRegister}}
+            <a href="#" class="button sm done create">만들기</a>
+          {{else}}
+            <a href="#" class="button sm done edit">수정하기</a>
+          {{/if}}
+        </div>
+      </form>
+    </section>
+  </script>
+
+  <script id="list-template" type="text/x-handlebars-template">
+    {{#each conferences}}
+      {{> conference}}
+    {{/each}}
+    {{#each tracks}}
+      {{> track}}
+    {{/each}}
+    {{#each sessions}}
+      {{> session}}
+    {{/each}}
+    {{#each speakers}}
+      {{> speaker}}
+    {{/each}}
+  </script>
+  <script id="no-item-template" type="text/x-handlebars-template">
+    <section class="item-container">
+      <span>아이템이 없습니다.</span>
+    </section>
+  </script>
+
+  <script id="conference-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description">ID: {{id}}</p>
+      <div class="meta-info">
+        <span class="item-time left">[{{startDate}} ~ {{endDate}}]</span>
+      </div>
+      <div class="meta-info clear">
+        <span class="item-location">[{{location}}]</span>
+      </div>
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+  <script id="track-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description" data-id="{{conferenceIdx}}">컨퍼런스: {{conferenceName}}</p>
+      <div class="meta-info">
+        <span class="item-location">[{{location}}]</span>
+      </div>
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+  <script id="session-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <p class="item-description">{{description}}</p>
+      <div class="meta-info">
+        <span class="item-time left">[{{timeInfo}}]</span>
+      </div>
+      <div class="meta-info clear">
+        <span class="item-track" data-id="{{trackIdx}}">[{{trackName}}]</span>
+        <span class="item-speaker" data-id="{{speakerIdx}}">by {{speakerName}}</span>
+      </div>
+      {{#if file}}
+      <div class="meta-file clear right" >
+        <a href="{{file}}" target="_blank">[발표 자료]</a>
+      </div>
+      {{/if}}
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+  <script id="speaker-partial" type="text/x-handlebars-template">
+    <section class="item-container" data-id="{{idx}}">
+      <h2 class="item-title">{{name}}</h2>
+      <img src="{{img}}" width="64px" height="64px">
+      <p class="item-description">{{description}}</p>
+      <div class="meta-info">
+        {{#if phone}}
+        <span class="item-phone">[{{phone}}]</span>
+        {{/if}}
+        {{#if email}}
+        <span class="item-email">[{{email}}]</span>
+        {{/if}}
+      </div>
+      <div class="meta-action clear">
+        <a href="#" class="button sm edit">수정</a>
+        <a href="#" class="button sm remove">삭제</a>
+      </div>
+    </section>
+  </script>
+
+  <script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/handlebars-v4.0.5.js"></script>
+  <script type="text/javascript" src="js/http.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/file.service.js"></script>
+  <script type="text/javascript" src="js/admin.service.js"></script>
+  <script type="text/javascript" src="js/user.service.js"></script>
+  <script type="text/javascript" src="js/navbar.js"></script>
+  <script type="text/javascript" src="js/template.js"></script>
+  <script type="text/javascript" src="js/admin.js"></script>
+</body>
+</html>
